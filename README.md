@@ -13,12 +13,12 @@ One of the big benefits of using Interface Booster is that the developer doesn't
 
 ## What dependencies does this project have?
 
-* [Interface Booster - Provider Plugin API](Workbooster/InterfaceBooster.ProviderPluginApi)
-* Workbooster/InterfaceBooster.LibraryPluginApi
-* Workbooster/InterfaceBooster.Database
-* sharwell/antlr4cs
-* [NUnit Testing Framework](http://www.nunit.org/)
-* Moq/moq
+* [Interface Booster - Provider Plugin API](https://github.com/Workbooster/InterfaceBooster.ProviderPluginApi)
+* [Interface Booster - Library Plugin API](https://github.com/Workbooster/InterfaceBooster.LibraryPluginApi)
+* [Interface Booster - Database](https://github.com/Workbooster/InterfaceBooster.Database)
+* [C# target for ANTLR 4](https://github.com/sharwell/antlr4cs)
+* [NUnit - testing framework](http://www.nunit.org/)
+* [moq - mocking framework](https://github.com/Moq/moq)
 
 ## Content
 
