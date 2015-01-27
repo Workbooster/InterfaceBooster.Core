@@ -13,7 +13,7 @@ One of the big benefits of using Interface Booster is that the developer doesn't
 
 ## What dependencies does this project have?
 
-* Workbooster/InterfaceBooster.ProviderPluginApi
+* [Interface Booster - Provider Plugin API](Workbooster/InterfaceBooster.ProviderPluginApi)
 * Workbooster/InterfaceBooster.LibraryPluginApi
 * Workbooster/InterfaceBooster.Database
 * sharwell/antlr4cs
