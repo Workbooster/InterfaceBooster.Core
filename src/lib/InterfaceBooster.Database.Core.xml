@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InterfaceBooster.Database.Core</name>
+    </assembly>
+    <members>
+        <member name="M:InterfaceBooster.Database.Core.Common.FileSystemHelper.IsDirectoryWritable(System.String)">
+            <summary>
+            check whether the given directory path is writable for the current application
+            </summary>
+            <param name="directoryPath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.Storage.InstanceData">
+            <summary>
+            Contains the data of a Synery Database instance.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.Storage.InstanceDataHandler">
+            <summary>
+            every instance of a SyneryDB needs a config file. This class handels the loading 
+            and the saving of that file using XML.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.InstanceDataHandler.#ctor(System.String)">
+            <summary>
+            handels the SyneryDB instance config file
+            </summary>
+            <param name="instanceDataFilePath">the absolute path of the config file (XML)</param>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.Structure.Field">
+            <summary>
+             A field represents a column of a table.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.Structure.Schema">
+            <summary>
+            the schema contains the defintion of a table.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.Structure.Table">
+            <summary>
+            Contains the schema and the data of a table. The rows are represented by object arrays.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Structure.Table.SetData(System.Collections.Generic.IEnumerable{System.Object[]})">
+            <summary>
+            overwrites all data of the table
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="T:InterfaceBooster.Database.Core.SyneryDB">
+            <summary>
+            Manages the database. Can be used to load and store data from and to the database.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.#ctor(System.String)">
+            <summary>
+            Manages the database. Can be used to load and store data from and to the database.
+            Throws a SyneryDBException if the initialization fails.
+            </summary>
+            <param name="workingDirectoryPath">the root directory of the database files 
+            or an empty directory to initialize a new databse.</param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.Dispose">
+            <summary>
+            Releases all used ressources
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.NewSchema">
+            <summary>
+            Creates a new empty schema. This is a factory method.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.NewTable(InterfaceBooster.Database.Interfaces.Structure.ISchema,System.Collections.Generic.IEnumerable{System.Object[]})">
+            <summary>
+            Creates a new empty table from the given schema. This is a factory method.
+            </summary>
+            <param name="schema"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.CreateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            Adds the given table to the database.
+            Throws an SyneryDBException if a table with the given name already exists.
+            </summary>
+            <param name="name"></param>
+            <param name="table"></param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.UpdateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            Updates the given table in the database.
+            Throws an SyneryDBException if a table with the given name doesn't exists.
+            </summary>
+            <param name="name"></param>
+            <param name="table"></param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.CreateOrUpdateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            Adds or updates the given table. This method doesn't throw an exception if the table is new neither if it already exists.
+            </summary>
+            <param name="name"></param>
+            <param name="table"></param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.DeleteTable(System.String)">
+            <summary>
+            Removes the table with the given name from the database.
+            Throws a SyneryDBException if the table doesn't exists.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.RenameTable(System.String,System.String)">
+            <summary>
+            Renames the given table. Throws a SyneryDBException if the "from" table doesn't exists or the "to" name is already taken.
+            </summary>
+            <param name="from">current name</param>
+            <param name="to">future name</param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.LoadTable(System.String)">
+            <summary>
+            Loads the table and it's schema.
+            Throws a SyneryDBException if the table doesn't exists.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.SyneryDB.IsTable(System.String)">
+            <summary>
+            Checks whether the table with the given name exists.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.WriteNullable(System.IO.Stream,System.Object)">
+            <summary>
+            Writes a primitive type to the stream.
+            Method added by Roger Guillet (roger.guillet@workbooster.ch).
+            </summary>
+            <param name="stream"></param>
+            <param name="value">a primitive value</param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.Read``1(System.IO.Stream,System.Boolean)">
+            <summary>
+            Reads the given primitive type from the given stream.
+            Returns the default value of the given type if the value is null.
+            Method added by Roger Guillet (roger.guillet@workbooster.ch).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="stream"></param>
+            <returns>an instance of the requested type</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.Read(System.IO.Stream,System.Type,System.Boolean)">
+            <summary>
+            Reads the given primitive type from the given stream.
+            The return can be null if isNullable is set to true.
+            Method added by Roger Guillet (roger.guillet@workbooster.ch).
+            </summary>
+            <param name="stream"></param>
+            <param name="type"></param>
+            <returns>an instance of the requested type or null</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.Write(System.IO.Stream,System.Decimal)">
+            <summary>
+            writes a decimal value to the stream
+            method added by Roger Guillet (roger.guillet@workbooster.ch)
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.Read(System.IO.Stream,System.Decimal@)">
+            <summary>
+            reads a decimal value from the stream
+            method added by Roger Guillet (roger.guillet@workbooster.ch)
+            </summary>
+            <param name="stream"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Core.Storage.PrimitiveSerializer.ReadDecimal(System.IO.Stream)">
+            <summary>
+            reads a decimal value from the stream
+            method added by Roger Guillet (roger.guillet@workbooster.ch)
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

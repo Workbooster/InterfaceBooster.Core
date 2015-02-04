@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.props" Condition="Exists('..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BE597F2E-AF48-45F4-89D3-80431885DFFA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceBooster.SyneryLanguage</RootNamespace>
+    <AssemblyName>InterfaceBooster.SyneryLanguage</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\packages\Antlr4.Runtime.4.4.1-alpha001\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Interfaces">
+      <HintPath>..\lib\InterfaceBooster.Database.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\InterpretationController.cs" />
+    <Compile Include="Common\InterpreterFactory.cs" />
+    <Compile Include="Common\ParserHelper.cs" />
+    <Compile Include="Common\SystemRecordTypeFactory.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Blocks\BlockInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Blocks\BlockUnitInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Blocks\HandleBlockInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Blocks\ObserveBlockInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ComplexReferenceInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\DateTimeLiteralInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionListInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\LiteralInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\PrimaryInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\SingleValueInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\SyneryFunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\LibraryPluginFunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\ProgramInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\ProgramUnitInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\FunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Records\RecordInitializerInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Records\RecordTypeDeclarationInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ElseStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\EmitStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\IfStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\RecordStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ReturnStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\LibraryPluginVariableStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\TableStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\SyneryFunctionBlockInterpreter.cs" />
+    <Compile Include="Interpretation\General\EventHelper.cs" />
+    <Compile Include="Interpretation\General\FunctionHelper.cs" />
+    <Compile Include="Interpretation\General\InternalIdentifierListInterpreter.cs" />
+    <Compile Include="Interpretation\General\ParameterDeclartionInterpreter.cs" />
+    <Compile Include="Interpretation\General\RecordHelper.cs" />
+    <Compile Include="Interpretation\General\TypeHelper.cs" />
+    <Compile Include="Interpretation\InterpretationClient.cs" />
+    <Compile Include="Interpretation\General\IdentifierHelper.cs" />
+    <Compile Include="Interpretation\General\KeyValueAssignmentInterpreter.cs" />
+    <Compile Include="Interpretation\General\KeyValueListInterpreter.cs" />
+    <Compile Include="Interpretation\General\LiteralHelper.cs" />
+    <Compile Include="Interpretation\General\TypeInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\FieldsCommandInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\FromCommandInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\GetCommandInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\SetCommandInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\ToCommandInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginCreateStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginDataExchangeStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginDeleteStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginExecuteStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginReadStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginSaveStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginStatementInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginUpdateStatementInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestDistinctCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestJoinCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestLeftJoinCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestOrderByCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestWhereCommandInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Common\JoinHelper.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionListInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestComplexReferenceInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestFieldReferenceInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestPrimaryInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSelectItemInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSingleValueInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Functions\RequestFunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Functions\RequestSyneryFunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Functions\RequestLibraryPluginFunctionCallInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginConnectStatementInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Statements\RequestStatementInterpreter.cs" />
+    <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient.cs" />
+    <Compile Include="Interpretation\SyneryFunctionDeclarationInterpretationClient.cs" />
+    <Compile Include="Model\Context\FunctionData.cs" />
+    <Compile Include="Model\Context\FunctionDefinition.cs" />
+    <Compile Include="Model\Context\FunctionParameterDefinition.cs" />
+    <Compile Include="Model\Context\BlockScope.cs" />
+    <Compile Include="Model\Context\FunctionScope.cs" />
+    <Compile Include="Model\Context\GlobalScope.cs" />
+    <Compile Include="Model\Context\HandleBlockData.cs" />
+    <Compile Include="Model\Context\ObserveScope.cs" />
+    <Compile Include="Model\Context\SyneryMemory.cs" />
+    <Compile Include="Model\Context\TypedValue.cs" />
+    <Compile Include="Model\QueryLanguage\ExpressionValue.cs" />
+    <Compile Include="Model\QueryLanguage\QueryMemory.cs" />
+    <Compile Include="Model\SyneryTypes\Record.cs" />
+    <Compile Include="Model\SyneryTypes\RecordType.cs" />
+    <Compile Include="Model\SyneryTypes\RecordTypeDelcarationContainer.cs" />
+    <Compile Include="Model\SyneryTypes\RecordTypeField.cs" />
+    <Compile Include="Model\Validation\ValidationResult.cs" />
+    <Compile Include="Model\Validation\ValidationResultMessage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Synery.g4.lexer.cs">
+      <DependentUpon>Synery.g4</DependentUpon>
+    </Compile>
+    <Compile Include="Synery.g4.parser.cs">
+      <DependentUpon>Synery.g4</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\ValidationClient.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj">
+      <Project>{8b647094-f8b2-4bca-b575-b56ed018be63}</Project>
+      <Name>InterfaceBooster.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Common.Tools\InterfaceBooster.Common.Tools.csproj">
+      <Project>{df3e8139-329b-4013-a26d-6cf226209b35}</Project>
+      <Name>InterfaceBooster.Common.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Antlr4 Include="Synery.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>InterfaceBooster.SyneryLanguage</CustomToolNamespace>
+      <TargetLanguage>CSharp</TargetLanguage>
+      <Listener>True</Listener>
+      <Visitor>True</Visitor>
+    </Antlr4>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.props'))" />
+    <Error Condition="!Exists('..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.targets'))" />
+  </Target>
+  <Import Project="..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.targets" Condition="Exists('..\packages\Antlr4.4.4.1-alpha001\build\Antlr4.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

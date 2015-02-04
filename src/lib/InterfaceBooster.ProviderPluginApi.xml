@@ -1,0 +1,744 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InterfaceBooster.ProviderPluginApi</name>
+    </assembly>
+    <members>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.Response.RequestType">
+            <summary>
+            Gets or sets a flag that states the type of the original request. This is usefull to make a correct type-casting.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.Response.SubResponses">
+            <summary>
+            Gets or sets a list of responses to the according SubRequests.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.CreateResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.DeleteResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ExecuteResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ExecuteResponse.Values">
+            <summary>
+            Gets or sets a dictionary containing the requested ReturnValues.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IRequest.RequestType">
+            <summary>
+            Gets or sets a flag that states the type of the request. This is usefull to make a correct cast.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IRequest.SubRequests">
+            <summary>
+            Gets or sets the Request(s) on some SubResources.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.RecordSet">
+            <summary>
+            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.RecordSet">
+            <summary>
+            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Filters">
+            <summary>
+            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IExecuteRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IExecuteRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IExecuteRequest.RequestedValues">
+            <summary>
+            Gets or sets a list of names of requested return values from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IReadRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IReadRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IReadRequest.RequestedFields">
+            <summary>
+            Gets or sets a list of fields from the original Schema of the ReadResource that are expected to be loaded and returned within the response.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IReadRequest.Filters">
+            <summary>
+            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.RecordSet">
+            <summary>
+            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.Resource">
+            <summary>
+            Gets or sets the original resource this request is based on.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.RecordSet">
+            <summary>
+            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.Answers">
+            <summary>
+            Gets or sets a list of Answers given to the Questions from the resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.Filters">
+            <summary>
+            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ReadResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ReadResponse.RecordSet">
+            <summary>
+            Gets or sets the RecordSet that contains the data according to the request (filtered, only the requested fields etc.).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.SaveResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.UpdateResponse.Request">
+            <summary>
+            Gets the original request.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Answer">
+            <summary>
+            An Answer object contains the parameter value set by Interface Booster answering a Question object.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.ConnectionSettings">
+            <summary>
+            Represents the settings for opening a new ProviderConnection.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.ConnectionSettings.Answers">
+            <summary>
+            Gets a list that contains the answers to the questions needed for creating a connection.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Field">
+            <summary>
+            A data field of a Schema. In combination with a RecordSet object a field represents a column.
+            The "Data" namespace contains some interfaces that are used to describe the data structures that are exchanged between
+            the Provider Plugin and the Interface Booster. Based on that information the Interface Booster is able to show the 
+            interface developer all available structures, which can be used to perform a request using the Provider Plugin Connection.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Name">
+            <summary>
+            Gets the identifying name of the field used in Synery.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Type">
+            <summary>
+            Gets the data type of the field.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description about this Field. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.InternalName">
+            <summary>
+            Gets or sets an internal name used by the Provider Plugin to internaly identify the Field (e.g. the table name).
+            (You can use it or not - this value isn't touched by Interface Booster in any way).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.IsNullable">
+            <summary>
+            Gets or sets a flag that indicates whether the field is required. Required = false
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.IsKey">
+            <summary>
+            Gets or sets a flag that indicates whether the field is a key.
+            This is NOT used for validation! It only is used 
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.AndFilterGroup">
+            <summary>
+            Represents a list of combined filters connected by a logical AND operator.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterGroup">
+            <summary>
+            This is the base class for a list of combined filters that are linked by a logical operator (e.g. AND / OR)
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.Filter">
+            <summary>
+            This is the base class for all kind of filters (Conditions, FilterGroups etc.).
+            The FilterType specifies what kind of filter this is and allows an easy type-casting.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.Filter.FilterType">
+            <summary>
+            Gets the filter type. This allows an easy type-casting.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterCondition.Definition">
+            <summary>
+            Gets or sets the definition of the value or the field that is used for the comparison.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition">
+            <summary>
+            Describes a filter-field that can be used by Interface Booster to define a filter 
+            Example:
+                Firstname == "Max"
+            Description:
+                "Firstname" is the filter-field described by this filter definition.
+                "==" is the filter type used fo the comparison (in this case FilterType.Equal).
+                "Max" is the value (specified in the FilterCondition object).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition.Name">
+            <summary>
+            Gets or sets the name of the filter used in Synery.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition.ExpectedType">
+            <summary>
+            Gets or sets the Type of the value the filter-field is compared to.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition.SupportedFilterTypes">
+            <summary>
+            Gets or sets a list of filter types that can be used to compare the value of this filter-field with a value specified in a Filter object.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description about this FilterDefinition. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterDefinition.InternalIdentifier">
+            <summary>
+            Gets or sets an internal name used by the Provider Plugin to internaly identify the FilterDefinition (e.g. the table name).
+            (You're free to use this property internally. This value isn't touched or displayed by Interface Booster in any way).
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.OrFilterGroup">
+            <summary>
+            Represents a list of combined filters connected by a logical OR operator.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Filter.SingleValueFilterCondition.Value">
+            <summary>
+            Gets or sets the value that is used for the comparison with the filter-filed from the given FilterDefinition.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.LocalizedText">
+            <summary>
+            Stores translated strings. As keys the default .NET culture names (e.g. "en-US", "de-CH") are used.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.Add(System.String,System.String)">
+            <summary>
+            Adds a new translation for the given <paramref name="cultureName"/>.
+            </summary>
+            <param name="cultureName"></param>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.GetTranslationOrDefault(System.String)">
+            <summary>
+            Searches for a translation matching the given <paramref name="cultureName"/>.
+            If no translation is available the default text is returned.
+            </summary>
+            <param name="cultureName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.op_Implicit(InterfaceBooster.ProviderPluginApi.Data.LocalizedText)~System.String">
+            <summary>
+            Converts a LocalizedText object to a string by returning the Default text.
+            </summary>
+            <param name="localizedText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.op_Implicit(System.String)~InterfaceBooster.ProviderPluginApi.Data.LocalizedText">
+            <summary>
+            Create a LocalizedText from a string. The string is set as Default.
+            </summary>
+            <param name="text"></param>
+            <returns>A new instance</returns>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.Default">
+            <summary>
+            Gets or sets the default translation.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.Translations">
+            <summary>
+            Gets a dictionary containing all available translations (without default).
+            Key = CultureName / Value = translated text.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Question">
+            <summary>
+            A Question object describes a parameter that can be answered by Interface Booster by using an Answer object.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.Name">
+            <summary>
+            Gets the name of question (parameter) used in Synery.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.Path">
+            <summary>
+            Gets or sets a list of strings which build a path to this question used in Synery.
+            The strings may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description for this Question. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.InternalName">
+            <summary>
+            Gets or sets an internal name used by the Provider Plugin to internaly identify the parameter.
+            (You can use it or not - this value isn't touched by Interface Booster in any way).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.ExpectedType">
+            <summary>
+            Gets the expected primitive type of the parameter value.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Question.IsRequired">
+            <summary>
+            Gets a flag that indicates whether a value is required.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.op_Implicit(InterfaceBooster.ProviderPluginApi.Data.Record)~System.Object[]">
+            <summary>
+            Converts a record into an ordinary object-array. The schema gets lost.
+            </summary>
+            <param name="record"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.SetData(System.Object[],System.Boolean)">
+            <summary>
+            Stores the given data internally.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Record.Schema">
+            <summary>
+            Gets the schema containing the field definitions for this record.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Record.ItemArray">
+            <summary>
+            Gets or sets all the values for this record through an array.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.RecordSet">
+            <summary>
+            A record set is a container for transferring data from the Provider Plugin to the Interface Booster or vice versa. 
+            It implements the IList interface. A record set is comparable to a table with some columns and some rows. 
+            The definition of the columns is represented by a list of fields in the related Schema. The record set consists of 
+            a list of Records. Each Record represents one row. The size of the Record and the number of fields 
+            in the Schema must always be equal. The specified data type in the schema fields must also match the data type of 
+            the corresponding items from the object-arrays.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.#ctor(InterfaceBooster.ProviderPluginApi.Data.Schema,System.Collections.Generic.IEnumerable{InterfaceBooster.ProviderPluginApi.Data.Record})">
+            <summary>
+            A record set is a container for transferring data from the Provider Plugin to the Interface Booster or vice versa. 
+            It implements the IList interface. A record set is comparable to a table with some columns and some rows. 
+            </summary>
+            <param name="schema"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.#ctor(InterfaceBooster.ProviderPluginApi.Data.Schema,System.Collections.Generic.IEnumerable{System.Object[]})">
+            <summary>
+            A record set is a container for transferring data from the Provider Plugin to the Interface Booster or vice versa. 
+            It implements the IList interface. A record set is comparable to a table with some columns and some rows. 
+            </summary>
+            <param name="schema"></param>
+            <param name="data">A list of object-arrays. The object-arrays are converted to a Record and must match the Schema.</param>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.SetData(System.Collections.Generic.IEnumerable{InterfaceBooster.ProviderPluginApi.Data.Record})">
+            <summary>
+            Sets the data of the record set.
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.NewRecord(System.Object[])">
+            <summary>
+            Creates and adds a new record and allows a fluid API like:
+            rs.NewRecord(1, "bla").NewRecord(2, "aha").NewRecord(3, "ok");
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.RecordSet.Schema">
+            <summary>
+            Gets the schema of the record set.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.RecordSet.Item(System.Int32,System.String)">
+            <summary>
+            Gets or sets a field value of a record on the given recordIndex and with the given fieldName.
+            </summary>
+            <param name="recordIndex"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.Schema">
+            <summary>
+            A Schema describes the structure of a RecordSet. Each field represents a column in a RecordSet.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Schema.FindIndexOfFieldByName(System.String)">
+            <summary>
+            Finds the index of the first field matching the given name.
+            </summary>
+            <param name="name"></param>
+            <returns>The index of the first matching item, or -1 if no items match.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Schema.FindIndexOfFieldByInternalName(System.String)">
+            <summary>
+            Finds the index of the first field matching the given internal name.
+            </summary>
+            <param name="internalName"></param>
+            <returns>The index of the first matching item, or -1 if no items match.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Schema.Clone">
+            <summary>
+            Clones an existing schema. Copies all primitive values and creates a new list for the fields.
+            </summary>
+            <param name="originalSchema"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Schema.New(System.String,System.Collections.Generic.IEnumerable{InterfaceBooster.ProviderPluginApi.Data.Field},System.String)">
+            <summary>
+            Creates a new schema based on the given parameters..
+            </summary>
+            <param name="internalName"></param>
+            <param name="fields"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Schema.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description about this Schema. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Schema.InternalName">
+            <summary>
+            Gets or sets an internal name used by the Provider Plugin to internaly identify the Schema (e.g. the table name).
+            (You can use it or not - this value isn't touched by Interface Booster in any way).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Schema.Fields">
+            <summary>
+            Gets or sets a list of columns.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Data.ValueDefinition">
+            <summary>
+            Defines the type and the name of a value that can be exchanged between the Provider Plugin and the Interface Booster.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.ValueDefinition.Name">
+            <summary>
+            Gets or sets the name of the value used in Synery.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.ValueDefinition.Type">
+            <summary>
+            Gets or sets the expected data type of the value.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.ErrorHandling.RecordSetException">
+            <summary>
+            An exception that happens in the context of a record set. It takes a Schema as parameter that allows to display a better error description.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.IProviderConnection">
+            <summary>
+            Represents a connection to the foreign system or the file. The endpoints are used to communicate with the plugin and to import/export data.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.IProviderPlugin">
+            <summary>
+            The entry point of a Provider Plugin. Only one instance per plugin is allowed.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.IProviderPlugin.CreateProviderPluginInstance(System.Guid,InterfaceBooster.ProviderPluginApi.IHost)">
+            <summary>
+            Creates a ProviderPluginInstance according to the given GUID.
+            The GUID allows to differentiate between different implementations or versions of the plugin.
+            </summary>
+            <param name="id"></param>
+            <param name="host"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.IHost">
+            <summary>
+            A host instance is used to communicate with the plugin host and to get runtime information.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IHost.FrontendCulture">
+            <summary>
+            Gets or sets the culture the user fronted uses.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IHost.CurrentInterfaceDefinitionDirectoryPath">
+            <summary>
+            Gets or sets the absolute path to the main directory of the interface definition currently is execued.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IHost.RuntimeDirectoryPath">
+            <summary>
+            Gets or sets the absolute path to the main directory of the Interface Booster runtime (exe).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IHost.ProviderPluginDiretcoryPath">
+            <summary>
+            Gets or sets the absolute path to the main directory of this provider plugin.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.IProviderPluginInstance">
+            <summary>
+            One implementation of the ProviderPlugin. There may be multiple implementations of IProviderPluginInstance.
+            Multiple implementations allow to differentiate between different behviours and versions of the plugin.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.IProviderPluginInstance.CreateProviderConnection(InterfaceBooster.ProviderPluginApi.Data.ConnectionSettings)">
+            <summary>
+            Creates a connection according to the given settings.
+            </summary>
+            <param name="settings"></param>
+            <returns></returns>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IProviderPluginInstance.Host">
+            <summary>
+            Gets the interface to the plugin host.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.IProviderPluginInstance.ConnectionSettingQuestions">
+            <summary>
+            Gets a list of questions the interface developer can/must answer to open a connection.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.RequestType">
+            <summary>
+            Gets or sets a flag that states the type of the request. This is usefull to make a correct type-casting.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.SubResources">
+            <summary>
+            Gets or sets a list of nested resources. The Resource.Name and Resource.RequestType are used as key and therefore they must be unique.
+            The key contains a name that is used in Synery to identify the Resource. 
+            The name may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.Name">
+            <summary>
+            Gets or sets the name used to identify the resource if it is used as SubResource.
+            The name may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description about this Resource. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.InternalName">
+            <summary>
+            Gets or sets an internal name used by the Provider Plugin to internaly identify the Resource (e.g. the table name).
+            (You're free to use this property internally. This value isn't touched or displayed by Interface Booster in any way).
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.CreateResource.Schema">
+            <summary>
+            Gets or sets the data schema that is expected on a request.
+            If no schema is expected this property can be set to null.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.CreateResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.DeleteResource.Schema">
+            <summary>
+            Gets or sets the data schema that is expected on a request.
+            If no schema is expected this property can be set to null.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.DeleteResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.DeleteResource.FilterDefinitions">
+            <summary>
+            Gets or sets a list of filter-fields that can be used to specify filters for deleting the data.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.ExecuteResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.ExecuteResource.ReturnValues">
+            <summary>
+            Gets or sets a list of values that can be requested by Interface Booster as ReturnValues.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Service.IEndpoint">
+            <summary>
+            Is used to communicate with the plugin and to import/export data.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.IEndpoint.Name">
+            <summary>
+            Gets or sets the name of the endpoint used in Synery.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.IEndpoint.Path">
+            <summary>
+            Gets or sets a list of strings which build a path to this endpoint used in Synery.
+            The strings may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.IEndpoint.Description">
+            <summary>
+            Gets or sets an user friendly and localizable description about this Endpoint. 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.ReadResource.Schema">
+            <summary>
+            Gets or sets the data schema that is provided on a request.
+            If no schema is provided this property can be set to null.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.ReadResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.ReadResource.FilterDefinitions">
+            <summary>
+            Gets or sets a list of filter-fields that can be used to specify filters for reading the data.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.SaveResource.Schema">
+            <summary>
+            Gets or sets the data schema that is expected on a request.
+            If no schema is expected this property can be set to null.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.SaveResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.UpdateResource.Schema">
+            <summary>
+            Gets or sets the data schema that is expected on a request.
+            If no schema is expected this property can be set to null.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.UpdateResource.Questions">
+            <summary>
+            Gets or sets a list of parameter declarations.
+            These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Service.UpdateResource.FilterDefinitions">
+            <summary>
+            Gets or sets a list of filter-fields that can be used to specify filters for updating the data.
+            </summary>
+        </member>
+    </members>
+</doc>

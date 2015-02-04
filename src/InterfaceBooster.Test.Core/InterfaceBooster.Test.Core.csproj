@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceBooster.Test.Core</RootNamespace>
+    <AssemblyName>InterfaceBooster.Test.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="InterfaceBooster.LibraryPluginApi">
+      <HintPath>..\lib\InterfaceBooster.LibraryPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.ProviderPluginApi">
+      <HintPath>..\lib\InterfaceBooster.ProviderPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController_Test\Handling_Interface_Definition_Xml_Schema_Errors_Works.cs" />
+    <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController_Test\Loading_Interface_Definition_Xml_Works.cs" />
+    <Compile Include="LibraryPlugins\Information\LibraryPluginDataController_Test\Loading_Plugin_Xml_Works.cs" />
+    <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Activating_LibraryPluginReference_Works.cs" />
+    <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Calling_Function_Works.cs" />
+    <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Getting_Variable_Value_Works.cs" />
+    <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Setting_Variable_Value_Works.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderPlugins\Information\ProviderPluginDataHandler_Test\Loading_Plugin_Xml_Works.cs" />
+    <Compile Include="TestHelpers\LibraryPluginReferenceHelper.cs" />
+    <Compile Include="TestHelpers\ProviderPluginInstanceReferenceHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProviderPlugins\ProviderPluginManager_Test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj">
+      <Project>{8b647094-f8b2-4bca-b575-b56ed018be63}</Project>
+      <Name>InterfaceBooster.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Core\InterfaceBooster.Core.csproj">
+      <Project>{72bbe58d-2e3c-4cb6-9170-4d4c69c28b0c}</Project>
+      <Name>InterfaceBooster.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.SyneryLanguage\InterfaceBooster.SyneryLanguage.csproj">
+      <Project>{be597f2e-af48-45f4-89d3-80431885dffa}</Project>
+      <Name>InterfaceBooster.SyneryLanguage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Test.Dummy.LibraryPluginDummy\InterfaceBooster.Test.Dummy.LibraryPluginDummy.csproj">
+      <Project>{ce63b46b-9c3a-40b4-882d-f035c2f10644}</Project>
+      <Name>InterfaceBooster.Test.Dummy.LibraryPluginDummy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

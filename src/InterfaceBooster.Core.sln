@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Core", "InterfaceBooster.Core\InterfaceBooster.Core.csproj", "{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.RuntimeController", "InterfaceBooster.RuntimeController\InterfaceBooster.RuntimeController.csproj", "{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.SyneryLanguage", "InterfaceBooster.SyneryLanguage\InterfaceBooster.SyneryLanguage.csproj", "{BE597F2E-AF48-45F4-89D3-80431885DFFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4648F4AE-D95A-436F-9F43-E85578C53668}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{55C6865B-3FF5-437C-9C9D-A227D911E8C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Common.Interfaces", "InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj", "{8B647094-F8B2-4BCA-B575-B56ED018BE63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Test.Core", "InterfaceBooster.Test.Core\InterfaceBooster.Test.Core.csproj", "{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Test.Dummy.LibraryPluginDummy", "InterfaceBooster.Test.Dummy.LibraryPluginDummy\InterfaceBooster.Test.Dummy.LibraryPluginDummy.csproj", "{CE63B46B-9C3A-40B4-882D-F035C2F10644}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Test.Dummy.ProviderPluginDummy", "InterfaceBooster.Test.Dummy.ProviderPluginDummy\InterfaceBooster.Test.Dummy.ProviderPluginDummy.csproj", "{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Test.SyneryLanguage", "InterfaceBooster.Test.SyneryLanguage\InterfaceBooster.Test.SyneryLanguage.csproj", "{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceBooster.Common.Tools", "InterfaceBooster.Common.Tools\InterfaceBooster.Common.Tools.csproj", "{DF3E8139-329B-4013-A26D-6CF226209B35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE597F2E-AF48-45F4-89D3-80431885DFFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE597F2E-AF48-45F4-89D3-80431885DFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE597F2E-AF48-45F4-89D3-80431885DFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE597F2E-AF48-45F4-89D3-80431885DFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B647094-F8B2-4BCA-B575-B56ED018BE63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B647094-F8B2-4BCA-B575-B56ED018BE63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B647094-F8B2-4BCA-B575-B56ED018BE63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B647094-F8B2-4BCA-B575-B56ED018BE63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE63B46B-9C3A-40B4-882D-F035C2F10644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE63B46B-9C3A-40B4-882D-F035C2F10644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE63B46B-9C3A-40B4-882D-F035C2F10644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE63B46B-9C3A-40B4-882D-F035C2F10644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF3E8139-329B-4013-A26D-6CF226209B35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF3E8139-329B-4013-A26D-6CF226209B35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF3E8139-329B-4013-A26D-6CF226209B35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF3E8139-329B-4013-A26D-6CF226209B35}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8B647094-F8B2-4BCA-B575-B56ED018BE63} = {4648F4AE-D95A-436F-9F43-E85578C53668}
+		{DF3E8139-329B-4013-A26D-6CF226209B35} = {4648F4AE-D95A-436F-9F43-E85578C53668}
+		{AFA84FBC-1DF4-4CC0-BB3D-1960C38C4E45} = {55C6865B-3FF5-437C-9C9D-A227D911E8C8}
+		{CE63B46B-9C3A-40B4-882D-F035C2F10644} = {55C6865B-3FF5-437C-9C9D-A227D911E8C8}
+		{BBDAA412-4B0A-44CA-A0BE-4598E1A7AC22} = {55C6865B-3FF5-437C-9C9D-A227D911E8C8}
+		{E31A1C7D-E3C5-403C-AB06-7D76D034D20C} = {55C6865B-3FF5-437C-9C9D-A227D911E8C8}
+	EndGlobalSection
+EndGlobal

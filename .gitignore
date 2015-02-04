@@ -180,3 +180,5 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+/src/_TestData/InterfaceBooster/LibraryPluginDirectory/74A8005D-C9F3-455F-94FC-04846493AB7B/simpleDummy/InterfaceBooster.Test.Dummy.LibraryPluginDummy.dll
+/src/_TestData/InterfaceBooster/ProviderPluginDirectory/485eccb4-3920-4dc3-9ed4-27f65e8b3c91/simpleDummy/InterfaceBooster.Test.Dummy.ProviderPluginDummy.dll

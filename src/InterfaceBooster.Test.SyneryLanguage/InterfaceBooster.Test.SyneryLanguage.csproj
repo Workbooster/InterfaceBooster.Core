@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E31A1C7D-E3C5-403C-AB06-7D76D034D20C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceBooster.Test.SyneryLanguage</RootNamespace>
+    <AssemblyName>InterfaceBooster.Test.SyneryLanguage</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\packages\Antlr4.Runtime.4.4.1-alpha001\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Core">
+      <HintPath>..\lib\InterfaceBooster.Database.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Interfaces">
+      <HintPath>..\lib\InterfaceBooster.Database.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.LibraryPluginApi">
+      <HintPath>..\lib\InterfaceBooster.LibraryPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.ProviderPluginApi">
+      <HintPath>..\lib\InterfaceBooster.ProviderPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1402.2112\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Interpretation\BaseLanguage\BaseLanguageTestBase.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ComplexReferenceInterpreter_Test\Using_Record_Fields_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Casting_Null_Values_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Catching_Null_Values_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Executing_Arithmetic_Expression_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Executing_Cast_Expression_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Executing_Comparison_Expression_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Executing_Equality_Expression_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Executing_Logical_Expression_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\SyneryFunctionCallInterpreter_Test\Executing_Synery_Functions_With_Nested_Blocks_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\SyneryFunctionCallInterpreter_Test\Executing_Synery_Functions_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\LibraryPluginFunctionCallInterpreter_Test\Executing_System_Functions_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Functions\SyneryFunctionCallInterpreter_Test\Using_Records_With_Functions_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Records\RecordInitializerInterpreter_Test\Initializing_Record_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\EmitStatementInterpreter_Test\Emitting_Custom_Event_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\EmitStatementInterpreter_Test\Emitting_Event_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\IfStatemenInterpreter_Test\Using_If_Else_Conditions_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\IfStatemenInterpreter_Test\Using_Nested_If_Else_Conditions_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\LibraryPluginVariableStatementInterpreter_Test\Using_LibraryPlugin_Variables_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Custom_Exception_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Exception_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_And_Expressions_Combined_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_Works.cs" />
+    <Compile Include="Interpretation\General\IdentifierHelper_Test\Parsing_Paths_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginCreateStatementInterpreter_Test\CREATE_Statement_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginDeleteStatementInterpreter_Test\DELETE_Statement_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginExecuteStatementInterpreter_Test\EXECUTE_Statement_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginReadStatementInterpreter_Test\READ_Statement_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginSaveStatementInterpreter_Test\SAVE_Statement_Works.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginsTestBase.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginUpdateStatementInterpreter_Test\UPDATE_Statement_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestJoinCommandInterpreter_Test\Joining_Two_Tables_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestJoinCommandInterpreter_Test\Joining_With_NULL_Values_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestLeftJoinCommandInterpreter_Test\Left_Joining_Two_Tables_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_By_Field_Assignment_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_By_Field_Reference_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_With_Mixed_Select_Items_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestWhereCommandInterpreter_Test\Filtering_With_NULL_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Catching_Invalid_Expressions_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Catching_Null_Values_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Arithmetic_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Cast_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Comparison_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Equality_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Logical_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Executing_Ternary_Conditional_Expression_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSingleValueInterpreter_Test\Using_LibraryPlugin_Variables_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Functions\RequestSyneryFunctionCallInterpreter_Test\Executing_Synery_Functions_Inside_Of_A_Request_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Functions\RequestLibraryPluginFunctionCallInterpreter_Test\Executing_System_Functions_Inside_Of_A_Request_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\QueryLanguageTestBase.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\ProviderPluginConnectStatementInterpreter_Test\CONNECT_Statement_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Statements\RequestStatementInterpreter_Test\FROM_Statement_Works.cs" />
+    <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient_Test\Catching_RecordType_Declaration_Errors_Works.cs" />
+    <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient_Test\Defining_Nested_RecordTypes_Works.cs" />
+    <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient_Test\Loading_Local_RecordType_Works.cs" />
+    <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient_Test\RecordType_Inheritance_Works.cs" />
+    <Compile Include="Interpretation\SyneryFunctionDeclarationInterpretationClient_Test\Extracting_Function_Data_Works.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj">
+      <Project>{8b647094-f8b2-4bca-b575-b56ed018be63}</Project>
+      <Name>InterfaceBooster.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Common.Tools\InterfaceBooster.Common.Tools.csproj">
+      <Project>{df3e8139-329b-4013-a26d-6cf226209b35}</Project>
+      <Name>InterfaceBooster.Common.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Core\InterfaceBooster.Core.csproj">
+      <Project>{72bbe58d-2e3c-4cb6-9170-4d4c69c28b0c}</Project>
+      <Name>InterfaceBooster.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.SyneryLanguage\InterfaceBooster.SyneryLanguage.csproj">
+      <Project>{be597f2e-af48-45f4-89d3-80431885dffa}</Project>
+      <Name>InterfaceBooster.SyneryLanguage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="_Data\InterfaceBoosterPluginDirectory\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="_Data\SyneryDB\Empty\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

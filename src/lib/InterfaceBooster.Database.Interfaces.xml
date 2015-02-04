@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InterfaceBooster.Database.Interfaces</name>
+    </assembly>
+    <members>
+        <member name="T:InterfaceBooster.Database.Interfaces.IDatabase">
+            <summary>
+            Manages the database. Can be used to load and store data from and to the database.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.NewSchema">
+            <summary>
+            this factory method creates a new empty schema.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.NewTable(InterfaceBooster.Database.Interfaces.Structure.ISchema,System.Collections.Generic.IEnumerable{System.Object[]})">
+            <summary>
+            this factory methode creates a new table with the given schema containing the given data.
+            the number of items in the object-arrays must equal to the number of fields of given the schema.
+            </summary>
+            <param name="schema">the definition of the table</param>
+            <param name="data">the content of the table</param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.CreateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            add a new table to the database
+            throws an exception if a table with the given name already exists
+            </summary>
+            <param name="name">unique identifier of the new table</param>
+            <param name="table">the data</param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.UpdateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            overwrites an existing table with the given table
+            throws an exception if a table with the given name doesn't exists
+            </summary>
+            <param name="name">unique identifier of an existing table</param>
+            <param name="table">the new data</param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.CreateOrUpdateTable(System.String,InterfaceBooster.Database.Interfaces.Structure.ITable)">
+            <summary>
+            if a table with the given name already exists the old table will be overwritten. Otherwise a new table
+            with the given name will be created.
+            </summary>
+            <param name="name">unique identifier of existing or new table</param>
+            <param name="table">the data</param>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.DeleteTable(System.String)">
+            <summary>
+            deletes an existing table. If no table with the given name exists the return value will be "false".
+            </summary>
+            <param name="name">unique identifier of the table to delete</param>
+            <returns>true if table was found</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.RenameTable(System.String,System.String)">
+            <summary>
+            renames an existing table. If no table with the given name exists the return value will be "false".
+            if a table with the target name already exists the return value also will be "false".
+            </summary>
+            <param name="from">current table unique identifier</param>
+            <param name="to">new table unique identifier</param>
+            <returns>true if table was found</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.LoadTable(System.String)">
+            <summary>
+            load the table with the given name.
+            returns null if the table wasn't found.
+            </summary>
+            <param name="name">unique identifier of the existing table</param>
+            <returns>table with the given name or null if table doesn't exist</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.IDatabase.IsTable(System.String)">
+            <summary>
+            check whether a table with the given name exists.
+            </summary>
+            <param name="name">unique identifier of the table</param>
+            <returns>true if table exists</returns>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.IDatabase.Schemas">
+            <summary>
+            contains the schemas for all managed tables
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.IDatabase.IsDisposed">
+            <summary>
+            When this property returns true, the databse is disposed of and can no longer be used.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Interfaces.Structure.IField">
+            <summary>
+            A field represents a column of a table.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.Structure.IField.Name">
+            <summary>
+            the identifier of the field
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.Structure.IField.Type">
+            <summary>
+            data type
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Interfaces.Structure.ISchema">
+            <summary>
+            the schema contains the defintion of a table.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.AddField``1(System.String)">
+            <summary>
+            alias for AddField(string name, Type type)
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.AddField(System.String,System.Type)">
+            <summary>
+            add a new field.
+            throws an exception if there already exists a field with the given name.
+            </summary>
+            <param name="name">unique identifier</param>
+            <param name="type">data type</param>
+            <returns>the new field</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.GetField(System.String)">
+            <summary>
+            get a field by name. Returns null if no field with the given name wasn't found.
+            </summary>
+            <param name="name">unique identifier</param>
+            <returns>field or null</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.GetFieldPosition(System.String)">
+            <summary>
+            get index of the filed in the schemas' field list. Returns -1 if the field with the given name wasn't found.
+            </summary>
+            <param name="name">unique identifier</param>
+            <returns>position or -1 if field wasn't found</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.DeleteField(InterfaceBooster.Database.Interfaces.Structure.IField)">
+            <summary>
+            removes an existing field. If the field doesn't exist it returns false.
+            </summary>
+            <param name="field">field to remove</param>
+            <returns>true if field was found</returns>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ISchema.DeleteField(System.String)">
+            <summary>
+            removes an existing field. If the field doesn't exist it returns false.
+            </summary>
+            <param name="name">unique identifier</param>
+            <returns>true if field was found</returns>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.Structure.ISchema.Fields">
+            <summary>
+            all columns of the table in the order of occurance in the rows' object-array items.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.Database.Interfaces.Structure.ITable">
+            <summary>
+            A table is composed by the schema for the data definition and the data itself. The data
+            is stored in the form of a list of arrays. Each array represents one row.
+            All arrays must have the same size and each array item must be compatible with the fields
+            that are defined in the tables' schema.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.Database.Interfaces.Structure.ITable.SetData(System.Collections.Generic.IEnumerable{System.Object[]})">
+            <summary>
+            overwrites all data of the table
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="P:InterfaceBooster.Database.Interfaces.Structure.ITable.Schema">
+            <summary>
+            The schema containes the definition of the table.
+            </summary>
+        </member>
+    </members>
+</doc>

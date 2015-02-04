@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InterfaceBooster.LibraryPluginApi</name>
+    </assembly>
+    <members>
+        <member name="T:InterfaceBooster.LibraryPluginApi.Static.IStaticExtension">
+            <summary>
+            Must be imlemented by classes that provide some static functions or variables
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.LibraryPluginApi.Static.IStaticExtension.Namespace">
+            <summary>
+            Gets a dot-separated path used to address all static functions and variables from this extension.
+            It may not contain any white spaces or special chars that are not allowed in synery identifiers.
+            Example: "Helpers.DataType.Strings"
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.LibraryPluginApi.Static.StaticFunctionAttribute">
+            <summary>
+            Is used to mark a method as static function. The method must be public.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.LibraryPluginApi.Static.StaticFunctionAttribute.#ctor">
+            <summary>
+            Is used to mark a method as static function. The method must be public.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.LibraryPluginApi.Static.StaticFunctionAttribute.#ctor(System.String)">
+            <summary>
+            Is used to mark a method as static function. The method must be public.
+            </summary>
+            <param name="alternativeIdentifier">An alternative name for the function. (default = name of the method)</param>
+        </member>
+        <member name="P:InterfaceBooster.LibraryPluginApi.Static.StaticFunctionAttribute.AlternativeIdentifier">
+            <summary>
+            Gets or sets an alternative name for the function. (default = name of the method)
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.LibraryPluginApi.Static.StaticVariableAttribute">
+            <summary>
+            Is used to mark a property as static variable. At least the getter or the setter of the property must be public.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.LibraryPluginApi.Static.StaticVariableAttribute.#ctor">
+            <summary>
+            Is used to mark a property as static variable. At least the getter or the setter of the property must be public.
+            </summary>
+        </member>
+        <member name="M:InterfaceBooster.LibraryPluginApi.Static.StaticVariableAttribute.#ctor(System.String)">
+            <summary>
+            Is used to mark a property as static variable. At least the getter or the setter of the property must be public.
+            </summary>
+            <param name="alternativeIdentifier">An alternative name for the variable. (default = name of the property)</param>
+        </member>
+        <member name="P:InterfaceBooster.LibraryPluginApi.Static.StaticVariableAttribute.AlternativeIdentifier">
+            <summary>
+            Gets or sets an alternative name for the variable. (default = name of the property)
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{72BBE58D-2E3C-4CB6-9170-4D4C69C28B0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceBooster.Core</RootNamespace>
+    <AssemblyName>InterfaceBooster.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\packages\Antlr4.Runtime.4.4.1-alpha001\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Interfaces">
+      <HintPath>..\lib\InterfaceBooster.Database.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.LibraryPluginApi">
+      <HintPath>..\lib\InterfaceBooster.LibraryPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.ProviderPluginApi">
+      <HintPath>..\lib\InterfaceBooster.ProviderPluginApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Model\TypedValue.cs" />
+    <Compile Include="Common\Xml\XmlHelper.cs" />
+    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionData.cs" />
+    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionDetailData.cs" />
+    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionJobData.cs" />
+    <Compile Include="InterfaceDefinitions\Data\LibraryPluginReference.cs" />
+    <Compile Include="InterfaceDefinitions\Data\ProviderPluginInstanceReference.cs" />
+    <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController.cs" />
+    <Compile Include="LibraryPlugins\Information\LibraryPluginDataController.cs" />
+    <Compile Include="LibraryPlugins\Information\ReflectionData\StaticExtensionContainer.cs" />
+    <Compile Include="LibraryPlugins\Information\ReflectionData\StaticExtensionFunctionData.cs" />
+    <Compile Include="LibraryPlugins\Information\ReflectionData\StaticExtensionFunctionParameterData.cs" />
+    <Compile Include="LibraryPlugins\Information\ReflectionData\StaticExtensionVariableData.cs" />
+    <Compile Include="LibraryPlugins\Information\XmlData\LibraryPluginAssemblyData.cs" />
+    <Compile Include="LibraryPlugins\Information\XmlData\LibraryPluginData.cs" />
+    <Compile Include="LibraryPlugins\LibraryPluginManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderPlugins\Communication\SaveRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\ExecuteRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\DeleteRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\UpdateRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\ReadRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\CreateRequest.cs" />
+    <Compile Include="ProviderPlugins\Communication\Request.cs" />
+    <Compile Include="ProviderPlugins\Information\Data\ProviderPluginAssemblyData.cs" />
+    <Compile Include="ProviderPlugins\Information\Data\ProviderPluginData.cs" />
+    <Compile Include="ProviderPlugins\Information\ProviderPluginDataController.cs" />
+    <Compile Include="ProviderPlugins\Information\Data\ProviderPluginInstanceData.cs" />
+    <Compile Include="ProviderPlugins\ProviderPluginHost.cs" />
+    <Compile Include="ProviderPlugins\ProviderPluginManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj">
+      <Project>{8b647094-f8b2-4bca-b575-b56ed018be63}</Project>
+      <Name>InterfaceBooster.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Common.Tools\InterfaceBooster.Common.Tools.csproj">
+      <Project>{df3e8139-329b-4013-a26d-6cf226209b35}</Project>
+      <Name>InterfaceBooster.Common.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

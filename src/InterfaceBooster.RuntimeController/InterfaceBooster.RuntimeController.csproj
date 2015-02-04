@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7A0E7F04-5C29-4B58-93B1-23E1FC90ACE8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>InterfaceBooster.RuntimeController</RootNamespace>
+    <AssemblyName>InterfaceBooster.RuntimeController</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr4.Runtime">
+      <HintPath>..\packages\Antlr4.Runtime.4.4.1-alpha001\lib\net45\Antlr4.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Core">
+      <HintPath>..\lib\InterfaceBooster.Database.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InterfaceBooster.Database.Interfaces">
+      <HintPath>..\lib\InterfaceBooster.Database.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Console\Broadcasting\Broadcaster.cs" />
+    <Compile Include="Console\ConsoleRuntimeManager.cs" />
+    <Compile Include="Console\Broadcasting\BroadcastQuestionDelegate.cs" />
+    <Compile Include="Console\Broadcasting\BroadcastMessageDelegate.cs" />
+    <Compile Include="InterfaceDefinition\InterfaceDefinitionRunner.cs" />
+    <Compile Include="Log\BroadcastFileLogger.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InterfaceBooster.Common.Interfaces\InterfaceBooster.Common.Interfaces.csproj">
+      <Project>{8b647094-f8b2-4bca-b575-b56ed018be63}</Project>
+      <Name>InterfaceBooster.Common.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Common.Tools\InterfaceBooster.Common.Tools.csproj">
+      <Project>{df3e8139-329b-4013-a26d-6cf226209b35}</Project>
+      <Name>InterfaceBooster.Common.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.Core\InterfaceBooster.Core.csproj">
+      <Project>{72bbe58d-2e3c-4cb6-9170-4d4c69c28b0c}</Project>
+      <Name>InterfaceBooster.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InterfaceBooster.SyneryLanguage\InterfaceBooster.SyneryLanguage.csproj">
+      <Project>{be597f2e-af48-45f4-89d3-80431885dffa}</Project>
+      <Name>InterfaceBooster.SyneryLanguage</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
