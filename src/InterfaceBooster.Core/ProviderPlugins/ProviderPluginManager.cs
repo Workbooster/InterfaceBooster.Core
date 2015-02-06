@@ -1049,8 +1049,12 @@ namespace InterfaceBooster.Core.ProviderPlugins
             T endpoint = (T)(from e in connection.Endpoints
                              where e is T
                              && e.Name == task.EndpointName
-                             && (task.EndpointPath == null
-                                 || ArrayEqualityComparer.Equals(e.Path, task.EndpointPath))
+                             && (
+                                // check whether the path is empty on both sides:
+                                ((task.EndpointPath == null || task.EndpointPath.Count() == 0) && (e.Path == null || e.Path.Length == 0))
+                                // otherwise compare the paths:
+                                 || ArrayEqualityComparer.Equals(e.Path, task.EndpointPath)
+                                 )
                              select e).FirstOrDefault();
 
             if (endpoint == null)
