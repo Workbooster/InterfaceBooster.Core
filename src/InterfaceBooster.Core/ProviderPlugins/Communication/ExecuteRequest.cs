@@ -14,7 +14,7 @@ namespace InterfaceBooster.Core.ProviderPlugins.Communication
     {
         #region PROPERTIES
 
-        public IEnumerable<Answer> Answers { get; set; }
+        public AnswerList Answers { get; set; }
         public IEnumerable<string> RequestedValues { get; set; }
         new public ExecuteResource Resource { get; set; }
 
