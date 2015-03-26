@@ -179,6 +179,64 @@
             An Answer object contains the parameter value set by Interface Booster answering a Question object.
             </summary>
         </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.GetAnswerValue``1(System.String,``0,System.Char)">
+            <summary>
+            This helper method can be used to access an answer value by specifying the expected type and the full path of the question.
+            The <paramref name="questionFullPath"/> is composed by the Path and the Name of the Question separated by <paramref name="pathSeparator"/>.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="questionFullPath">Is composed by the Path and the Name of the Question separated by <paramref name="pathSeparator"/>.</param>
+            <param name="defaultValue">The default return value if no answer was found.</param>
+            <param name="pathSeparator">The character used as separator in the <paramref name="questionFullPath"/>.</param>
+            <returns>The value of the answer or the <paramref name="defaultValue"/>.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.GetAnswerValue``1(System.String,System.String[],``0)">
+            <summary>
+            This helper method can be used to access an answer value by specifying the expected type, the name and the path of the question.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="name">The name of the question.</param>
+            <param name="path">The path of the question.</param>
+            <param name="defaultValue">The default value of no matching answer was found.</param>
+            <returns>The value of the answer or the <paramref name="defaultValue"/>.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.GetAnswer``1(System.String,System.Char)">
+            <summary>
+            This helper method can be used to get an Answer object by specifying the expected type and the full path of the question.
+            The <paramref name="questionFullPath"/> is composed by the Path and the Name of the Question separated by <paramref name="pathSeparator"/>.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="questionFullPath">Is composed by the Path and the Name of the Question separated by <paramref name="pathSeparator"/>.</param>
+            <param name="pathSeparator">The character used as separator in the <paramref name="questionFullPath"/>.</param>
+            <returns>The Answer object or null.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.GetAnswer``1(System.String,System.String[])">
+            <summary>
+            This helper method can be used to get an Answer object by specifying the expected type, the name and the path of the question.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="name">The name of the question.</param>
+            <param name="path">The path of the question.</param>
+            <returns>The Answer value or null.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.IsAnswerSet``1(System.String,System.Char)">
+            <summary>
+            Checks whether an Answer was given.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="questionFullPath">Is composed by the Path and the Name of the Question separated by <paramref name="pathSeparator"/>.</param>
+            <param name="pathSeparator">The character used as separator in the <paramref name="questionFullPath"/>.</param>
+            <returns>True if an Answer is available.</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.AnswerList.IsAnswerSet``1(System.String,System.String[])">
+            <summary>
+            Checks whether an Answer was given.
+            </summary>
+            <typeparam name="T">Expected data type of the question / answer value.</typeparam>
+            <param name="name">The name of the question.</param>
+            <param name="path">The path of the question.</param>
+            <returns>True if the Answer is available.</returns>
+        </member>
         <member name="T:InterfaceBooster.ProviderPluginApi.Data.ConnectionSettings">
             <summary>
             Represents the settings for opening a new ProviderConnection.
@@ -197,15 +255,31 @@
             interface developer all available structures, which can be used to perform a request using the Provider Plugin Connection.
             </summary>
         </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Field.#ctor">
+            <summary>
+            Is used for XML serialization.
+            </summary>
+        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Name">
             <summary>
-            Gets the identifying name of the field used in Synery.
+            Gets or sets the identifying name of the field used in Synery.
             It may not contain any white spaces or special chars that are not allowed in synery identifiers.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Type">
             <summary>
-            Gets the data type of the field.
+            Gets or sets the data type of the field.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.TypeQualifiedName">
+            <summary>
+            Gets or sets the assembly qualified name of "Type"
+            (is only used for XML serialization)
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Schema">
+            <summary>
+            Gets or sets the schema this field is related to.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.Description">
@@ -228,6 +302,22 @@
             <summary>
             Gets or sets a flag that indicates whether the field is a key.
             This is NOT used for validation! It only is used 
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.IsForeignKey">
+            <summary>
+            Gets or sets a flag that indicates whether this field is a foreign key to another record set.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.IsUnique">
+            <summary>
+            Gets or sets a flag that indicates whether this field must be unique in the foreign system.
+            This flag is only used for informative purpose. Interface Booster doesn't run any checks for unique values.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Data.Field.ForeignKeyDescription">
+            <summary>
+            Gets or sets a human readable description of the foreign key (only if this field is contains a foreign key).
             </summary>
         </member>
         <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.AndFilterGroup">
@@ -294,6 +384,34 @@
             (You're free to use this property internally. This value isn't touched or displayed by Interface Booster in any way).
             </summary>
         </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.Equal">
+            <summary>
+            Compares the values case in-sensitive.
+            e.g. "Test" == "test" is true
+            </summary>
+        </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.NotEqual">
+            <summary>
+            Compares the values case in-sensitive.
+            e.g. "Test" != "test" is false
+            </summary>
+        </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.ExactlyEqual">
+            <summary>
+            Compares the values (case sensitive)
+            Examples:
+            "Test" === "test" is false
+            "Test" === "Test" is true
+            </summary>
+        </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.NotExactlyEqual">
+            <summary>
+            Compares the values (case sensitive)
+            Examples:
+            "Test" !== "test" is true
+            "Test" !== "Test" is false
+            </summary>
+        </member>
         <member name="T:InterfaceBooster.ProviderPluginApi.Data.Filter.OrFilterGroup">
             <summary>
             Represents a list of combined filters connected by a logical OR operator.
@@ -338,6 +456,12 @@
             </summary>
             <param name="text"></param>
             <returns>A new instance</returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.Initialize(System.String)">
+            <summary>
+            Initializes a new instance of this class (used by constructors).
+            </summary>
+            <param name="defaultText"></param>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.LocalizedText.Default">
             <summary>
@@ -499,6 +623,12 @@
             <param name="description"></param>
             <returns></returns>
         </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Schema.Initialize(System.Collections.Generic.IEnumerable{InterfaceBooster.ProviderPluginApi.Data.Field})">
+            <summary>
+            Initializes a new instance of this class (used by the constructor).
+            </summary>
+            <param name="listOfFields"></param>
+        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.Schema.Description">
             <summary>
             Gets or sets an user friendly and localizable description about this Schema. 
@@ -513,6 +643,11 @@
         <member name="P:InterfaceBooster.ProviderPluginApi.Data.Schema.Fields">
             <summary>
             Gets or sets a list of columns.
+            </summary>
+        </member>
+        <member name="E:InterfaceBooster.ProviderPluginApi.Data.SchemaFieldList.FieldAdded">
+            <summary>
+            Occures if a new field has been added to the field list.
             </summary>
         </member>
         <member name="T:InterfaceBooster.ProviderPluginApi.Data.ValueDefinition">
@@ -601,6 +736,17 @@
         <member name="P:InterfaceBooster.ProviderPluginApi.IProviderPluginInstance.ConnectionSettingQuestions">
             <summary>
             Gets a list of questions the interface developer can/must answer to open a connection.
+            </summary>
+        </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.ProviderPluginApi.SUPPORTED_TYPES">
+            <summary>
+            Gets a list of CLR Types supported by Interface Booster and Synery
+            </summary>
+        </member>
+        <member name="F:InterfaceBooster.ProviderPluginApi.ProviderPluginApi.SYNERY_IDENTIFIER_REGEX">
+            <summary>
+            Gets a regular expression instance that can be used to check for valid Synery Identifiers.
+            All identifers used in Synery (e.g. endpoint paths an names, field names etc.) must match this rules.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Service.Resource.RequestType">

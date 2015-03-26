@@ -565,9 +565,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// <param name="listOfParameters"></param>
         /// <param name="pluginInstance"></param>
         /// <returns></returns>
-        private IList<Answer> GetSettingAnswersFromParameters(IDictionary<string[], object> listOfParameters, IEnumerable<Question> listOfQuestions)
+        private AnswerList GetSettingAnswersFromParameters(IDictionary<string[], object> listOfParameters, IEnumerable<Question> listOfQuestions)
         {
-            List<Answer> listOfAnswers = new List<Answer>();
+            AnswerList listOfAnswers = new AnswerList();
 
             // use a string-array equality comparer
             ArrayEqualityComparer<string> equalityComparer = new ArrayEqualityComparer<string>();
@@ -817,7 +817,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             ReadRequest request = null;
 
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
@@ -837,7 +837,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private CreateRequest PrepareCreateRequest(ProviderPluginCreateTask task, CreateResource resource)
         {
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
@@ -853,7 +853,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private UpdateRequest PrepareUpdateRequest(ProviderPluginUpdateTask task, UpdateResource resource)
         {
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
@@ -871,7 +871,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private SaveRequest PrepareSaveRequest(ProviderPluginSaveTask task, SaveResource resource)
         {
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
@@ -887,7 +887,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private DeleteRequest PrepareDeleteRequest(ProviderPluginDeleteTask task, DeleteResource resource)
         {
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
@@ -905,7 +905,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private ExecuteRequest PrepareExecuteRequest(ProviderPluginExecuteTask task, ExecuteResource resource)
         {
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
-            IList<Answer> listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
+            AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);

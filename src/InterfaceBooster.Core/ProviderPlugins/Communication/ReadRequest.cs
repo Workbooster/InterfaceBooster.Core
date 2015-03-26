@@ -14,7 +14,7 @@ namespace InterfaceBooster.Core.ProviderPlugins.Communication
     {
         #region PROPERTIES
 
-        public IEnumerable<Answer> Answers { get; set; }
+        public AnswerList Answers { get; set; }
         public Filter Filters { get; set; }
         public IEnumerable<Field> RequestedFields { get; set; }
         public new ReadResource Resource { get { return base.Resource as ReadResource; } set { base.Resource = value; } }

@@ -13,7 +13,7 @@ namespace InterfaceBooster.Core.ProviderPlugins.Communication
     {
         #region PROPERTIES
 
-        public IEnumerable<Answer> Answers { get; set; }
+        public AnswerList Answers { get; set; }
         public RecordSet RecordSet { get; set; }
         new public SaveResource Resource { get; set; }
 
