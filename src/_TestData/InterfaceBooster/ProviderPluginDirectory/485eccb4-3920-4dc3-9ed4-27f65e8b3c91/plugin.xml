@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProviderPlugin id="485eccb4-3920-4dc3-9ed4-27f65e8b3c91">
+  <Name>Simple Dummy</Name>
+  <Description>This dummy plugin is used for unit tests.</Description>
+  <Assemblies>
+    <Assembly path='simpleDummy\InterfaceBooster.Test.Dummy.ProviderPluginDummy.dll' requiredInterfaceVersion="1.0.0.0">
+      <Instances>
+        <Instance id="58e6a1b5-9eb5-45ab-8c9b-8b267e2d09e8">
+          <Name>Simple Dummy 1</Name>
+          <Description>This dummy plugin can be used to test the instantiation of the ProviderPlugin, the ProviderPluginInstance and the ProviderConnection. It is also possible to send some requests and get some repsonds.</Description>
+        </Instance>
+      </Instances>
+    </Assembly>
+    <Assembly path='wrongInterfaceVersion.dll' requiredInterfaceVersion="9.2.7.1">
+      <Instances>
+        <Instance id="47dee3fa-2c86-4a1a-aea1-7be09948180d">
+          <Name>Wrong interface Version</Name>
+          <Description>This plugins doestn't even exists but it is used to verify that the check for the required interface version works.</Description>
+        </Instance>
+      </Instances>
+    </Assembly>
+  </Assemblies>
+</ProviderPlugin>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ImportDefinition id="f3b58f84-cbc0-4560-856d-f6c2b2feea5b">
+  <Details>
+    <Name>PROFFIX CSV Article Import</Name>
+    <Description>Imports some articles from a comma separated value file to PROFFIX.</Description>
+    <Author>Roger Guillet</Author>
+    <DateOfCreation>2014-02-07</DateOfCreation>
+    <DateOfLastChange>2014-02-26</DateOfLastChange>
+    <Version>1.0.0.1</Version>
+    <RequiredRuntimeVersion>1.0.0.0</RequiredRuntimeVersion>
+  </Details>
+  <RequiredPlugins>
+    <ProviderPlugins>
+        <ProviderPluginInstance syneryIdentifier="PROFFIX" idPlugin="D2370C69-4564-4FF7-A6C0-CD2D5B27BEDB" pluginName="PROFFIX Provider Plugin" idPluginInstance="9B24DC13-4489-4DBF-ADDD-66A594F8D30A" pluginInstanceName="PROFFIX Version 4.0" />
+        <ProviderPluginInstance syneryIdentifier="CSV" idPlugin="66CE1D53-14B3-420E-949F-EB94A3D69072" pluginName="CSV Provider Plugin" idPluginInstance="F897A501-60D9-4AE5-B214-920F450E9323" pluginInstanceName="CSV Version 1.0" />    
+    </ProviderPlugins>
+    <LibraryPlugins>
+        <LibraryPlugin syneryIdentifier="String" idPlugin="74A8005D-C9F3-455F-94FC-04846493AB7B" pluginName="String Helpers" />
+    </LibraryPlugins>
+  </RequiredPlugins>
+  <Jobs>
+    <Job id="79f8ca0f-c785-4f35-810e-835bc216f6b6">
+      <Name>Run CSV Import</Name>
+      <Description>Executes the import of some articles to PROFFIX.</Description>
+      <EstimatedDurationRemarks>This import will only take a few seconds</EstimatedDurationRemarks>
+      <IncludeFiles>
+        <IncludeFile alias="h" relativePath="helperFunctions.syn" />
+      </IncludeFiles>
+    </Job>
+    <Job id="2D74CCFB-B1B3-4625-8763-99CFEB077207">
+      <Name>Check for doublets</Name>
+      <Description>Executes a check for some doublets in PROFFIX.</Description>
+      <EstimatedDurationRemarks>This check will only take a few seconds</EstimatedDurationRemarks>
+    </Job>
+  </Jobs>
+</ImportDefinition>

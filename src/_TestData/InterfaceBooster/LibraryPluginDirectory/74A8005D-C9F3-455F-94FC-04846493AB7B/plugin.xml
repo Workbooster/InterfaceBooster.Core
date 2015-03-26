@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LibraryPlugin id="74A8005D-C9F3-455F-94FC-04846493AB7B">
+  <Name>Simple Dummy</Name>
+  <Description>This dummy plugin is used for unit tests.</Description>
+  <Assemblies>
+    <Assembly path='simpleDummy\InterfaceBooster.Test.Dummy.LibraryPluginDummy.dll' requiredInterfaceVersion="1.0.0.0" />
+    <Assembly path='wrongInterfaceVersion.dll' requiredInterfaceVersion="9.2.7.1" />
+  </Assemblies>
+</LibraryPlugin>

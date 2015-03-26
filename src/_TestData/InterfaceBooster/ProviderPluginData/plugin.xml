@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ProviderPlugin id="485eccb4-3920-4dc3-9ed4-27f65e8b3c91">
+  <Name>PROFFIX Database</Name>
+  <Description>This plugin enables you to access the PROFFIX Database using InterfaceBooster.</Description>
+  <Assemblies>
+    <Assembly path='proffixLegacy\MyCompany.InterfaceBooster.ProviderPlugins.Proffix.dll' requiredInterfaceVersion="1.1.5.3">
+      <Instances>
+        <Instance id="58e6a1b5-9eb5-45ab-8c9b-8b267e2d09e8">
+          <Name>2.0.0007.0001</Name>
+          <Description>The version before 2006</Description>
+        </Instance>
+      </Instances>
+    </Assembly>
+    <Assembly path='proffixCurrent\MyCompany.InterfaceBooster.ProviderPlugins.Proffix.dll' requiredInterfaceVersion="1.2.7.1">
+      <Instances>
+        <Instance id="47dee3fa-2c86-4a1a-aea1-7be09948180d">
+          <Name>3.0.1039.0001</Name>
+          <Description>The version before 2014</Description>
+        </Instance>
+        <Instance id="b139306d-a688-43ae-a9dd-4e692fc2caea">
+          <Name>4.0.0000.0001</Name>
+          <Description>The version after 2014</Description>
+        </Instance>
+      </Instances>
+    </Assembly>
+  </Assemblies>
+</ProviderPlugin>

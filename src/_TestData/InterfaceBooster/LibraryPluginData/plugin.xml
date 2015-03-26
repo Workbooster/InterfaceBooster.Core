@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LibraryPlugin id="74A8005D-C9F3-455F-94FC-04846493AB7B">
+  <Name>String Helpers</Name>
+  <Description>Some description...</Description>
+  <Assemblies>
+    <Assembly path='legacy\MyCompany.InterfaceBooster.LibraryPlugins.StringHelpers.dll' requiredInterfaceVersion="1.1.5.3" />
+    <Assembly path='current\MyCompany.InterfaceBooster.LibraryPlugins.StringHelpers.dll' requiredInterfaceVersion="1.2.7.1" />
+  </Assemblies>
+</LibraryPlugin>

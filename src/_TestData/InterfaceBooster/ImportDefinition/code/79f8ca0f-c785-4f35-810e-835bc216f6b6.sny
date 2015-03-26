@@ -1,0 +1,85 @@
+/*
+    CSV TO PROFFIX ARTICLE IMPORT
+    
+    this script imports some articles from a csv file to the PROFFIX database
+    
+    author:         Roger Guillet <roger.guillet@workbooster.ch>
+    created at:     2014-02-27
+    changed at:     2014-03-07
+*/
+
+// CONFIGURATION
+// here you can set some configuartion values
+
+STRING csvFilePath = "C:\temp\artikel.csv";
+STRING proffixDataSource = "(LocalDb)\v11.0";
+STRING proffixAttachDBFilename = "D:\PX000000.mdf";
+
+// SCRIPT
+// please do not change anything below this line
+
+// open the connection to the csv file
+
+CONNECT "CSV" ( 
+    Csv.FilePath = csvFilePath, 
+    Csv.Separator = ';',
+    Csv.Fields = "ArtikelNr,Bezeichnung,Beschreibung,Preis,HerstellerNr,HerstellerName,HerstellerStrasse,HerstellerPLZ,HerstellerOrt"
+) AS \\csv;
+
+// open the connection to the PROFFIX sql database
+
+CONNECT "PROFFIX" ( 
+    Database.Connection.DataSource = proffixDataSource,
+    Database.Connection.AttachDBFilename = proffixAttachDBFilename,
+    Database.Connection.Database = "PX000000",
+    Database.Connection.IntegratedSecurity = FALSE,
+    Database.Connection.User = "",
+    Database.Connection.Password = ""
+) AS \\px;
+
+// import the data from the csv file
+
+IMPORT \\csv
+    READ \Data TO \csv\data
+;
+
+// select the data needed for creating the articles
+
+\new\articles = 
+    FROM \csv\data AS d
+    SELECT 
+        ArtikelNrLAG = d.ArtikelNr, 
+        Bezeichnung1 = d.Bezeichnung, 
+        EinheitPRO = "STK",
+        EinheitRechnung = "STK",
+        Verkauf1 = d.Preis,
+        HerstellerLAG = d.HerstellerNr
+;
+
+// select the data needed for creating the notes
+
+\new\notes =
+    FROM \csv\data AS d
+    SELECT
+        ArtikelNrLAG = d.ArtikelNr,
+        Notiz = d.Beschreibung
+;
+
+// select the data needed for creating the manufacturers
+
+\new\manufacturers =
+    FROM \csv\data AS d
+    SELECT
+        HerstellerLAG = d.HerstellerNr,
+        Firma = d.HerstellerName,
+        Strasse = d.HerstellerStrasse,
+        PLZ = d.HerstellerPLZ,
+        Ort = d.HerstellerOrt
+    DISTINCT
+;
+
+// export the new records to the PROFFIX database
+
+EXPORT \\px\Tables\LAG_Hersteller CREATE FROM \new\manufacturers;
+EXPORT \\px\Tables\LAG_Artikel CREATE FROM \new\articles;
+EXPORT \\px\Tables\LAG_Notizen CREATE FROM \new\notes;
