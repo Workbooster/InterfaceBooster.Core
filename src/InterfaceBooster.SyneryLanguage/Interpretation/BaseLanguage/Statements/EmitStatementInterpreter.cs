@@ -30,14 +30,27 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
             // get the emitted value
             IValue emitValue = Controller.Interpret<SyneryParser.ExpressionContext, IValue>(context.expression());
 
-            // try to get the event record type from the given value
-            IRecordType eventRecordType = TryToGetEventRecordTypeFromValue(context, emitValue);
+            // try to get the event record from the given value
+            IRecord eventRecord = TryToGetEventRecordFromValue(context, emitValue);
 
+            // get the event record type from the given value
+            IRecordType eventRecordType = eventRecord.RecordType;
+
+            // search for a HANDLE-block that handles the emited event
             IEnumerable<IHandleBlockData> listOfHandleBlocks = GetHandleBlocks(eventRecordType.FullName);
+
+            bool isFirst = true;
 
             foreach (var handleBlock in listOfHandleBlocks)
             {
                 EventHelper.InterpretHandleBlock(Controller, handleBlock, emitValue);
+
+                // mark the exception as handled after the first handle block is executed
+                if (isFirst)
+                {
+                    isFirst = false;
+                    eventRecord.SetFieldValue("IsHandled", new TypedValue(TypeHelper.BOOL_TYPE, true));
+                }
             }
         }
 
@@ -46,14 +59,14 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
         #region INTERNAL METHODS
 
         /// <summary>
-        /// Tries to get the event record type from the given value.
+        /// Tries to get the event record from the given value.
         /// If the values doesn't contain a record type or if the record type isn't assignable from the event 
         /// record type an exception is thrown.
         /// </summary>
         /// <param name="context"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private IRecordType TryToGetEventRecordTypeFromValue(SyneryParser.EmitStatementContext context, IValue value)
+        private IRecord TryToGetEventRecordFromValue(SyneryParser.EmitStatementContext context, IValue value)
         {
             if (value.Type.UnterlyingDotNetType == typeof(IRecord))
             {
@@ -61,7 +74,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 
                 if (record.RecordType.IsType(SystemRecordTypeFactory.EVENT_NAME))
                 {
-                    return record.RecordType;
+                    return record;
                 }
                 else
                 {

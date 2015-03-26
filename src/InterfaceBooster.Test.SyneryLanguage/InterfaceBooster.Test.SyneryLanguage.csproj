@@ -80,6 +80,7 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\IfStatemenInterpreter_Test\Using_If_Else_Conditions_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\IfStatemenInterpreter_Test\Using_Nested_If_Else_Conditions_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\LibraryPluginVariableStatementInterpreter_Test\Using_LibraryPlugin_Variables_Works.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Handling_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Custom_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_And_Expressions_Combined_Works.cs" />

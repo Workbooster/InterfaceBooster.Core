@@ -89,19 +89,22 @@ END
         public void Using_Multiple_Hanlde_Blocks_Works()
         {
             string code = @"
+BOOL firstBlock = FALSE;
+BOOL secondBlock  = FALSE;
+
 INT blockNr = 0;
 
 OBSERVE
     handleException();
 HANDLE(#.Exception ex)
-    blockNr = 1;
+    firstBlock = TRUE;
 END
 
 handleException()
     OBSERVE
         doSomething();
     HANDLE(#.Exception ex)
-        blockNr = 2;
+        secondBlock = TRUE;
     END
 END
 
@@ -115,9 +118,11 @@ END
 
             _SyneryClient.Run(code);
 
-            IValue variable = _SyneryClient.Memory.CurrentScope.ResolveVariable("blockNr");
+            IValue firstBlockVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("firstBlock");
+            IValue secondBlockVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("secondBlock");
 
-            Assert.AreEqual(2, variable.Value);
+            Assert.AreEqual(true, firstBlockVariable.Value);
+            Assert.AreEqual(true, secondBlockVariable.Value);
         }
 
         [Test]

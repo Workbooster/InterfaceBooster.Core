@@ -9,6 +9,7 @@ using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.SyneryLanguage.Model.Context;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 {
@@ -19,7 +20,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
         public ISyneryMemory Memory { get; set; }
 
         public IInterpretationController Controller { get; set; }
-         
+
         #endregion
 
         #region PUBLIC METHODS
@@ -29,19 +30,27 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
             // get the thrown exception value
             IValue exceptionValue = Controller.Interpret<SyneryParser.ExpressionContext, IValue>(context.expression());
 
-            // try to get the event record type from the given value
-            IRecordType eventRecordType = TryToGetExceptionRecordTypeFromValue(context, exceptionValue);
+            // try to get the exception record from the given value
+            IRecord exceptionRecord = TryToGetExceptionRecordFromValue(context, exceptionValue);
+            
+            // get the event record type from the given value
+            IRecordType exceptionRecordType = exceptionRecord.RecordType;
 
             // search for a HANDLE-block that handles the thrown exception
-            IHandleBlockData throwHandleBlockData = TryToFindTheHandleBlock(eventRecordType.FullName);
+            IEnumerable<IHandleBlockData> listOfHandleBlocks = GetHandleBlocks(exceptionRecordType.FullName);
 
-            if (throwHandleBlockData != null)
+            bool isFirst = true;
+
+            foreach (var handleBlock in listOfHandleBlocks)
             {
-                EventHelper.InterpretHandleBlock(Controller, throwHandleBlockData, exceptionValue);
-            }
-            else
-            {
-                throw new SyneryInterpretationException(context, "No handle block found");
+                EventHelper.InterpretHandleBlock(Controller, handleBlock, exceptionValue);
+
+                // mark the exception as handled after the first handle block is executed
+                if (isFirst)
+                {
+                    isFirst = false;
+                    exceptionRecord.SetFieldValue("IsHandled", new TypedValue(TypeHelper.BOOL_TYPE, true));
+                }
             }
         }
 
@@ -49,7 +58,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 
         #region INTERNAL METHODS
 
-        private IRecordType TryToGetExceptionRecordTypeFromValue(SyneryParser.ThrowStatementContext context, IValue value)
+        private IRecord TryToGetExceptionRecordFromValue(SyneryParser.ThrowStatementContext context, IValue value)
         {
             if (value.Type.UnterlyingDotNetType == typeof(IRecord))
             {
@@ -57,7 +66,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 
                 if (record.RecordType.IsType(SystemRecordTypeFactory.EXCEPTION_NAME))
                 {
-                    return record.RecordType;
+                    return record;
                 }
                 else
                 {
@@ -75,9 +84,9 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
             }
         }
 
-        private IHandleBlockData TryToFindTheHandleBlock(string recordTypeName)
+        private IEnumerable<IHandleBlockData> GetHandleBlocks(string recordTypeName)
         {
-            IHandleBlockData throwHandleBlockData = null;
+            List<IHandleBlockData> listOfHandleBlocks = new List<IHandleBlockData>();
 
             foreach (IScope scope in Memory.Scopes)
             {
@@ -96,19 +105,16 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
                     {
                         // check whether the OBSERVE-block handles the thrown exception
 
-                        throwHandleBlockData = (from b in observeScope.HandleBlocks
-                                                where b.HandledRecordType.IsType(recordTypeName)
-                                                select b).FirstOrDefault();
+                        var listOfMatchingHandleBlocks = from b in observeScope.HandleBlocks
+                                                         where b.HandledRecordType.IsType(recordTypeName)
+                                                         select b;
 
-                        if (throwHandleBlockData != null)
-                        {
-                            return throwHandleBlockData;
-                        }
+                        listOfHandleBlocks.AddRange(listOfMatchingHandleBlocks);
                     }
                 }
             }
 
-            return null;
+            return listOfHandleBlocks;
         }
 
         #endregion

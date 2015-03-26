@@ -7,6 +7,7 @@ using InterfaceBooster.SyneryLanguage.Interpretation.General;
 using InterfaceBooster.SyneryLanguage.Model.SyneryTypes;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.SyneryLanguage.Model.Context;
 
 namespace InterfaceBooster.SyneryLanguage.Common
 {
@@ -59,12 +60,15 @@ namespace InterfaceBooster.SyneryLanguage.Common
         /// </summary>
         private static List<SystemRecordTypeDefinition> _SystemRecordTypeDefinitions =
             new List<SystemRecordTypeDefinition>() {
+                // #.Event(BOOL IsHandled);
                 new SystemRecordTypeDefinition(EVENT_NAME) {
                     Fields = new List<SystemRecordTypeFieldDefinition>() {
-                        new SystemRecordTypeFieldDefinition("IsHandled", TypeHelper.BOOL_TYPE),
+                        new SystemRecordTypeFieldDefinition("IsHandled", TypeHelper.BOOL_TYPE, new TypedValue(TypeHelper.BOOL_TYPE, false)),
                     }
                 },
+                // #.Exception(STRING Message) : #.Event;
                 new SystemRecordTypeDefinition(EXCEPTION_NAME) {
+                    BaseTypeName = EVENT_NAME,
                     Fields = new List<SystemRecordTypeFieldDefinition>() {
                         new SystemRecordTypeFieldDefinition("Message", TypeHelper.STRING_TYPE),
                     }
