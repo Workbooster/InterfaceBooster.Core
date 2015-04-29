@@ -161,7 +161,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
                 }
                 catch (Exception)
                 {
-                    throw new SyneryInterpretationException(context, string.Format("Error with cast expression ''. Cannot cast the value '{1}' of type '{2}' to new type '{3}'.",
+                    throw new SyneryInterpretationException(context, string.Format("Error with cast expression '{0}'. Cannot cast the value '{1}' of type '{2}' to new type '{3}'.",
                         context.GetText(), left.Value, left.Type.PublicName, conversionType.PublicName));
                 }
             }
