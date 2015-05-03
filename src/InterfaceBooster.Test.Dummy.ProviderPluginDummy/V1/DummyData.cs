@@ -115,9 +115,9 @@ namespace InterfaceBooster.Test.Dummy.ProviderPluginDummy.V1
                                     Field.New<string>("UnitInvoice", false),
                                     Field.New<int>("ManufacturerNumber", true),
                                 }))
-               .NewRecord("Test01", "Test01-Name1", "Test01-Name2", 1M, "PCS", "PCS", 1)
-               .NewRecord("Test02", "Test02-Name1", "Test02-Name2", 2M, "PCS", "PCS", 2)
-               .NewRecord("Test03", "Test03-Name1", "Test03-Name2", 3M, "PCS", "PCS", 3);
+               .AppendRecord("Test01", "Test01-Name1", "Test01-Name2", 1M, "PCS", "PCS", 1)
+               .AppendRecord("Test02", "Test02-Name1", "Test02-Name2", 2M, "PCS", "PCS", 2)
+               .AppendRecord("Test03", "Test03-Name1", "Test03-Name2", 3M, "PCS", "PCS", 3);
 
 
             _ManufacturerRecordSet =
@@ -131,9 +131,9 @@ namespace InterfaceBooster.Test.Dummy.ProviderPluginDummy.V1
                                     Field.New<string>("Phone", true),
                                     Field.New<string>("EMail", true),
                                 }))
-                    .NewRecord(1, "Test01-Company", "Test01-Address", "Test01-PostalCode", "Test01-City", "044 111 11 11", "one@first.ch")
-                    .NewRecord(2, "Test02-Company", "Test02-Address", "Test02-PostalCode", "Test01-City", "044 222 22 22", "two@second.ch")
-                    .NewRecord(3, "Test03-Company", "Test03-Address", "Test03-PostalCode", "Test01-City", "044 333 33 33", "three@third.ch");
+                    .AppendRecord(1, "Test01-Company", "Test01-Address", "Test01-PostalCode", "Test01-City", "044 111 11 11", "one@first.ch")
+                    .AppendRecord(2, "Test02-Company", "Test02-Address", "Test02-PostalCode", "Test01-City", "044 222 22 22", "two@second.ch")
+                    .AppendRecord(3, "Test03-Company", "Test03-Address", "Test03-PostalCode", "Test01-City", "044 333 33 33", "three@third.ch");
 
 
             _WebShopRecordSet =
@@ -144,9 +144,9 @@ namespace InterfaceBooster.Test.Dummy.ProviderPluginDummy.V1
                                     Field.New<string>("Description", true),
                                     Field.New<decimal>("Price", false),
                                 }))
-                    .NewRecord("Test01", "Test01-Name", "Test01-Description", 1M)
-                    .NewRecord("Test02", "Test02-Name", "Test02-Description", 2M)
-                    .NewRecord("Test03", "Test03-Name", "Test03-Description", 3M);
+                    .AppendRecord("Test01", "Test01-Name", "Test01-Description", 1M)
+                    .AppendRecord("Test02", "Test02-Name", "Test02-Description", 2M)
+                    .AppendRecord("Test03", "Test03-Name", "Test03-Description", 3M);
         }
 
 
