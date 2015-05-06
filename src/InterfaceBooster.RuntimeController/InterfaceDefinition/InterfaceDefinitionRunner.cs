@@ -98,7 +98,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
             try
             {
-                string interfaceDefinitionFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "importDefinition.xml");
+                string interfaceDefinitionFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "definition.xml");
 
                 _InterfaceDefinitionData = InterfaceDefinitionDataController.Load(interfaceDefinitionFilePath);
             }
