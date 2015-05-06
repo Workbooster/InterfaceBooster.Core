@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Broadcasting\Broadcaster.cs" />
+    <Compile Include="Broadcasting\Message.cs" />
+    <Compile Include="Broadcasting\BroadcastMessageDelegate.cs" />
+    <Compile Include="Broadcasting\IBroadcaster.cs" />
     <Compile Include="ErrorHandling\InterfaceBoosterCoreException.cs" />
     <Compile Include="ErrorHandling\InterfaceBoosterException.cs" />
     <Compile Include="ErrorHandling\LibraryPluginManagerException.cs" />
