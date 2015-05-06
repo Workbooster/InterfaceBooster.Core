@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using InterfaceBooster.Core.Common.Xml;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 using InterfaceBooster.Common.Tools.Data.Xml;
@@ -31,11 +30,11 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
         /// </summary>
         /// <param name="interfaceDefinitionFilePath">the path of the XML file</param>
         /// <returns></returns>
-        public static IInterfaceDefinitionData Load(string interfaceDefinitionFilePath)
+        public static InterfaceDefinitionData Load(string interfaceDefinitionFilePath)
         {
             InterfaceDefinitionDataController controller = new InterfaceDefinitionDataController(interfaceDefinitionFilePath);
 
-            IInterfaceDefinitionData data = controller.LoadDefinition();
+            InterfaceDefinitionData data = controller.LoadDefinition();
 
             return data;
         }
@@ -53,9 +52,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             _InterfaceDefinitionFilePath = interfaceDefinitionFilePath;
         }
 
-        private IInterfaceDefinitionData LoadDefinition()
+        private InterfaceDefinitionData LoadDefinition()
         {
-            IInterfaceDefinitionData data = new InterfaceDefinitionData();
+            InterfaceDefinitionData data = new InterfaceDefinitionData();
 
             XDocument doc = XDocument.Load(_InterfaceDefinitionFilePath);
             XElement root = doc.Element("ImportDefinition");
@@ -69,7 +68,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return data;
         }
 
-        private IInterfaceDefinitionDetailData LoadDetails(XElement root)
+        private InterfaceDefinitionDetailData LoadDetails(XElement root)
         {
             if (root == null)
                 throw new XmlLoadingException(
@@ -77,7 +76,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
                     _InterfaceDefinitionFilePath, 
                     "The Definition must contain a 'Details' XML-Node.");
 
-            IInterfaceDefinitionDetailData data = new InterfaceDefinitionDetailData();
+            InterfaceDefinitionDetailData data = new InterfaceDefinitionDetailData();
 
             data.Name = GetRequiredElementValue(root, "Name");
             data.Description = GetRequiredElementValue(root, "Description");
@@ -90,9 +89,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return data;
         }
 
-        private IList<IInterfaceDefinitionJobData> LoadJobs(XElement root)
+        private IList<InterfaceDefinitionJobData> LoadJobs(XElement root)
         {
-            IList<IInterfaceDefinitionJobData> list = new List<IInterfaceDefinitionJobData>();
+            IList<InterfaceDefinitionJobData> list = new List<InterfaceDefinitionJobData>();
 
             if (root != null)
             {
@@ -105,9 +104,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return list;
         }
 
-        private IInterfaceDefinitionJobData LoadJob(XElement root)
+        private InterfaceDefinitionJobData LoadJob(XElement root)
         {
-            IInterfaceDefinitionJobData data = new InterfaceDefinitionJobData();
+            InterfaceDefinitionJobData data = new InterfaceDefinitionJobData();
 
             data.Id = new Guid(GetRequiredAttributeValue(root, "id"));
             data.Name = GetRequiredElementValue(root, "Name");
@@ -123,15 +122,15 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
         /// </summary>
         /// <param name="data"></param>
         /// <param name="root"></param>
-        private void LoadRequiredPlugins(IInterfaceDefinitionData data, XElement root)
+        private void LoadRequiredPlugins(InterfaceDefinitionData data, XElement root)
         {
             data.RequiredProviderPluginInstances = LoadProviderPluginInstances(root.Element("ProviderPlugins"));
             data.RequiredLibraryPlugins = LoadLibraryPlugins(root.Element("LibraryPlugins"));
         }
 
-        private IList<IProviderPluginInstanceReference> LoadProviderPluginInstances(XElement root)
+        private IList<ProviderPluginInstanceReference> LoadProviderPluginInstances(XElement root)
         {
-            List<IProviderPluginInstanceReference> list = new List<IProviderPluginInstanceReference>();
+            List<ProviderPluginInstanceReference> list = new List<ProviderPluginInstanceReference>();
 
             if (root != null)
             {
@@ -144,9 +143,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return list;
         }
 
-        private IList<ILibraryPluginReference> LoadLibraryPlugins(XElement root)
+        private IList<LibraryPluginReference> LoadLibraryPlugins(XElement root)
         {
-            List<ILibraryPluginReference> list = new List<ILibraryPluginReference>();
+            List<LibraryPluginReference> list = new List<LibraryPluginReference>();
 
             if (root != null)
             {
@@ -182,9 +181,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
                 );
         }
 
-        private IProviderPluginInstanceReference LoadProviderPluginInstance(XElement root)
+        private ProviderPluginInstanceReference LoadProviderPluginInstance(XElement root)
         {
-            IProviderPluginInstanceReference data = new ProviderPluginInstanceReference();
+            ProviderPluginInstanceReference data = new ProviderPluginInstanceReference();
 
             data.SyneryIdentifier = GetRequiredAttributeValue(root, "syneryIdentifier");
             data.IdPlugin = new Guid(GetRequiredAttributeValue(root, "idPlugin"));
@@ -195,9 +194,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return data;
         }
 
-        private ILibraryPluginReference LoadLibraryPlugin(XElement root)
+        private LibraryPluginReference LoadLibraryPlugin(XElement root)
         {
-            ILibraryPluginReference data = new LibraryPluginReference();
+            LibraryPluginReference data = new LibraryPluginReference();
 
             data.SyneryIdentifier = GetRequiredAttributeValue(root, "syneryIdentifier");
             data.IdPlugin = new Guid(GetRequiredAttributeValue(root, "idPlugin"));

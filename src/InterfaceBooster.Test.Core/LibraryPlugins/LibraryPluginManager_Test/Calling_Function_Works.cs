@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InterfaceBooster.Core.Common.Model;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Core.LibraryPlugins;
 using InterfaceBooster.SyneryLanguage.Interpretation.General;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
@@ -25,7 +24,7 @@ namespace InterfaceBooster.Core.LibraryPlugins.LibraryPluginManager_Test
         private string _PluginMainDirectoryPath;
         private string _LibraryPluginRuntimeTestPath;
         private ILibraryPluginManager _LibraryPluginManager;
-        private ILibraryPluginReference _SimpleDummyReference;
+        private LibraryPluginReference _SimpleDummyReference;
 
         [SetUp]
         public void SetupTest()

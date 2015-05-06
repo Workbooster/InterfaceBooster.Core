@@ -20,7 +20,7 @@ namespace InterfaceBooster.Core.LibraryPlugins.LibraryPluginManager_Test
     {
         private string _PluginMainDirectoryPath;
         private ILibraryPluginManager _LibraryPluginManager;
-        private ILibraryPluginReference _SimpleDummyReference;
+        private LibraryPluginReference _SimpleDummyReference;
 
         [SetUp]
         public void SetupTest()

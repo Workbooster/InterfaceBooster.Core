@@ -63,11 +63,11 @@
     <Compile Include="ErrorHandling\SyneryException.cs" />
     <Compile Include="ErrorHandling\SyneryInterpretationException.cs" />
     <Compile Include="ErrorHandling\SyneryQueryInterpretationException.cs" />
-    <Compile Include="InterfaceDefinition\Data\IInterfaceDefinitionData.cs" />
-    <Compile Include="InterfaceDefinition\Data\IInterfaceDefinitionDetailData.cs" />
-    <Compile Include="InterfaceDefinition\Data\IInterfaceDefinitionJobData.cs" />
-    <Compile Include="InterfaceDefinition\Data\ILibraryPluginReference.cs" />
-    <Compile Include="InterfaceDefinition\Data\IProviderPluginInstanceReference.cs" />
+    <Compile Include="InterfaceDefinition\Data\InterfaceDefinitionData.cs" />
+    <Compile Include="InterfaceDefinition\Data\InterfaceDefinitionDetailData.cs" />
+    <Compile Include="InterfaceDefinition\Data\InterfaceDefinitionJobData.cs" />
+    <Compile Include="InterfaceDefinition\Data\LibraryPluginReference.cs" />
+    <Compile Include="InterfaceDefinition\Data\ProviderPluginInstanceReference.cs" />
     <Compile Include="LibraryPlugin\ILibraryPluginManager.cs" />
     <Compile Include="LibraryPlugin\Information\ReflectionData\IStaticExtensionContainer.cs" />
     <Compile Include="LibraryPlugin\Information\ReflectionData\IStaticExtensionFunctionData.cs" />

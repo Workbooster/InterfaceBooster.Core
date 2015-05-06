@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using InterfaceBooster.Core.InterfaceDefinitions;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Core.LibraryPlugins;
 using InterfaceBooster.Core.ProviderPlugins;
 using InterfaceBooster.SyneryLanguage.Interpretation;
@@ -36,7 +35,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         private string _ProviderPluginMainDirectoryPath;
         private string _LibraryPluginMainDirectoryPath;
         private string _DatabaseDirectoryPath;
-        private IInterfaceDefinitionData _InterfaceDefinitionData;
+        private InterfaceDefinitionData _InterfaceDefinitionData;
         private ISyneryMemory _SyneryMemory;
         private ISyneryClient<bool> _SyneryClient;
 
@@ -49,7 +48,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
             get { return _Broadcaster; }
         }
 
-        public IInterfaceDefinitionData InterfaceDefinitionData
+        public InterfaceDefinitionData InterfaceDefinitionData
         {
             get { return _InterfaceDefinitionData; }
         }
@@ -196,7 +195,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
             if (IsInitialized == false)
                 throw new Exception("The InterfaceDefinitionRunner must be initialized before running a job");
 
-            IInterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
+            InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
                                                    where j.Name == name
                                                    select j).FirstOrDefault();
 

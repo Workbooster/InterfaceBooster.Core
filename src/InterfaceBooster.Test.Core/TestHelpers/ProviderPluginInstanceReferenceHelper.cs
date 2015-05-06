@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 
 namespace InterfaceBooster.Core.TestHelpers
 {
     public static class ProviderPluginInstanceReferenceHelper
     {
-        public static IProviderPluginInstanceReference GetSimpleDummyReference(string syneryIdentifier)
+        public static ProviderPluginInstanceReference GetSimpleDummyReference(string syneryIdentifier)
         {
-            IProviderPluginInstanceReference simpleDummyReference = new ProviderPluginInstanceReference();
+            ProviderPluginInstanceReference simpleDummyReference = new ProviderPluginInstanceReference();
             simpleDummyReference.SyneryIdentifier = syneryIdentifier;
             simpleDummyReference.IdPlugin = new Guid("485eccb4-3920-4dc3-9ed4-27f65e8b3c91");
             simpleDummyReference.PluginName = "ReferencePluginName";

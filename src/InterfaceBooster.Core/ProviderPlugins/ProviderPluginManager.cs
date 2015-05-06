@@ -30,7 +30,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         #region MEMBERS
 
         private Dictionary<IProviderPluginData, IProviderPlugin> _AvailablePlugins = new Dictionary<IProviderPluginData, IProviderPlugin>();
-        private Dictionary<IProviderPluginInstanceReference, IProviderPluginInstance> _ProviderPluginInstances = new Dictionary<IProviderPluginInstanceReference, IProviderPluginInstance>();
+        private Dictionary<ProviderPluginInstanceReference, IProviderPluginInstance> _ProviderPluginInstances = new Dictionary<ProviderPluginInstanceReference, IProviderPluginInstance>();
         private Dictionary<string[], IProviderConnection> _Connections = new Dictionary<string[], IProviderConnection>(new ArrayEqualityComparer<string>());
 
         #endregion
@@ -50,7 +50,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// <summary>
         /// a list of all provider plugin instances already loaded
         /// </summary>
-        public IReadOnlyDictionary<IProviderPluginInstanceReference, IProviderPluginInstance> ProviderPluginInstances { get { return _ProviderPluginInstances; } }
+        public IReadOnlyDictionary<ProviderPluginInstanceReference, IProviderPluginInstance> ProviderPluginInstances { get { return _ProviderPluginInstances; } }
 
         /// <summary>
         /// a list of all open connections
@@ -74,7 +74,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// activate a provider plugin instance to be ready to open a connection using that instance
         /// </summary>
         /// <param name="reference"></param>
-        public void Activate(IProviderPluginInstanceReference reference)
+        public void Activate(ProviderPluginInstanceReference reference)
         {
             if (string.IsNullOrEmpty(PluginMainDirectoryPath))
             {
@@ -123,7 +123,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// Activates many provider plugin instance to be ready to open a connection using those instances
         /// </summary>
         /// <param name="references"></param>
-        public void Activate(IList<IProviderPluginInstanceReference> references)
+        public void Activate(IList<ProviderPluginInstanceReference> references)
         {
             foreach (var item in references)
             {
@@ -409,7 +409,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// </summary>
         /// <param name="reference"></param>
         /// <returns></returns>
-        private IProviderPlugin GetProviderPlugin(IProviderPluginInstanceReference reference)
+        private IProviderPlugin GetProviderPlugin(ProviderPluginInstanceReference reference)
         {
             IProviderPlugin plugin = (from p in _AvailablePlugins
                                       where p.Key.Id == reference.IdPlugin
@@ -461,7 +461,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// <param name="reference"></param>
         /// <param name="pluginData"></param>
         /// <returns></returns>
-        private IProviderPlugin LoadProviderPlugin(IProviderPluginInstanceReference reference, IProviderPluginData pluginData)
+        private IProviderPlugin LoadProviderPlugin(ProviderPluginInstanceReference reference, IProviderPluginData pluginData)
         {
 
             IProviderPluginAssemblyData assemblyData = (from a in pluginData.Assemblies

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 
-namespace InterfaceBooster.Core.InterfaceDefinitions.Data
+namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
 {
     /// <summary>
     /// Container for a reference to a Provider Plugin Instance. This information is needed to load a Provider Plugin.
     /// </summary>
-    public class ProviderPluginInstanceReference : IProviderPluginInstanceReference
+    public class ProviderPluginInstanceReference
     {
+        /// <summary>
+        /// the identifier that is used in synery to reference this plugin
+        /// </summary>
         public string SyneryIdentifier { get; set; }
         public Guid IdPlugin { get; set; }
         public string PluginName { get; set; }

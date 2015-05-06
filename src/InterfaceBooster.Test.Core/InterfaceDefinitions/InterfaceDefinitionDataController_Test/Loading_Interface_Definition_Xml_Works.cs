@@ -15,7 +15,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions.InterfaceDefinitionDataCont
     {
         private string _ImportDefinitionDirectoryPath;
         private string _ImportDefinitionXmlFilePath;
-        private IInterfaceDefinitionData _InterfaceDefinitionData;
+        private InterfaceDefinitionData _InterfaceDefinitionData;
 
         [SetUp]
         public void SetupTest()

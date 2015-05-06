@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Core.LibraryPlugins;
 using InterfaceBooster.Core.ProviderPlugins;
 using InterfaceBooster.SyneryLanguage.Interpretation;
@@ -77,7 +76,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
         /// <param name="pluginInstanceSyneryIdentifier"></param>
         public void SetupDummyPlugin(string pluginInstanceSyneryIdentifier = "Dummy")
         {
-            IProviderPluginInstanceReference simpleDummyReference = new ProviderPluginInstanceReference();
+            ProviderPluginInstanceReference simpleDummyReference = new ProviderPluginInstanceReference();
             simpleDummyReference.SyneryIdentifier = pluginInstanceSyneryIdentifier;
             simpleDummyReference.IdPlugin = new Guid("485eccb4-3920-4dc3-9ed4-27f65e8b3c91");
             simpleDummyReference.PluginName = "ReferencePluginName";
@@ -120,7 +119,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
 
         public void SetupLibraryPlugin(string syneryIdentifier = "Dummy")
         {
-            ILibraryPluginReference simpleDummyReference = new LibraryPluginReference();
+            LibraryPluginReference simpleDummyReference = new LibraryPluginReference();
             simpleDummyReference.SyneryIdentifier = syneryIdentifier;
             simpleDummyReference.IdPlugin = new Guid("74A8005D-C9F3-455F-94FC-04846493AB7B");
             simpleDummyReference.PluginName = "ReferencePluginName";

@@ -54,11 +54,6 @@
   <ItemGroup>
     <Compile Include="Common\Model\TypedValue.cs" />
     <Compile Include="Common\Xml\XmlHelper.cs" />
-    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionData.cs" />
-    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionDetailData.cs" />
-    <Compile Include="InterfaceDefinitions\Data\InterfaceDefinitionJobData.cs" />
-    <Compile Include="InterfaceDefinitions\Data\LibraryPluginReference.cs" />
-    <Compile Include="InterfaceDefinitions\Data\ProviderPluginInstanceReference.cs" />
     <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController.cs" />
     <Compile Include="LibraryPlugins\Information\LibraryPluginDataController.cs" />
     <Compile Include="LibraryPlugins\Information\ReflectionData\StaticExtensionContainer.cs" />

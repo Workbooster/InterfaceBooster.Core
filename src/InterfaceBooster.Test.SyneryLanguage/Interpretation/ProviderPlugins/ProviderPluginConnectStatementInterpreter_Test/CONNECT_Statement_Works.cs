@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 using InterfaceBooster.Common.Tools.Data.Array;

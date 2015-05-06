@@ -28,14 +28,14 @@ namespace InterfaceBooster.Core.LibraryPlugins
 
         #region MEMBERS
 
-        private Dictionary<ILibraryPluginReference, ILibraryPluginData> _AvailablePlugins = new Dictionary<ILibraryPluginReference, ILibraryPluginData>();
+        private Dictionary<LibraryPluginReference, ILibraryPluginData> _AvailablePlugins = new Dictionary<LibraryPluginReference, ILibraryPluginData>();
 
         #endregion
 
         #region PROPERTIES
 
         public string PluginMainDirectoryPath { get; set; }
-        public IReadOnlyDictionary<ILibraryPluginReference, ILibraryPluginData> AvailablePlugins { get { return _AvailablePlugins; } }
+        public IReadOnlyDictionary<LibraryPluginReference, ILibraryPluginData> AvailablePlugins { get { return _AvailablePlugins; } }
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
 
         #region PLUGIN ACTIVATION
 
-        public void Activate(ILibraryPluginReference reference)
+        public void Activate(LibraryPluginReference reference)
         {
             if (string.IsNullOrEmpty(PluginMainDirectoryPath))
             {
@@ -103,7 +103,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
             }
         }
 
-        public void Activate(IList<ILibraryPluginReference> listOfReferences)
+        public void Activate(IList<LibraryPluginReference> listOfReferences)
         {
             if (listOfReferences != null)
             {
@@ -282,7 +282,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
 
         #region PLUGIN ACTIVATION
 
-        private ILibraryPluginData LoadLibraryPluginXmlData(ILibraryPluginReference reference)
+        private ILibraryPluginData LoadLibraryPluginXmlData(LibraryPluginReference reference)
         {
             ILibraryPluginData pluginData;
             string pluginDirectoryPath = Path.Combine(PluginMainDirectoryPath, reference.IdPlugin.ToString());
@@ -313,7 +313,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
             }
         }
 
-        private Assembly LoadAssembly(ILibraryPluginReference reference, ILibraryPluginData pluginData)
+        private Assembly LoadAssembly(LibraryPluginReference reference, ILibraryPluginData pluginData)
         {
             Version availableInterfaceVersion = GetInterfaceAssemblyVersion();
 
@@ -368,7 +368,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
         /// <param name="reference">the plugin reference from the interface definition</param>
         /// <param name="assembly">the plugin's assembly</param>
         /// <returns></returns>
-        private IStaticExtensionContainer LoadStaticExtensionContainer(ILibraryPluginReference reference, Assembly assembly)
+        private IStaticExtensionContainer LoadStaticExtensionContainer(LibraryPluginReference reference, Assembly assembly)
         {
             IStaticExtensionContainer container = new StaticExtensionContainer();
 

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
 {
-    public interface ILibraryPluginReference
+    public class LibraryPluginReference
     {
-        string SyneryIdentifier { get; set; }
-        Guid IdPlugin { get; set; }
-        string PluginName { get; set; }
+        public string SyneryIdentifier { get; set; }
+        public Guid IdPlugin { get; set; }
+        public string PluginName { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces
     {
         string PluginMainDirectoryPath { get; }
         IReadOnlyDictionary<IProviderPluginData, IProviderPlugin> AvailablePlugins { get; }
-        IReadOnlyDictionary<IProviderPluginInstanceReference, IProviderPluginInstance> ProviderPluginInstances { get; }
+        IReadOnlyDictionary<ProviderPluginInstanceReference, IProviderPluginInstance> ProviderPluginInstances { get; }
         IReadOnlyDictionary<string[], IProviderConnection> Connections { get; }
-        void Activate(IProviderPluginInstanceReference reference);
-        void Activate(IList<IProviderPluginInstanceReference> references);
+        void Activate(ProviderPluginInstanceReference reference);
+        void Activate(IList<ProviderPluginInstanceReference> references);
         void RunTask(ProviderPluginTask task);
     }
 }

@@ -13,10 +13,10 @@ namespace InterfaceBooster.Common.Interfaces.LibraryPlugin
     public interface ILibraryPluginManager
     {
         string PluginMainDirectoryPath { get; set; }
-        IReadOnlyDictionary<ILibraryPluginReference, ILibraryPluginData> AvailablePlugins { get; }
+        IReadOnlyDictionary<LibraryPluginReference, ILibraryPluginData> AvailablePlugins { get; }
         
-        void Activate(ILibraryPluginReference reference);
-        void Activate(IList<ILibraryPluginReference> references);
+        void Activate(LibraryPluginReference reference);
+        void Activate(IList<LibraryPluginReference> references);
         IStaticExtensionFunctionData GetStaticFunctionDataBySignature(string libraryPluginIdentifier, string functionIdentifier, Type[] parameterTypes);
         IStaticExtensionVariableData GetStaticVariableDataByIdentifier(string libraryPluginIdentifier, string variableIdentifier);
         object CallStaticFunctionWithPrimitiveReturn(IStaticExtensionFunctionData functionData, object[] listOfParameters);
