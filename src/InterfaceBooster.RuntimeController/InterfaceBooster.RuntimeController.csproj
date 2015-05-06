@@ -48,10 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Console\Broadcasting\Broadcaster.cs" />
     <Compile Include="Console\ConsoleRuntimeManager.cs" />
-    <Compile Include="Console\Broadcasting\BroadcastQuestionDelegate.cs" />
-    <Compile Include="Console\Broadcasting\BroadcastMessageDelegate.cs" />
     <Compile Include="InterfaceDefinition\InterfaceDefinitionRunner.cs" />
     <Compile Include="Log\BroadcastFileLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

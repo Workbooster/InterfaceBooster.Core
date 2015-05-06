@@ -11,7 +11,6 @@ using InterfaceBooster.Core.InterfaceDefinitions;
 using InterfaceBooster.Core.InterfaceDefinitions.Data;
 using InterfaceBooster.Core.LibraryPlugins;
 using InterfaceBooster.Core.ProviderPlugins;
-using InterfaceBooster.RuntimeController.Broadcasting;
 using InterfaceBooster.SyneryLanguage.Interpretation;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.ErrorHandling;
@@ -20,6 +19,7 @@ using InterfaceBooster.Common.Interfaces.LibraryPlugin;
 using InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 {
@@ -30,7 +30,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
     {
         #region MEMBERS
 
-        private Broadcaster _Broadcaster;
+        private IBroadcaster _Broadcaster;
         private bool _IsInitialized;
         private string _InterfaceDefinitionDirectoryPath;
         private string _ProviderPluginMainDirectoryPath;
@@ -44,7 +44,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
         #region PROPERTIES
 
-        public Broadcaster Broadcaster
+        public IBroadcaster Broadcaster
         {
             get { return _Broadcaster; }
         }
@@ -74,7 +74,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// <param name="broadcaster"></param>
         /// <param name="interfaceDefinitionDirectoryPath"></param>
         /// <param name="providerPluginMainDirectoryPath"></param>
-        public InterfaceDefinitionRunner(Broadcaster broadcaster, string interfaceDefinitionDirectoryPath, string providerPluginMainDirectoryPath)
+        public InterfaceDefinitionRunner(IBroadcaster broadcaster, string interfaceDefinitionDirectoryPath, string providerPluginMainDirectoryPath)
         {
             _Broadcaster = broadcaster;
             _IsInitialized = false;

@@ -4,11 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.RuntimeController.Broadcasting;
 using InterfaceBooster.RuntimeController.InterfaceDefinition;
 using InterfaceBooster.RuntimeController.Log;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.RuntimeController.Console
 {
@@ -21,7 +21,7 @@ namespace InterfaceBooster.RuntimeController.Console
         #region MEMBERS
 
         private static ConsoleRuntimeManager _Instance;
-        private Broadcaster _Broadcaster;
+        private IBroadcaster _Broadcaster;
         private string _ProviderPluginMainDirectoryPath;
         private InterfaceDefinitionRunner _CurrentRunner;
 
@@ -45,7 +45,7 @@ namespace InterfaceBooster.RuntimeController.Console
             }
         }
 
-        public Broadcaster Broadcaster
+        public IBroadcaster Broadcaster
         {
             get { return _Broadcaster; }
         }
@@ -59,7 +59,7 @@ namespace InterfaceBooster.RuntimeController.Console
         /// </summary>
         protected ConsoleRuntimeManager()
         {
-            _Broadcaster = new Broadcaster();
+            _Broadcaster = new StandardBroadcaster();
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace InterfaceBooster.RuntimeController.Console
         /// <summary>
         /// supported parameters:
         /// - InterfaceDefinitionPath       required        absolute path to the interface definition's main directory
-        /// - RunJob                        optional        the name of the job that should be executed
+        /// - RunJob                        required        the name of the job that should be executed
         /// </summary>
         /// <param name="parameters"></param>
         public void Run(string[] args)
@@ -144,28 +144,8 @@ namespace InterfaceBooster.RuntimeController.Console
                 }
                 else
                 {
-                    string jobName;
-
-                    try
-                    {
-                        // prepare options
-
-                        Dictionary<string, object> listOfJobNames = new Dictionary<string, object>();
-
-                        foreach (var item in _CurrentRunner.InterfaceDefinitionData.Jobs)
-                        {
-                            listOfJobNames.Add(item.Name, item.Name);
-                        }
-
-                        jobName = (string)Broadcaster.Question("Which job do you like to run?", listOfJobNames);
-                    }
-                    catch (Exception ex)
-                    {
-                        Broadcaster.Error("An unexpected error occured: '{0}'.", ex.Message);
-                        return false;
-                    }
-
-                    _CurrentRunner.RunJob(jobName);
+                    Broadcaster.Error("The startup parameter 'RunJob' must be set.");
+                    return false;
                 }
             }
             else
@@ -173,8 +153,6 @@ namespace InterfaceBooster.RuntimeController.Console
                 Broadcaster.Error("The startup parameter 'InterfaceDefinitionPath' must be set.");
                 return false;
             }
-
-            return true;
         }
 
         #endregion

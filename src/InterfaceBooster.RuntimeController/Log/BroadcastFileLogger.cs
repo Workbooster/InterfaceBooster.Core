@@ -1,10 +1,10 @@
-﻿using System;
+﻿using InterfaceBooster.Common.Interfaces.Broadcasting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.RuntimeController.Broadcasting;
 
 namespace InterfaceBooster.RuntimeController.Log
 {
@@ -19,7 +19,7 @@ namespace InterfaceBooster.RuntimeController.Log
 
         #region MEMBERS
 
-        private Broadcaster _Broadcaster;
+        private IBroadcaster _Broadcaster;
         private string _LogFilePath;
         private StreamWriter _StreamWriter;
         private StringBuilder _Messages;
@@ -28,7 +28,7 @@ namespace InterfaceBooster.RuntimeController.Log
 
         #region PUBLIC METHODS
 
-        public BroadcastFileLogger(Broadcaster broadcaster, string logFileDirectoryPath)
+        public BroadcastFileLogger(IBroadcaster broadcaster, string logFileDirectoryPath)
         {
             _Broadcaster = broadcaster;
             _LogFilePath = BuildLogFilePath(logFileDirectoryPath);
@@ -57,14 +57,14 @@ namespace InterfaceBooster.RuntimeController.Log
 
         #region INTERNAL METHODS
 
-        private void Broadcaster_OnInfoMessage(string message)
+        private void Broadcaster_OnInfoMessage(Message message)
         {
-            AppendLogMessage(message, "Info");
+            AppendLogMessage(message.Text, "Info");
         }
 
-        private void Broadcaster_OnErrorMessage(string message)
+        private void Broadcaster_OnErrorMessage(Message message)
         {
-            AppendLogMessage(message, "Error");
+            AppendLogMessage(message.Text, "Error");
         }
 
         private void AppendLogMessage(string message, string type)
