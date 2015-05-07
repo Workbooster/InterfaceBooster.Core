@@ -13,17 +13,17 @@ namespace InterfaceBooster.Core.InterfaceDefinitions.InterfaceDefinitionDataCont
     [TestFixture]
     public class Loading_Interface_Definition_Xml_Works
     {
-        private string _ImportDefinitionDirectoryPath;
-        private string _ImportDefinitionXmlFilePath;
+        private string _InterfaceDefinitionDirectoryPath;
+        private string _InterfaceDefinitionXmlFilePath;
         private InterfaceDefinitionData _InterfaceDefinitionData;
 
         [SetUp]
         public void SetupTest()
         {
             string solutionDirectoryPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-            _ImportDefinitionDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\ImportDefinition");
-            _ImportDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition.xml");
-            _InterfaceDefinitionData = InterfaceDefinitionDataController.Load(_ImportDefinitionXmlFilePath);
+            _InterfaceDefinitionDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\InterfaceDefinition");
+            _InterfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition.xml");
+            _InterfaceDefinitionData = InterfaceDefinitionDataController.Load(_InterfaceDefinitionXmlFilePath);
         }
 
         [Test]

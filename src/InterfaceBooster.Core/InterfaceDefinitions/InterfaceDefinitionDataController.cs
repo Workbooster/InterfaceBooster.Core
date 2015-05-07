@@ -12,7 +12,7 @@ using InterfaceBooster.Common.Tools.Data.Xml;
 namespace InterfaceBooster.Core.InterfaceDefinitions
 {
     /// <summary>
-    /// Handels the loading of the Import Definition XML file.
+    /// Handels the loading of the Interface Definition XML file.
     /// </summary>
     public class InterfaceDefinitionDataController
     {
@@ -25,7 +25,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
         #region PUBLIC METHODS
 
         /// <summary>
-        /// Loads the data of an import definition.
+        /// Loads the data of an Interface definition.
         /// Can throw exceptions if the loading fails.
         /// </summary>
         /// <param name="interfaceDefinitionFilePath">the path of the XML file</param>
@@ -57,7 +57,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             InterfaceDefinitionData data = new InterfaceDefinitionData();
 
             XDocument doc = XDocument.Load(_InterfaceDefinitionFilePath);
-            XElement root = doc.Element("ImportDefinition");
+            XElement root = doc.Element("InterfaceDefinition");
 
             data.Id = new Guid(GetRequiredAttributeValue(root, "id"));
             data.Details = LoadDetails(root.Element("Details"));

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ImportDefinition id="f3b58f84-cbc0-4560-856d-f6c2b2feea5b">
+<InterfaceDefinition id="f3b58f84-cbc0-4560-856d-f6c2b2feea5b">
   <Details>
     <Name>PROFFIX CSV Article Import</Name>
     <Description>Imports some articles from a comma separated value file to PROFFIX.</Description>
@@ -34,4 +34,4 @@
       </IncludeFiles>
     </Job>
   </Jobs>
-</ImportDefinition>
+</InterfaceDefinition>

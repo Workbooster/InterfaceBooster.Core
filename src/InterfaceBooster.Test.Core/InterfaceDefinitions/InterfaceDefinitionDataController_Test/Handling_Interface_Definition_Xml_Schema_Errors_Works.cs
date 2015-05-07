@@ -14,53 +14,53 @@ namespace InterfaceBooster.Core.InterfaceDefinitions.InterfaceDefinitionDataCont
     [TestFixture]
     public class Handling_Interface_Definition_Xml_Schema_Errors_Works
     {
-        private string _ImportDefinitionDirectoryPath;
+        private string _InterfaceDefinitionDirectoryPath;
 
         [SetUp]
         public void SetupTest()
         {
             string solutionDirectoryPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-            _ImportDefinitionDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\ImportDefinition");
+            _InterfaceDefinitionDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\InterfaceDefinition");
         }
 
         [Test]
         public void Loading_Definition_Without_Details_Name_Throws_Exception()
         {
-            string importDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition_Without_Details_Name.xml");
+            string interfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition_Without_Details_Name.xml");
 
-            Assert.Throws<XmlLoadingException>(delegate { InterfaceDefinitionDataController.Load(importDefinitionXmlFilePath); });
+            Assert.Throws<XmlLoadingException>(delegate { InterfaceDefinitionDataController.Load(interfaceDefinitionXmlFilePath); });
         }
 
         [Test]
         public void Loading_Definition_Without_Details_Throws_Exception()
         {
-            string importDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition_Without_Details.xml");
+            string interfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition_Without_Details.xml");
 
-            Assert.Throws<XmlLoadingException>(delegate { InterfaceDefinitionDataController.Load(importDefinitionXmlFilePath); });
+            Assert.Throws<XmlLoadingException>(delegate { InterfaceDefinitionDataController.Load(interfaceDefinitionXmlFilePath); });
         }
 
         [Test]
         public void Loading_Definition_Without_LibraryPlugins_Works()
         {
-            string importDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition_Without_LibraryPlugins.xml");
+            string interfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition_Without_LibraryPlugins.xml");
 
-            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(importDefinitionXmlFilePath); });
+            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(interfaceDefinitionXmlFilePath); });
         }
 
         [Test]
         public void Loading_Definition_Job_Without_IncludeFiles_Works()
         {
-            string importDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition_Job_Without_IncludeFiles.xml");
+            string interfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition_Job_Without_IncludeFiles.xml");
 
-            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(importDefinitionXmlFilePath); });
+            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(interfaceDefinitionXmlFilePath); });
         }
 
         [Test]
         public void Loading_Definition_Without_Jobs_Works()
         {
-            string importDefinitionXmlFilePath = Path.Combine(_ImportDefinitionDirectoryPath, "importDefinition_Without_Jobs.xml");
+            string interfaceDefinitionXmlFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "interfaceDefinition_Without_Jobs.xml");
 
-            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(importDefinitionXmlFilePath); });
+            Assert.DoesNotThrow(delegate { InterfaceDefinitionDataController.Load(interfaceDefinitionXmlFilePath); });
         }
     }
 }
