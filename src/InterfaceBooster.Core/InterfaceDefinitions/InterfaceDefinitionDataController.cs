@@ -17,7 +17,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
     public class InterfaceDefinitionDataController
     {
         #region MEMBERS
-        
+
         protected string _InterfaceDefinitionFilePath;
 
         #endregion
@@ -73,7 +73,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             if (root == null)
                 throw new XmlLoadingException(
                     "Interface Definition",
-                    _InterfaceDefinitionFilePath, 
+                    _InterfaceDefinitionFilePath,
                     "The Definition must contain a 'Details' XML-Node.");
 
             InterfaceDefinitionDetailData data = new InterfaceDefinitionDetailData();
@@ -89,9 +89,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return data;
         }
 
-        private IList<InterfaceDefinitionJobData> LoadJobs(XElement root)
+        private List<InterfaceDefinitionJobData> LoadJobs(XElement root)
         {
-            IList<InterfaceDefinitionJobData> list = new List<InterfaceDefinitionJobData>();
+            List<InterfaceDefinitionJobData> list = new List<InterfaceDefinitionJobData>();
 
             if (root != null)
             {
@@ -128,7 +128,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             data.RequiredLibraryPlugins = LoadLibraryPlugins(root.Element("LibraryPlugins"));
         }
 
-        private IList<ProviderPluginInstanceReference> LoadProviderPluginInstances(XElement root)
+        private List<ProviderPluginInstanceReference> LoadProviderPluginInstances(XElement root)
         {
             List<ProviderPluginInstanceReference> list = new List<ProviderPluginInstanceReference>();
 
@@ -143,7 +143,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return list;
         }
 
-        private IList<LibraryPluginReference> LoadLibraryPlugins(XElement root)
+        private List<LibraryPluginReference> LoadLibraryPlugins(XElement root)
         {
             List<LibraryPluginReference> list = new List<LibraryPluginReference>();
 
@@ -158,15 +158,16 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return list;
         }
 
-        private IDictionary<string, string> LoadIncludeFiles(XElement root)
+        private Dictionary<string, string> LoadIncludeFiles(XElement root)
         {
-            IDictionary<string, string> list = new Dictionary<string, string>();
+            Dictionary<string, string> list = new Dictionary<string, string>();
 
             if (root != null)
             {
                 foreach (var xmlItem in root.Elements("IncludeFile"))
                 {
-                    list.Add(LoadIncludeFile(xmlItem));
+                    var includeFile = LoadIncludeFile(xmlItem);
+                    list.Add(includeFile.Key, includeFile.Value);
                 }
             }
 
