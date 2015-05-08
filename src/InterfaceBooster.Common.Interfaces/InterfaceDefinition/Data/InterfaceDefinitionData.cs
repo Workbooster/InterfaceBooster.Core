@@ -3,28 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
 {
     /// <summary>
     /// Container for Import Definition data.
     /// </summary>
+    [Serializable]
+    [XmlRoot("InterfaceDefinition")]
     public class InterfaceDefinitionData
     {
         #region MEMBERS
 
         private InterfaceDefinitionDetailData _Details;
         private List<InterfaceDefinitionJobData> _Jobs;
-        private List<ProviderPluginInstanceReference> _RequiredProviderPluginInstances;
-        private List<LibraryPluginReference> _RequiredLibraryPlugins;
+        private InterfaceDefinitionRequiredPlugins _InterfaceDefinitionRequiredPlugins;
 
         #endregion
 
         #region PROPERTIES
 
+        [XmlAttribute("id")]
         public Guid Id { get; set; }
+
+        [XmlIgnore]
         public string RootDirectoryPath { get; set; }
 
+        [XmlElement]
         public InterfaceDefinitionDetailData Details
         {
             get
@@ -35,6 +41,8 @@ namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
             set { _Details = value; }
         }
 
+        [XmlArray("Jobs")]
+        [XmlArrayItem("Job")]
         public List<InterfaceDefinitionJobData> Jobs
         {
             get
@@ -45,24 +53,15 @@ namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
             set { _Jobs = value; }
         }
 
-        public List<ProviderPluginInstanceReference> RequiredProviderPluginInstances
+        [XmlElement]
+        public InterfaceDefinitionRequiredPlugins RequiredPlugins
         {
             get
             {
-                if (_RequiredProviderPluginInstances == null) _RequiredProviderPluginInstances = new List<ProviderPluginInstanceReference>(); // create new if null
-                return _RequiredProviderPluginInstances;
+                if (_InterfaceDefinitionRequiredPlugins == null) _InterfaceDefinitionRequiredPlugins = new InterfaceDefinitionRequiredPlugins(); // create new if null
+                return _InterfaceDefinitionRequiredPlugins;
             }
-            set { _RequiredProviderPluginInstances = value; }
-        }
-
-        public List<LibraryPluginReference> RequiredLibraryPlugins
-        {
-            get
-            {
-                if (_RequiredLibraryPlugins == null) _RequiredLibraryPlugins = new List<LibraryPluginReference>(); // create new if null
-                return _RequiredLibraryPlugins;
-            }
-            set { _RequiredLibraryPlugins = value; }
+            set { _InterfaceDefinitionRequiredPlugins = value; }
         }
 
         #endregion

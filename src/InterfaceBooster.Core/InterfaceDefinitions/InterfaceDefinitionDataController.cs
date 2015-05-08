@@ -124,8 +124,8 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
         /// <param name="root"></param>
         private void LoadRequiredPlugins(InterfaceDefinitionData data, XElement root)
         {
-            data.RequiredProviderPluginInstances = LoadProviderPluginInstances(root.Element("ProviderPlugins"));
-            data.RequiredLibraryPlugins = LoadLibraryPlugins(root.Element("LibraryPlugins"));
+            data.RequiredPlugins.ProviderPluginInstances = LoadProviderPluginInstances(root.Element("ProviderPlugins"));
+            data.RequiredPlugins.LibraryPlugins = LoadLibraryPlugins(root.Element("LibraryPlugins"));
         }
 
         private List<ProviderPluginInstanceReference> LoadProviderPluginInstances(XElement root)
@@ -158,28 +158,28 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             return list;
         }
 
-        private Dictionary<string, string> LoadIncludeFiles(XElement root)
+        private List<IncludeFile> LoadIncludeFiles(XElement root)
         {
-            Dictionary<string, string> list = new Dictionary<string, string>();
+            List<IncludeFile> list = new List<IncludeFile>();
 
             if (root != null)
             {
                 foreach (var xmlItem in root.Elements("IncludeFile"))
                 {
-                    var includeFile = LoadIncludeFile(xmlItem);
-                    list.Add(includeFile.Key, includeFile.Value);
+                    list.Add(LoadIncludeFile(xmlItem));
                 }
             }
 
             return list;
         }
 
-        private KeyValuePair<string, string> LoadIncludeFile(XElement root)
+        private IncludeFile LoadIncludeFile(XElement root)
         {
-            return new KeyValuePair<string, string>(
-                GetRequiredAttributeValue(root, "alias"),
-                GetRequiredAttributeValue(root, "relativePath")
-                );
+            return new IncludeFile()
+            {
+                Alias = GetRequiredAttributeValue(root, "alias"),
+                RelativePath = GetRequiredAttributeValue(root, "relativePath"),
+            };
         }
 
         private ProviderPluginInstanceReference LoadProviderPluginInstance(XElement root)

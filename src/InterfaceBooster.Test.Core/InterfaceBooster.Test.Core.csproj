@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController_Test\Handling_Interface_Definition_Xml_Schema_Errors_Works.cs" />
     <Compile Include="InterfaceDefinitions\InterfaceDefinitionDataController_Test\Loading_Interface_Definition_Xml_Works.cs" />
+    <Compile Include="InterfaceDefinitions\Interface_Definition_Is_Serializable.cs" />
     <Compile Include="LibraryPlugins\Information\LibraryPluginDataController_Test\Loading_Plugin_Xml_Works.cs" />
     <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Activating_LibraryPluginReference_Works.cs" />
     <Compile Include="LibraryPlugins\LibraryPluginManager_Test\Calling_Function_Works.cs" />

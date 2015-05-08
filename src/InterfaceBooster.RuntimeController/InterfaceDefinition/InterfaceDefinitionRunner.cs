@@ -138,7 +138,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
                 providerPluginManager = new ProviderPluginManager(_ProviderPluginMainDirectoryPath);
 
                 // activate the provider plugin instance references from the interface definition
-                providerPluginManager.Activate(_InterfaceDefinitionData.RequiredProviderPluginInstances);
+                providerPluginManager.Activate(_InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances);
             }
             catch (ProviderPluginManagerException ex)
             {
@@ -158,7 +158,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
                 libraryPluginManager = new LibraryPluginManager(_LibraryPluginMainDirectoryPath);
 
                 // activate the provider plugin instance references from the interface definition
-                libraryPluginManager.Activate(_InterfaceDefinitionData.RequiredLibraryPlugins);
+                libraryPluginManager.Activate(_InterfaceDefinitionData.RequiredPlugins.LibraryPlugins);
             }
             catch (ProviderPluginManagerException ex)
             {

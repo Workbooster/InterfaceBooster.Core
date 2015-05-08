@@ -79,55 +79,55 @@ namespace InterfaceBooster.Core.InterfaceDefinitions.InterfaceDefinitionDataCont
         [Test]
         public void Loading_Correct_Number_Of_RequiredProviderPluginInstances_Works()
         {
-            Assert.AreEqual(2, _InterfaceDefinitionData.RequiredProviderPluginInstances.Count);
+            Assert.AreEqual(2, _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances.Count);
         }
 
         [Test]
         public void Loading_RequiredProviderPluginInstance_SyneryIdentifier_Works()
         {
-            Assert.AreEqual("CSV", _InterfaceDefinitionData.RequiredProviderPluginInstances[1].SyneryIdentifier);
+            Assert.AreEqual("CSV", _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances[1].SyneryIdentifier);
         }
 
         [Test]
         public void Loading_RequiredProviderPluginInstance_IdPlugin_Works()
         {
-            Assert.AreEqual("66ce1d53-14b3-420e-949f-eb94a3d69072", _InterfaceDefinitionData.RequiredProviderPluginInstances[1].IdPlugin.ToString());
+            Assert.AreEqual("66ce1d53-14b3-420e-949f-eb94a3d69072", _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances[1].IdPlugin.ToString());
         }
 
         [Test]
         public void Loading_RequiredProviderPluginInstance_PluginName_Works()
         {
-            Assert.AreEqual("CSV Provider Plugin", _InterfaceDefinitionData.RequiredProviderPluginInstances[1].PluginName);
+            Assert.AreEqual("CSV Provider Plugin", _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances[1].PluginName);
         }
 
         [Test]
         public void Loading_RequiredProviderPluginInstance_IdPluginInstance_Works()
         {
-            Assert.AreEqual("f897a501-60d9-4ae5-b214-920f450e9323", _InterfaceDefinitionData.RequiredProviderPluginInstances[1].IdPluginInstance.ToString());
+            Assert.AreEqual("f897a501-60d9-4ae5-b214-920f450e9323", _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances[1].IdPluginInstance.ToString());
         }
 
         [Test]
         public void Loading_RequiredProviderPluginInstance_PluginInstanceName_Works()
         {
-            Assert.AreEqual("CSV Version 1.0", _InterfaceDefinitionData.RequiredProviderPluginInstances[1].PluginInstanceName);
+            Assert.AreEqual("CSV Version 1.0", _InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances[1].PluginInstanceName);
         }
 
         [Test]
         public void Loading_RequiredLibraryPlugins_SyneryIdentifier_Works()
         {
-            Assert.AreEqual("String", _InterfaceDefinitionData.RequiredLibraryPlugins[0].SyneryIdentifier);
+            Assert.AreEqual("String", _InterfaceDefinitionData.RequiredPlugins.LibraryPlugins[0].SyneryIdentifier);
         }
 
         [Test]
         public void Loading_RequiredLibraryPlugins_IdPlugin_Works()
         {
-            Assert.AreEqual("74a8005d-c9f3-455f-94fc-04846493ab7b", _InterfaceDefinitionData.RequiredLibraryPlugins[0].IdPlugin.ToString());
+            Assert.AreEqual("74a8005d-c9f3-455f-94fc-04846493ab7b", _InterfaceDefinitionData.RequiredPlugins.LibraryPlugins[0].IdPlugin.ToString());
         }
 
         [Test]
         public void Loading_RequiredLibraryPlugins_PluginName_Works()
         {
-            Assert.AreEqual("String Helpers", _InterfaceDefinitionData.RequiredLibraryPlugins[0].PluginName);
+            Assert.AreEqual("String Helpers", _InterfaceDefinitionData.RequiredPlugins.LibraryPlugins[0].PluginName);
         }
 
         [Test]
@@ -157,7 +157,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions.InterfaceDefinitionDataCont
         [Test]
         public void Loading_Jobs_IncludeFile_Works()
         {
-            Assert.AreEqual("proffixConnection.syn", _InterfaceDefinitionData.Jobs[1].IncludeFiles["px_con"]);
+            Assert.AreEqual("proffixConnection.syn", _InterfaceDefinitionData.Jobs[1].IncludeFiles.FirstOrDefault(i => i.Alias == "px_con").RelativePath);
         }
     }
 }
