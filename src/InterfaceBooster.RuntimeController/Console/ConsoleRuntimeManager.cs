@@ -9,6 +9,7 @@ using InterfaceBooster.RuntimeController.Log;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Broadcasting;
+using InterfaceBooster.Common.Interfaces.Runtime.Model;
 
 namespace InterfaceBooster.RuntimeController.Console
 {
@@ -123,11 +124,20 @@ namespace InterfaceBooster.RuntimeController.Console
                     return false;
                 }
 
+                EnvironmentVariables environmentVariables = new EnvironmentVariables()
+                {
+                    Broadcaster = Broadcaster,
+                    InterfaceDefinitionDirectoryPath = parameters["InterfaceDefinitionPath"],
+                };
+
                 try
                 {
                     Broadcaster.Info("Using interface definition from '{0}'", parameters["InterfaceDefinitionPath"]);
 
-                    _CurrentRunner = new InterfaceDefinitionRunner(Broadcaster, parameters["InterfaceDefinitionPath"], _ProviderPluginMainDirectoryPath);
+                    _CurrentRunner = new InterfaceDefinitionRunner();
+
+                    if (_CurrentRunner.Initialize(environmentVariables) == false)
+                        return false;
                 }
                 catch (Exception ex)
                 {
@@ -135,12 +145,9 @@ namespace InterfaceBooster.RuntimeController.Console
                     return false;
                 }
 
-                if (_CurrentRunner.Initialize() == false)
-                    return false;
-
                 if (parameters.ContainsKey("RunJob"))
                 {
-                    return _CurrentRunner.RunJob(parameters["RunJob"]);
+                    return _CurrentRunner.RunJob(parameters["RunJob"]).IsSuccess;
                 }
                 else
                 {

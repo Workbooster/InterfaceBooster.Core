@@ -19,22 +19,30 @@ using InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Broadcasting;
+using InterfaceBooster.Common.Interfaces.Runtime.Model;
+using InterfaceBooster.Common.Interfaces.Runtime;
 
 namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 {
     /// <summary>
     /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
     /// </summary>
-    public class InterfaceDefinitionRunner
+    public class InterfaceDefinitionRunner : IRuntimeManager
     {
+        #region CONSTANTS
+
+        public static readonly string INTERFACE_DEFINITION_XML_FILENAME = @"definition.xml";
+        public static readonly string DEFAULT_SYNERY_CODE_DIRECTORY_RELATIVE_PATH = @"code";
+        public static readonly string DEFAULT_SYNERY_DATABASE_DIRECTORY_RELATIVE_PATH = @"db";
+        public static readonly string DEFAULT_PROVIDER_PLUGINS_DIRECTORY_RELATIVE_PATH = @"plugins\provider_plugins";
+        public static readonly string DEFAULT_LIBRARY_PLUGINS_DIRECTORY_RELATIVE_PATH = @"plugins\library_plugins";
+
+        #endregion
+
         #region MEMBERS
 
         private IBroadcaster _Broadcaster;
         private bool _IsInitialized;
-        private string _InterfaceDefinitionDirectoryPath;
-        private string _ProviderPluginMainDirectoryPath;
-        private string _LibraryPluginMainDirectoryPath;
-        private string _DatabaseDirectoryPath;
         private InterfaceDefinitionData _InterfaceDefinitionData;
         private ISyneryMemory _SyneryMemory;
         private ISyneryClient<bool> _SyneryClient;
@@ -43,25 +51,13 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
         #region PROPERTIES
 
-        public IBroadcaster Broadcaster
-        {
-            get { return _Broadcaster; }
-        }
+        public EnvironmentVariables EnvironmentVariables { get; set; }
 
-        public InterfaceDefinitionData InterfaceDefinitionData
-        {
-            get { return _InterfaceDefinitionData; }
-        }
+        public bool IsInitialized { get { return _IsInitialized; } }
 
-        public bool IsInitialized
-        {
-            get { return _IsInitialized; }
-        }
+        public InterfaceDefinitionData InterfaceDefinitionData { get { return _InterfaceDefinitionData; } }
 
-        public ISyneryMemory SyneryMemory
-        {
-            get { return _SyneryMemory; }
-        }
+        public ISyneryMemory SyneryMemory { get { return _SyneryMemory; } }
 
         #endregion
 
@@ -70,64 +66,187 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// <summary>
         /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
         /// </summary>
-        /// <param name="broadcaster"></param>
-        /// <param name="interfaceDefinitionDirectoryPath"></param>
-        /// <param name="providerPluginMainDirectoryPath"></param>
-        public InterfaceDefinitionRunner(IBroadcaster broadcaster, string interfaceDefinitionDirectoryPath, string providerPluginMainDirectoryPath)
+        /// <param name="environmentVariables"></param>
+        public InterfaceDefinitionRunner()
         {
-            _Broadcaster = broadcaster;
             _IsInitialized = false;
-            _InterfaceDefinitionDirectoryPath = interfaceDefinitionDirectoryPath;
-            _ProviderPluginMainDirectoryPath = providerPluginMainDirectoryPath;
-            _DatabaseDirectoryPath = Path.Combine(_InterfaceDefinitionDirectoryPath, @"runtime\db");
         }
 
         /// <summary>
-        /// Initialize the interface definition, the database, the ProviderPluginManager, the SyneryMemory and the SyneryInterpreter
-        /// This method must be called before running a job.
+        /// Runs all Jobs from the current Interface Definition.
         /// </summary>
         /// <returns></returns>
-        public bool Initialize()
+        public RuntimeResult RunAllJobs()
+        {
+            if (IsInitialized == false)
+                throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
+
+            bool success;
+            RuntimeResult result = PrepareRuntimeResult(false);
+
+            foreach (var jobData in _InterfaceDefinitionData.Jobs)
+            {
+                success = RunJob(jobData);
+
+                if (success == false) return result;
+            }
+
+            result.IsSuccess = true;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Runs the Job with the given name.
+        /// </summary>
+        /// <param name="name">The full name (case insensitive) of an existing Job from the current Interface Definition.</param>
+        /// <returns></returns>
+        public RuntimeResult RunJob(string name)
+        {
+            if (IsInitialized == false)
+                throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
+
+            RuntimeResult result = PrepareRuntimeResult(false);
+
+            InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
+                                                  // compare case insensitive
+                                                  where j.Name.ToLower() == name.ToLower()
+                                                  select j).FirstOrDefault();
+
+            if (jobData == null)
+            {
+                _Broadcaster.Error("The job with the name '{0}' wasn't found.", name);
+                return result;
+            }
+
+            result.IsSuccess = RunJob(jobData);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Runs the Job with the given GUID.
+        /// </summary>
+        /// <param name="guid">The GUID of an existing Job from the current Interface Definition.</param>
+        /// <returns></returns>
+        public RuntimeResult RunJob(Guid guid)
+        {
+            if (IsInitialized == false)
+                throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
+
+            RuntimeResult result = PrepareRuntimeResult(false);
+
+            InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
+                                                  where j.Id == guid
+                                                  select j).FirstOrDefault();
+
+            if (jobData == null)
+            {
+                _Broadcaster.Error("The job with the Id '{0}' wasn't found.", guid.ToString());
+                return result;
+            }
+
+            result.IsSuccess = RunJob(jobData);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Runs a single code file without include files.
+        /// </summary>
+        /// <param name="relativeFilePath">The relative file path starting from the code directory.</param>
+        /// <returns></returns>
+        public RuntimeResult RunSingleCodeFile(string relativeFilePath)
+        {
+            if (IsInitialized == false)
+                throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
+
+            RuntimeResult result = PrepareRuntimeResult(false);
+
+            result.IsSuccess = RunCodeFileWithoutJob(relativeFilePath);
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// Initialize the interface definition, the database, the plugin managers, the SyneryMemory and the SyneryInterpreter
+        /// This method must be called before running a job.
+        /// </summary>
+        /// <param name="environmentVariables">At least Broadcaster and InterfaceDefinitionDirectoryPath are required!</param>
+        /// <returns>true = success / false = error (see broadcasted messages for details)</returns>
+        public bool Initialize(EnvironmentVariables environmentVariables)
         {
             IDatabase database;
             IProviderPluginManager providerPluginManager;
             ILibraryPluginManager libraryPluginManager;
 
+            EnvironmentVariables = environmentVariables;
+
+            // check required environment variables
+
+            if (EnvironmentVariables == null)
+                throw new ArgumentNullException("runtimeEnvironment", "The EnvironmentVariables are required.");
+
+            if (EnvironmentVariables.Broadcaster == null)
+                throw new ArgumentNullException("A Broadcaster is required");
+
+            if (EnvironmentVariables.InterfaceDefinitionDirectoryPath == null)
+                throw new ArgumentNullException("The InterfaceDefinitionDirectoryPath is required");
+
+            // set defaults if no values given
+
+            if (EnvironmentVariables.InterfaceDefinitionCodeDirectoryPath == null)
+                EnvironmentVariables.InterfaceDefinitionCodeDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_SYNERY_CODE_DIRECTORY_RELATIVE_PATH);
+
+            if (EnvironmentVariables.DatabaseDirectoryPath == null)
+                EnvironmentVariables.DatabaseDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_SYNERY_DATABASE_DIRECTORY_RELATIVE_PATH);
+
+            if (EnvironmentVariables.ProviderPluginDirectoryPath == null)
+                EnvironmentVariables.ProviderPluginDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_PROVIDER_PLUGINS_DIRECTORY_RELATIVE_PATH);
+
+            if (EnvironmentVariables.LibraryPluginDirectoryPath == null)
+                EnvironmentVariables.LibraryPluginDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_LIBRARY_PLUGINS_DIRECTORY_RELATIVE_PATH);
+
+
+            // create a local reference
+            _Broadcaster = EnvironmentVariables.Broadcaster;
+
             // initialize the interface definition
 
             try
             {
-                string interfaceDefinitionFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "definition.xml");
+                string interfaceDefinitionFilePath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, INTERFACE_DEFINITION_XML_FILENAME);
 
                 _InterfaceDefinitionData = InterfaceDefinitionDataController.Load(interfaceDefinitionFilePath);
             }
             catch (Exception ex)
             {
-                Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex.Message);
                 return false;
             }
 
-            Broadcaster.Info("Interface definition data successfully loaded.");
+            _Broadcaster.Info("Interface definition data successfully loaded.");
 
             // initialize the Synery Database
 
             try
             {
-                if (Directory.Exists(_DatabaseDirectoryPath) == false)
+                if (Directory.Exists(EnvironmentVariables.DatabaseDirectoryPath) == false)
                 {
-                    Directory.CreateDirectory(_DatabaseDirectoryPath);
+                    Directory.CreateDirectory(EnvironmentVariables.DatabaseDirectoryPath);
                 }
 
-                database = new SyneryDB(_DatabaseDirectoryPath);
+                database = new SyneryDB(EnvironmentVariables.DatabaseDirectoryPath);
             }
             catch (SyneryDBException ex)
             {
-                Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
                 return false;
             }
 
@@ -135,19 +254,19 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
             try
             {
-                providerPluginManager = new ProviderPluginManager(_ProviderPluginMainDirectoryPath);
+                providerPluginManager = new ProviderPluginManager(EnvironmentVariables.ProviderPluginDirectoryPath);
 
                 // activate the provider plugin instance references from the interface definition
                 providerPluginManager.Activate(_InterfaceDefinitionData.RequiredPlugins.ProviderPluginInstances);
             }
             catch (ProviderPluginManagerException ex)
             {
-                Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
                 return false;
             }
 
@@ -155,19 +274,19 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
             try
             {
-                libraryPluginManager = new LibraryPluginManager(_LibraryPluginMainDirectoryPath);
+                libraryPluginManager = new LibraryPluginManager(EnvironmentVariables.LibraryPluginDirectoryPath);
 
                 // activate the provider plugin instance references from the interface definition
                 libraryPluginManager.Activate(_InterfaceDefinitionData.RequiredPlugins.LibraryPlugins);
             }
             catch (ProviderPluginManagerException ex)
             {
-                Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
                 return false;
             }
 
@@ -182,69 +301,100 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
             // success
 
             _IsInitialized = true;
+
             return true;
         }
 
-        /// <summary>
-        /// runs the job with the given name
-        /// </summary>
-        /// <param name="name">the name of an existing job</param>
-        /// <returns></returns>
-        public bool RunJob(string name)
+        #endregion
+
+        #region INTERNAL METHODS
+
+        private bool RunJob(InterfaceDefinitionJobData jobData)
         {
-            if (IsInitialized == false)
-                throw new Exception("The InterfaceDefinitionRunner must be initialized before running a job");
+            // display some information about the job
+            _Broadcaster.Info("Found the job with the name '{0}'.", jobData.Name);
+            _Broadcaster.Info("Description: '{0}'", jobData.Description);
+            _Broadcaster.Info("Estimated Duration: '{0}'", jobData.EstimatedDurationRemarks);
 
-            InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
-                                                   where j.Name == name
-                                                   select j).FirstOrDefault();
+            string codeFileName = String.Format("{0}.sny", jobData.Id.ToString());
+            string codeFilePath = Path.Combine(EnvironmentVariables.InterfaceDefinitionCodeDirectoryPath, codeFileName);
 
-            if (jobData == null)
+            if (File.Exists(codeFilePath) == false)
             {
-                Broadcaster.Error("The job with the name '{0}' wasn't found.", name);
+                _Broadcaster.Error("Code file of job '{0}' not found at '{1}'.", jobData.Name, codeFilePath);
                 return false;
             }
-            else
+
+            try
             {
-                // display some information about the job
-                Broadcaster.Info("Found the job with the name '{0}'.", name);
-                Broadcaster.Info("Description: '{0}'", jobData.Description);
-                Broadcaster.Info("Estimated Duration: '{0}'", jobData.EstimatedDurationRemarks);
+                // TODO: Handle include files
 
-                string codeFileName = String.Format("{0}.sny", jobData.Id.ToString());
-                string codeFilePath = Path.Combine(_InterfaceDefinitionDirectoryPath, "code", codeFileName);
+                RunFile(codeFilePath, null);
 
-                if (File.Exists(codeFilePath) == false)
-                {
-                    Broadcaster.Error("Code file of job '{0}' not found at '{1}'.", name, codeFilePath);
-                    return false;
-                }
-                else
-                {
-                    string code = File.ReadAllText(codeFilePath);
-
-                    Broadcaster.Info("Start running the job '{0}'.", name);
-
-                    try
-                    {
-                        _SyneryClient.Run(code);
-                    }
-                    catch (SyneryException ex)
-                    {
-                        Broadcaster.Error(ex.Message);
-                        return false;
-                    }
-                    catch (Exception ex)
-                    {
-                        Broadcaster.Error("An unknown error occured while running the job '{0}'. Message: '{1}'.", name, ex.Message);
-                        return false;
-                    }
-
-                    Broadcaster.Info("Successfully finished running the job '{0}'.", name);
-                }
+                _Broadcaster.Info("Successfully finished running the job '{0}'.", jobData.Name);
+            }
+            catch (SyneryException ex)
+            {
+                _Broadcaster.Error(ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Broadcaster.Error("An unknown error occured while running the job '{0}'. Message: '{1}'.", jobData.Name, ex.Message);
+                return false;
             }
 
             return true;
+        }
+
+        private bool RunCodeFileWithoutJob(string relativeFilePath)
+        {
+            string codeFilePath = Path.Combine(EnvironmentVariables.InterfaceDefinitionCodeDirectoryPath, relativeFilePath);
+
+            if (File.Exists(codeFilePath) == false)
+            {
+                _Broadcaster.Error("Code file not found at '{0}'.", codeFilePath);
+                return false;
+            }
+
+            try
+            {
+                RunFile(codeFilePath);
+
+                _Broadcaster.Info("Successfully finished file at '{0}'.", codeFilePath);
+            }
+            catch (SyneryException ex)
+            {
+                _Broadcaster.Error(ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Broadcaster.Error("An unknown error occured while running the file at '{0}'. Message: '{1}'.", codeFilePath, ex.Message);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void RunFile(string codeFilePath, IDictionary<string, string> includeFiles = null)
+        {
+            string code = File.ReadAllText(codeFilePath);
+
+            _Broadcaster.Info("Start running the file at '{0}'.", codeFilePath);
+
+            _SyneryClient.Run(code, includeFiles);
+        }
+
+        private RuntimeResult PrepareRuntimeResult(bool isSuccess)
+        {
+            return new RuntimeResult()
+            {
+                IsSuccess = isSuccess,
+                EnvironmentVariables = EnvironmentVariables,
+                InterfaceDefinitionData = _InterfaceDefinitionData,
+                SyneryMemory = _SyneryMemory,
+            };
         }
 
         #endregion
