@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InterfaceBooster.Common.Interfaces.Runtime.Model
+namespace InterfaceBooster.Common.Interfaces.Execution.Model
 {
-    public class RuntimeResult
+    public class ExecutionResult
     {
         public bool IsSuccess { get; set; }
-        public EnvironmentVariables EnvironmentVariables { get; set; }
+        public ExecutionVariables EnvironmentVariables { get; set; }
         public InterfaceDefinitionData InterfaceDefinitionData { get; set; }
         public ISyneryMemory SyneryMemory { get; set; }
     }

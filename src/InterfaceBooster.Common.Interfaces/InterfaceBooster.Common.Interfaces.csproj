@@ -94,9 +94,9 @@
     <Compile Include="ProviderPlugin\Information\Data\IProviderPluginData.cs" />
     <Compile Include="ProviderPlugin\Information\Data\IProviderPluginInstanceData.cs" />
     <Compile Include="ProviderPlugin\IProviderPluginManager.cs" />
-    <Compile Include="Runtime\IRuntimeManager.cs" />
-    <Compile Include="Runtime\Model\EnvironmentVariables.cs" />
-    <Compile Include="Runtime\Model\RuntimeResult.cs" />
+    <Compile Include="Execution\IExecutionManager.cs" />
+    <Compile Include="Execution\Model\ExecutionVariables.cs" />
+    <Compile Include="Execution\Model\ExecutionResult.cs" />
     <Compile Include="SyneryLanguage\IInterpretationController.cs" />
     <Compile Include="SyneryLanguage\IInterpreterFactory.cs" />
     <Compile Include="SyneryLanguage\InterpreationStateEnum.cs" />

@@ -19,15 +19,15 @@ using InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Broadcasting;
-using InterfaceBooster.Common.Interfaces.Runtime.Model;
-using InterfaceBooster.Common.Interfaces.Runtime;
+using InterfaceBooster.Common.Interfaces.Execution.Model;
+using InterfaceBooster.Common.Interfaces.Execution;
 
-namespace InterfaceBooster.RuntimeController.InterfaceDefinition
+namespace InterfaceBooster.RuntimeController
 {
     /// <summary>
     /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
     /// </summary>
-    public class InterfaceDefinitionRunner : IRuntimeManager
+    public class InterfaceDefinitionRunner : IExecutionManager
     {
         #region CONSTANTS
 
@@ -51,7 +51,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
 
         #region PROPERTIES
 
-        public EnvironmentVariables EnvironmentVariables { get; set; }
+        public ExecutionVariables EnvironmentVariables { get; set; }
 
         public bool IsInitialized { get { return _IsInitialized; } }
 
@@ -76,13 +76,13 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// Runs all Jobs from the current Interface Definition.
         /// </summary>
         /// <returns></returns>
-        public RuntimeResult RunAllJobs()
+        public ExecutionResult RunAllJobs()
         {
             if (IsInitialized == false)
                 throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
 
             bool success;
-            RuntimeResult result = PrepareRuntimeResult(false);
+            ExecutionResult result = PrepareRuntimeResult(false);
 
             foreach (var jobData in _InterfaceDefinitionData.Jobs)
             {
@@ -101,12 +101,12 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// </summary>
         /// <param name="name">The full name (case insensitive) of an existing Job from the current Interface Definition.</param>
         /// <returns></returns>
-        public RuntimeResult RunJob(string name)
+        public ExecutionResult RunJob(string name)
         {
             if (IsInitialized == false)
                 throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
 
-            RuntimeResult result = PrepareRuntimeResult(false);
+            ExecutionResult result = PrepareRuntimeResult(false);
 
             InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
                                                   // compare case insensitive
@@ -129,12 +129,12 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// </summary>
         /// <param name="guid">The GUID of an existing Job from the current Interface Definition.</param>
         /// <returns></returns>
-        public RuntimeResult RunJob(Guid guid)
+        public ExecutionResult RunJob(Guid guid)
         {
             if (IsInitialized == false)
                 throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
 
-            RuntimeResult result = PrepareRuntimeResult(false);
+            ExecutionResult result = PrepareRuntimeResult(false);
 
             InterfaceDefinitionJobData jobData = (from j in _InterfaceDefinitionData.Jobs
                                                   where j.Id == guid
@@ -156,12 +156,12 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// </summary>
         /// <param name="relativeFilePath">The relative file path starting from the code directory.</param>
         /// <returns></returns>
-        public RuntimeResult RunSingleCodeFile(string relativeFilePath)
+        public ExecutionResult RunSingleCodeFile(string relativeFilePath)
         {
             if (IsInitialized == false)
                 throw new Exception(String.Format("{0} must be initialized before running a job", this.GetType().Name));
 
-            RuntimeResult result = PrepareRuntimeResult(false);
+            ExecutionResult result = PrepareRuntimeResult(false);
 
             result.IsSuccess = RunCodeFileWithoutJob(relativeFilePath);
 
@@ -175,7 +175,7 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
         /// </summary>
         /// <param name="environmentVariables">At least Broadcaster and InterfaceDefinitionDirectoryPath are required!</param>
         /// <returns>true = success / false = error (see broadcasted messages for details)</returns>
-        public bool Initialize(EnvironmentVariables environmentVariables)
+        public bool Initialize(ExecutionVariables environmentVariables)
         {
             IDatabase database;
             IProviderPluginManager providerPluginManager;
@@ -386,9 +386,9 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinition
             _SyneryClient.Run(code, includeFiles);
         }
 
-        private RuntimeResult PrepareRuntimeResult(bool isSuccess)
+        private ExecutionResult PrepareRuntimeResult(bool isSuccess)
         {
-            return new RuntimeResult()
+            return new ExecutionResult()
             {
                 IsSuccess = isSuccess,
                 EnvironmentVariables = EnvironmentVariables,

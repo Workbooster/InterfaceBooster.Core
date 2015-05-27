@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InterfaceBooster.Common.Interfaces.Runtime.Model
+namespace InterfaceBooster.Common.Interfaces.Execution.Model
 {
-    public class EnvironmentVariables
+    public class ExecutionVariables
     {
         #region PROPERTIES
 

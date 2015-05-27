@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.RuntimeController.InterfaceDefinition;
 using InterfaceBooster.RuntimeController.Log;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Broadcasting;
-using InterfaceBooster.Common.Interfaces.Runtime.Model;
+using InterfaceBooster.Common.Interfaces.Execution.Model;
 
 namespace InterfaceBooster.RuntimeController.Console
 {
@@ -124,7 +123,7 @@ namespace InterfaceBooster.RuntimeController.Console
                     return false;
                 }
 
-                EnvironmentVariables environmentVariables = new EnvironmentVariables()
+                ExecutionVariables environmentVariables = new ExecutionVariables()
                 {
                     Broadcaster = Broadcaster,
                     InterfaceDefinitionDirectoryPath = parameters["InterfaceDefinitionPath"],
