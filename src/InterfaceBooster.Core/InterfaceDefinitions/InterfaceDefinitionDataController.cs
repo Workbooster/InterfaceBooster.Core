@@ -8,6 +8,7 @@ using InterfaceBooster.Core.Common.Xml;
 using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 using InterfaceBooster.Common.Tools.Data.Xml;
+using System.IO;
 
 namespace InterfaceBooster.Core.InterfaceDefinitions
 {
@@ -35,6 +36,9 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             InterfaceDefinitionDataController controller = new InterfaceDefinitionDataController(interfaceDefinitionFilePath);
 
             InterfaceDefinitionData data = controller.LoadDefinition();
+            
+            // store the interface definition root directory path
+            data.RootDirectoryPath = Path.GetDirectoryName(interfaceDefinitionFilePath);
 
             return data;
         }
