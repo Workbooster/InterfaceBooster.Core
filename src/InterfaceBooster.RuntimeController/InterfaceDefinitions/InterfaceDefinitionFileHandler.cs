@@ -15,9 +15,9 @@ namespace InterfaceBooster.RuntimeController.InterfaceDefinitions
             return InterfaceDefinitionDataController.Load(interfaceDefinitionFilePath);
         }
 
-        public static void Load(string interfaceDefinitionFilePath, InterfaceDefinitionData definitionDat)
+        public static void Save(string interfaceDefinitionFilePath, InterfaceDefinitionData definitionData)
         {
-            InterfaceDefinitionDataController.Save(string interfaceDefinitionFilePath, InterfaceDefinitionData definitionDat);
+            InterfaceDefinitionDataController.Save(interfaceDefinitionFilePath, definitionData);
         }
     }
 }
