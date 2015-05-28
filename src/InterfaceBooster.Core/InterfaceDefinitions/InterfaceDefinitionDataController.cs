@@ -9,6 +9,8 @@ using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
 using InterfaceBooster.Common.Tools.Data.Xml;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace InterfaceBooster.Core.InterfaceDefinitions
 {
@@ -17,6 +19,12 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
     /// </summary>
     public class InterfaceDefinitionDataController
     {
+        #region CONSTANTS
+
+        public static readonly Encoding USED_ENCODING = Encoding.UTF8;
+
+        #endregion
+
         #region MEMBERS
 
         protected string _InterfaceDefinitionFilePath;
@@ -33,6 +41,12 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
         /// <returns></returns>
         public static InterfaceDefinitionData Load(string interfaceDefinitionFilePath)
         {
+            // Validate parameters
+            if (interfaceDefinitionFilePath == null)
+                throw new ArgumentNullException("interfaceDefinitionFilePath", "The path of the interface definition file is required.");
+            if (File.Exists(interfaceDefinitionFilePath) == false)
+                throw new ArgumentException(String.Format("No interface definition found at {0}.", interfaceDefinitionFilePath), "interfaceDefinitionFilePath");
+
             InterfaceDefinitionDataController controller = new InterfaceDefinitionDataController(interfaceDefinitionFilePath);
 
             InterfaceDefinitionData data = controller.LoadDefinition();
@@ -41,6 +55,19 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             data.RootDirectoryPath = Path.GetDirectoryName(interfaceDefinitionFilePath);
 
             return data;
+        }
+
+        public static void Save(string interfaceDefinitionFilePath, InterfaceDefinitionData definitionData)
+        {
+            // Validate parameters
+            if (interfaceDefinitionFilePath == null)
+                throw new ArgumentNullException("interfaceDefinitionFilePath", "The path of the interface definition file is required.");
+            if (definitionData == null)
+                throw new ArgumentNullException("definitionData", "The Interface Defintion data is required.");
+
+            InterfaceDefinitionDataController controller = new InterfaceDefinitionDataController(interfaceDefinitionFilePath);
+            
+            controller.SaveDefintion(interfaceDefinitionFilePath, definitionData);
         }
 
         #endregion
@@ -56,18 +83,40 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             _InterfaceDefinitionFilePath = interfaceDefinitionFilePath;
         }
 
+        #region SAVING
+
+        private void SaveDefintion(string interfaceDefinitionFilePath, InterfaceDefinitionData data)
+        {
+            using (StreamWriter writer = new StreamWriter(interfaceDefinitionFilePath, false, USED_ENCODING))
+            {
+                using (XmlWriter xmlWriter = XmlWriter.Create(writer, new XmlWriterSettings() { Indent = true, NewLineHandling = NewLineHandling.Entitize }))
+                {
+                    XmlSerializer s = new XmlSerializer(data.GetType());
+                    s.Serialize(xmlWriter, data);
+                }
+
+            }
+        }
+
+        #endregion
+
+        #region LOADING
+
         private InterfaceDefinitionData LoadDefinition()
         {
             InterfaceDefinitionData data = new InterfaceDefinitionData();
 
-            XDocument doc = XDocument.Load(_InterfaceDefinitionFilePath);
-            XElement root = doc.Element("InterfaceDefinition");
+            using (StreamReader reader = new StreamReader(_InterfaceDefinitionFilePath, USED_ENCODING))
+            {
+                XDocument doc = XDocument.Load(_InterfaceDefinitionFilePath);
+                XElement root = doc.Element("InterfaceDefinition");
 
-            data.Id = new Guid(GetRequiredAttributeValue(root, "id"));
-            data.Details = LoadDetails(root.Element("Details"));
-            data.Jobs = LoadJobs(root.Element("Jobs"));
+                data.Id = new Guid(GetRequiredAttributeValue(root, "id"));
+                data.Details = LoadDetails(root.Element("Details"));
+                data.Jobs = LoadJobs(root.Element("Jobs"));
 
-            LoadRequiredPlugins(data, root.Element("RequiredPlugins"));
+                LoadRequiredPlugins(data, root.Element("RequiredPlugins"));
+            }
 
             return data;
         }
@@ -256,6 +305,8 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
                 throw new XmlLoadingException("Interface Definition", _InterfaceDefinitionFilePath, msg);
             }
         }
+
+        #endregion
 
         #endregion
 

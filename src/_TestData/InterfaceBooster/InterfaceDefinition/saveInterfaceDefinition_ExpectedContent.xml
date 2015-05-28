@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InterfaceDefinition xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="f3b58f84-cbc0-4560-856d-f6c2b2feea5b">
+  <Details>
+    <Name>PROFFIX CSV Article Import</Name>
+    <Description>Imports some articles from a comma separated value file to PROFFIX.</Description>
+    <Author>Roger Guillet</Author>
+    <DateOfCreation>2014-02-07T00:00:00</DateOfCreation>
+    <DateOfLastChange>2014-02-26T00:00:00</DateOfLastChange>
+    <Version>1.0.0.1</Version>
+    <RequiredRuntimeVersion>1.0.0.0</RequiredRuntimeVersion>
+  </Details>
+  <Jobs>
+    <Job id="79f8ca0f-c785-4f35-810e-835bc216f6b6">
+      <Name>Run CSV Import</Name>
+      <Description>Executes the import of some articles to PROFFIX.</Description>
+      <EstimatedDurationRemarks>This import will only take a few seconds</EstimatedDurationRemarks>
+      <IncludeFiles>
+        <IncludeFile alias="h" relativePath="helperFunctions.syn" />
+      </IncludeFiles>
+    </Job>
+    <Job id="2d74ccfb-b1b3-4625-8763-99cfeb077207">
+      <Name>Check for doublets</Name>
+      <Description>Executes a check for some doublets in PROFFIX.</Description>
+      <EstimatedDurationRemarks>This check will only take a few seconds</EstimatedDurationRemarks>
+      <IncludeFiles>
+        <IncludeFile alias="h" relativePath="helperFunctions.syn" />
+        <IncludeFile alias="px_con" relativePath="proffixConnection.syn" />
+      </IncludeFiles>
+    </Job>
+  </Jobs>
+  <RequiredPlugins>
+    <ProviderPlugins>
+      <ProviderPluginInstance syneryIdentifier="PROFFIX" idPlugin="485eccb4-3920-4dc3-9ed4-27f65e8b3c91" pluginName="PROFFIX Database" idPluginInstance="b139306d-a688-43ae-a9dd-4e692fc2caea" pluginInstanceName="4.0.0000.0001" />
+      <ProviderPluginInstance syneryIdentifier="CSV" idPlugin="66ce1d53-14b3-420e-949f-eb94a3d69072" pluginName="CSV Provider Plugin" idPluginInstance="f897a501-60d9-4ae5-b214-920f450e9323" pluginInstanceName="CSV Version 1.0" />
+    </ProviderPlugins>
+    <LibraryPlugins>
+      <LibraryPlugin syneryIdentifier="String" idPlugin="74a8005d-c9f3-455f-94fc-04846493ab7b" pluginName="String Helpers" />
+    </LibraryPlugins>
+  </RequiredPlugins>
+</InterfaceDefinition>

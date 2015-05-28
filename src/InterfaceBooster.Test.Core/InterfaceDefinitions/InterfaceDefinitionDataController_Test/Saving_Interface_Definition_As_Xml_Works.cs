@@ -1,23 +1,33 @@
 ﻿using InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data;
+using InterfaceBooster.Core.InterfaceDefinitions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
 
-namespace InterfaceBooster.Test.Core.InterfaceDefinitions
+namespace InterfaceBooster.Test.Core.InterfaceDefinitions.InterfaceDefinitionDataController_Test
 {
     [TestFixture]
-    public class Interface_Definition_Is_Serializable
+    public class Saving_Interface_Definition_As_Xml_Works
     {
+        private string _XmlFilePath;
+        private string _ExpectedXmlFilePath;
         private InterfaceDefinitionData _InterfaceDefinitionData;
 
         [SetUp]
         public void Setup()
         {
+            // Prepare the paths of the temporary XML file and the expected XML file
+            string solutionDirectoryPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+            _XmlFilePath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\InterfaceDefinition\saveInterfaceDefinition_TestFile.xml");
+            _ExpectedXmlFilePath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\InterfaceDefinition\saveInterfaceDefinition_ExpectedContent.xml");
+
+            // Delete the XML file if it already exists
+            if (File.Exists(_XmlFilePath)) File.Delete(_XmlFilePath);
+
             _InterfaceDefinitionData = new InterfaceDefinitionData();
 
             // Details
@@ -71,7 +81,7 @@ namespace InterfaceBooster.Test.Core.InterfaceDefinitions
             };
 
             job1.IncludeFiles.Add(new IncludeFile() { Alias = "h", RelativePath = "helperFunctions.syn" });
-            
+
             var job2 = new InterfaceDefinitionJobData()
             {
                 Id = new Guid("2D74CCFB-B1B3-4625-8763-99CFEB077207"),
@@ -87,20 +97,38 @@ namespace InterfaceBooster.Test.Core.InterfaceDefinitions
             _InterfaceDefinitionData.Jobs.Add(job2);
         }
 
-        [Test]
-        public void Serializing_Definition_As_XML_Works()
+        [TearDown]
+        public void TearDown()
         {
-            StringBuilder sb = new StringBuilder();
+            if (File.Exists(_XmlFilePath)) File.Delete(_XmlFilePath);
+        }
 
-            using (XmlWriter xmlWriter = XmlWriter.Create(sb, new XmlWriterSettings() { Indent = true, NewLineHandling = NewLineHandling.Entitize }))
-            {
-                XmlSerializer s = new XmlSerializer(_InterfaceDefinitionData.GetType());
-                s.Serialize(xmlWriter, _InterfaceDefinitionData);
-            }
+        [Test]
+        public void Saving_Definition_As_XML_Works()
+        {
+            InterfaceDefinitionDataController.Save(_XmlFilePath, _InterfaceDefinitionData);
 
-            string generatedXml = sb.ToString();
+            string generatedXml = File.ReadAllText(_XmlFilePath, Encoding.UTF8);
+            string expectedXml = File.ReadAllText(_ExpectedXmlFilePath, Encoding.UTF8);
 
-            Assert.AreEqual("", generatedXml);
+            Assert.AreEqual(expectedXml, generatedXml);
+        }
+
+        [Test]
+        public void Loading_And_Saving_Definition_As_XML_Works()
+        {
+            // load an existing definition
+            var loadedInterfaceDefinitionData = InterfaceDefinitionDataController.Load(_ExpectedXmlFilePath);
+
+            // save the existing definition again in a seperate file
+            InterfaceDefinitionDataController.Save(_XmlFilePath, loadedInterfaceDefinitionData);
+
+            // compare the two files
+
+            string generatedXml = File.ReadAllText(_XmlFilePath, Encoding.UTF8);
+            string expectedXml = File.ReadAllText(_ExpectedXmlFilePath, Encoding.UTF8);
+
+            Assert.AreEqual(expectedXml, generatedXml);
         }
     }
 }

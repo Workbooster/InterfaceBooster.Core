@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Console\ConsoleRuntimeManager.cs" />
     <Compile Include="ExecutionManager.cs" />
+    <Compile Include="InterfaceDefinitions\InterfaceDefinitionFileHandler.cs" />
     <Compile Include="Log\BroadcastFileLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
