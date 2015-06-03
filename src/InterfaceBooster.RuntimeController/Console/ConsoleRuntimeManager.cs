@@ -59,7 +59,7 @@ namespace InterfaceBooster.RuntimeController.Console
         /// </summary>
         protected ConsoleRuntimeManager()
         {
-            _Broadcaster = new StandardBroadcaster();
+            _Broadcaster = new DefaultBroadcaster();
         }
 
         #endregion
