@@ -132,7 +132,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
             InterfaceDefinitionDetailData data = new InterfaceDefinitionDetailData();
 
             data.Name = GetRequiredElementValue(root, "Name");
-            data.Description = GetRequiredElementValue(root, "Description");
+            data.Description = GetOptionalElementValue(root, "Description");
             data.Author = GetRequiredElementValue(root, "Author");
             data.DateOfCreation = GetRequiredDateTimeElementValue(root, "DateOfCreation");
             data.DateOfLastChange = GetRequiredDateTimeElementValue(root, "DateOfLastChange");
@@ -163,7 +163,7 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
 
             data.Id = new Guid(GetRequiredAttributeValue(root, "id"));
             data.Name = GetRequiredElementValue(root, "Name");
-            data.Description = GetRequiredElementValue(root, "Description");
+            data.Description = GetOptionalElementValue(root, "Description");
             data.EstimatedDurationRemarks = GetRequiredElementValue(root, "EstimatedDurationRemarks");
             data.IncludeFiles = LoadIncludeFiles(root.Element("IncludeFiles"));
 
@@ -304,6 +304,11 @@ namespace InterfaceBooster.Core.InterfaceDefinitions
                 string msg = String.Format("XML-node '{0}' is not available or does not contain a valid DateTime value in '{1}'.", name, PathHelper.GetElementFullPath(root, "\\"));
                 throw new XmlLoadingException("Interface Definition", _InterfaceDefinitionFilePath, msg);
             }
+        }
+
+        private string GetOptionalElementValue(XElement root, string name)
+        {
+            return XmlHelper.GetElementValue(root, name);
         }
 
         #endregion
