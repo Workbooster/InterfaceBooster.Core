@@ -51,7 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Broadcasting\Broadcaster.cs" />
+    <Compile Include="Broadcasting\DefaultBroadcaster.cs" />
     <Compile Include="Broadcasting\Message.cs" />
     <Compile Include="Broadcasting\BroadcastMessageDelegate.cs" />
     <Compile Include="Broadcasting\IBroadcaster.cs" />

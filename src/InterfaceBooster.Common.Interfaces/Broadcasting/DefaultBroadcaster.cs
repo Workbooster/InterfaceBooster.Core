@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InterfaceBooster.Common.Interfaces.Broadcasting
 {
-    public class StandardBroadcaster : IBroadcaster
+    public class DefaultBroadcaster : IBroadcaster
     {
         #region EVENTS
 
