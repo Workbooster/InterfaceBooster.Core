@@ -11,6 +11,11 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
         #region EVENTS
 
         /// <summary>
+        /// occures any time a message is broadcasted regardless of a channel.
+        /// </summary>
+        event BroadcastMessageDelegate OnAnyMessage;
+
+        /// <summary>
         /// occurs when a debug message appears
         /// </summary>
         event BroadcastMessageDelegate OnDebugMessage;
