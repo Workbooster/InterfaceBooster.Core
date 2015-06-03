@@ -40,23 +40,23 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
         #region METHODS
 
         Message Broadcast(Message msg);
-        Message Broadcast(string channel, string message, string source = null, params object[] args);
+        Message Broadcast(string channel, string message, params object[] args);
         Message Broadcast(string channel, Exception ex, string source = null);
 
         Message Debug(Message msg);
-        Message Debug(string message, string source = null, params object[] args);
+        Message Debug(string message, params object[] args);
         Message Debug(Exception ex, string source = null);
 
         Message Info(Message msg);
-        Message Info(string message, string source = null, params object[] args);
+        Message Info(string message, params object[] args);
         Message Info(Exception ex, string source = null);
 
         Message Warning(Message msg);
-        Message Warning(string message, string source = null, params object[] args);
+        Message Warning(string message, params object[] args);
         Message Warning(Exception ex, string source = null);
 
         Message Error(Message msg);
-        Message Error(string message, string source = null, params object[] args);
+        Message Error(string message, params object[] args);
         Message Error(Exception ex, string source = null);
 
         #endregion

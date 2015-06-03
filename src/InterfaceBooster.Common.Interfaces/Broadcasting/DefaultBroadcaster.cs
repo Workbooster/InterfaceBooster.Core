@@ -31,9 +31,9 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             return Broadcast(null, channel, msg);
         }
 
-        public Message Broadcast(string channel, string message, string source = null, params object[] args)
+        public Message Broadcast(string channel, string message, params object[] args)
         {
-            return Broadcast(null, channel, message, source, args);
+            return Broadcast(null, channel, message, null, args);
         }
 
         public Message Broadcast(string channel, Exception ex, string source = null)
@@ -46,9 +46,9 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             return Broadcast(OnDebugMessage, "debug", msg);
         }
 
-        public Message Debug(string message, string source = null, params object[] args)
+        public Message Debug(string message, params object[] args)
         {
-            return Broadcast(OnDebugMessage, "debug", message, source, args);
+            return Broadcast(OnDebugMessage, "debug", message, null, args);
         }
 
         public Message Debug(Exception ex, string source = null)
@@ -61,9 +61,9 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             return Broadcast(OnInfoMessage, "info", msg);
         }
 
-        public Message Info(string message, string source = null, params object[] args)
+        public Message Info(string message, params object[] args)
         {
-            return Broadcast(OnInfoMessage, "info", message, source, args);
+            return Broadcast(OnInfoMessage, "info", message, null, args);
         }
 
         public Message Info(Exception ex, string source = null)
@@ -76,9 +76,9 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             return Broadcast(OnWarningMessage, "warning", msg);
         }
 
-        public Message Warning(string message, string source = null, params object[] args)
+        public Message Warning(string message, params object[] args)
         {
-            return Broadcast(OnWarningMessage, "warning", message, source, args);
+            return Broadcast(OnWarningMessage, "warning", message, null, args);
         }
 
         public Message Warning(Exception ex, string source = null)
@@ -91,9 +91,9 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             return Broadcast(OnErrorMessage, "error", msg);
         }
 
-        public Message Error(string message, string source = null, params object[] args)
+        public Message Error(string message, params object[] args)
         {
-            return Broadcast(OnErrorMessage, "error", message, source, args);
+            return Broadcast(OnErrorMessage, "error", message, null, args);
         }
 
         public Message Error(Exception ex, string source = null)
