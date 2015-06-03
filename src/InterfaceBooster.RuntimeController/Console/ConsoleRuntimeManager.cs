@@ -23,7 +23,7 @@ namespace InterfaceBooster.RuntimeController.Console
         private static ConsoleRuntimeManager _Instance;
         private IBroadcaster _Broadcaster;
         private string _ProviderPluginMainDirectoryPath;
-        private InterfaceDefinitionRunner _CurrentRunner;
+        private ExecutionManager _CurrentRunner;
 
         #endregion
 
@@ -133,7 +133,7 @@ namespace InterfaceBooster.RuntimeController.Console
                 {
                     Broadcaster.Info("Using interface definition from '{0}'", parameters["InterfaceDefinitionPath"]);
 
-                    _CurrentRunner = new InterfaceDefinitionRunner();
+                    _CurrentRunner = new ExecutionManager();
 
                     if (_CurrentRunner.Initialize(environmentVariables) == false)
                         return false;

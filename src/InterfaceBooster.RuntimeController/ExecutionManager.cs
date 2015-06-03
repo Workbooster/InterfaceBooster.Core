@@ -27,7 +27,7 @@ namespace InterfaceBooster.RuntimeController
     /// <summary>
     /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
     /// </summary>
-    public class InterfaceDefinitionRunner : IExecutionManager
+    public class ExecutionManager : IExecutionManager
     {
         #region CONSTANTS
 
@@ -67,7 +67,7 @@ namespace InterfaceBooster.RuntimeController
         /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
         /// </summary>
         /// <param name="environmentVariables"></param>
-        public InterfaceDefinitionRunner()
+        public ExecutionManager()
         {
             _IsInitialized = false;
         }
