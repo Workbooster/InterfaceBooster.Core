@@ -27,7 +27,7 @@ namespace InterfaceBooster.RuntimeController
     /// <summary>
     /// Handels the initionalization of an Import Definition and enables the application to execute one or multiple job(s).
     /// </summary>
-    public class ExecutionManager : IExecutionManager
+    public class ExecutionManager : IExecutionManager, IDisposable
     {
         #region CONSTANTS
 
@@ -166,7 +166,6 @@ namespace InterfaceBooster.RuntimeController
             result.IsSuccess = RunCodeFileWithoutJob(relativeFilePath);
 
             return result;
-
         }
 
         /// <summary>
@@ -303,6 +302,18 @@ namespace InterfaceBooster.RuntimeController
             _IsInitialized = true;
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            _IsInitialized = false;
+            _InterfaceDefinitionData = null;
+            _Broadcaster = null;
+            _SyneryClient = null;
+            EnvironmentVariables = null;
+
+            if (_SyneryMemory != null && _SyneryMemory.Database != null)
+                _SyneryMemory.Database.Dispose();
         }
 
         #endregion

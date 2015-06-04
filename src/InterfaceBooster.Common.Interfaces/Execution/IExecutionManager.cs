@@ -11,7 +11,7 @@ namespace InterfaceBooster.Common.Interfaces.Execution
     /// <summary>
     /// Initializes all needed components and handels the execution of an interface definition or parts of it like Jobs or single Synery code files.
     /// </summary>
-    public interface IExecutionManager
+    public interface IExecutionManager : IDisposable
     {
         /// <summary>
         /// Gets a flag that indicates whether Initialize() already has been called.
@@ -27,7 +27,7 @@ namespace InterfaceBooster.Common.Interfaces.Execution
         /// Gets or sets the current runtime environment variables.
         /// </summary>
         ExecutionVariables EnvironmentVariables { get; set; }
-        
+
         /// <summary>
         /// Runs all Jobs from the current Interface Definition.
         /// </summary>
@@ -40,7 +40,7 @@ namespace InterfaceBooster.Common.Interfaces.Execution
         /// <param name="name">The full name (case insensitive) of an existing Job from the current Interface Definition.</param>
         /// <returns></returns>
         ExecutionResult RunJob(string name);
-        
+
         /// <summary>
         /// Runs the Job with the given GUID.
         /// </summary>
