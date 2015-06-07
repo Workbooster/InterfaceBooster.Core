@@ -543,7 +543,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             else
             {
                 throw new ProviderPluginManagerException(this, String.Format(
-                    "No assembly found that contains an instance with name='{0}' and id='{1}'",
+                    "No assembly found that contains an ProviderPlugin instance with name='{0}' and id='{1}'",
                     reference.PluginInstanceName, reference.IdPluginInstance
                     ));
             }
