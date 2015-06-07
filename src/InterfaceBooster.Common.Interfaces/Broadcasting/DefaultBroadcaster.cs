@@ -124,9 +124,18 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
         private Message Broadcast(BroadcastMessageDelegate broadcastDelegate, string channel, string message, string source = null, params object[] args)
         {
             Message data = new Message();
-            data.Text = String.Format(message, args);
             data.SourceName = source;
             data.Guid = Guid.NewGuid();
+
+            if (args == null || args.Length == 0)
+            {
+                data.Text = message;
+            }
+            else
+            {
+                // it's a formated message
+                data.Text = String.Format(message, args);
+            }
 
             return Broadcast(broadcastDelegate, channel, data);
         }
