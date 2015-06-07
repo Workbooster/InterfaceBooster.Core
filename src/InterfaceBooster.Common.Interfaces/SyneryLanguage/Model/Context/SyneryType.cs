@@ -13,6 +13,7 @@ namespace InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context
         /// <summary>
         /// Gets the synery internal type name. This value is NULL if it is a default primitive .NET type
         /// (e.g. string, int) without a special use in synery.
+        /// But it is for example used for Record Types where each type has a specific name.
         /// </summary>
         public string Name { get; private set; }
 
