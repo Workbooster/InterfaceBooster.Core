@@ -165,6 +165,7 @@ namespace InterfaceBooster.SyneryLanguage.Common
             factory.SetInterpreter(new ReturnStatementInterpreter());
             factory.SetInterpreter(new LibraryPluginVariableStatementInterpreter());
             factory.SetInterpreter(new TableStatementInterpreter());
+            factory.SetInterpreter(new TableAddStatementInterpreter());
             factory.SetInterpreter(new ThrowStatementInterpreter());
             factory.SetInterpreter(new VariableStatementInterpreter());
             factory.SetInterpreter(new ProgramInterpreter());

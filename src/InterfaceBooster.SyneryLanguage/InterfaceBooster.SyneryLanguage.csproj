@@ -74,6 +74,7 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\RecordStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ReturnStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\LibraryPluginVariableStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\TableAddStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\TableStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter.cs" />

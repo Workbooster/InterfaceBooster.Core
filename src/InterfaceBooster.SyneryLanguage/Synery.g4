@@ -24,6 +24,7 @@ programUnit
 	:	variableStatement ';'
 	|	libraryPluginVariableStatement ';'
 	|	tableStatement ';'
+	|	tableAddStatement ';'
 	|	functionCall ';'
 	|	providerPluginStatement
 	|	ifStatement
@@ -74,6 +75,10 @@ tableAssignment
 
 tableInitializer
 	:	requestStatement
+	;
+
+tableAddStatement
+	:	ADD expressionList TO InternalPathIdentifier
 	;
 
 // PARAMETER
@@ -764,6 +769,7 @@ AS				: 'AS' ;
 LEFT			: 'LEFT' ;
 JOIN			: 'JOIN' ;
 COMPARE			: 'COMPARE' ;
+ADD				: 'ADD' ;
 SELECT			: 'SELECT' ;
 WHERE			: 'WHERE' ;
 DISTINCT		: 'DISTINCT' ;
