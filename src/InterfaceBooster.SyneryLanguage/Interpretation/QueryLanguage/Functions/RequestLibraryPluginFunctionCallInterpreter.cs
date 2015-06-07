@@ -13,6 +13,7 @@ using InterfaceBooster.Common.Interfaces.LibraryPlugin.Information.ReflectionDat
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.QueryLanguage;
+using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Functions
 {

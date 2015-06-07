@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 {

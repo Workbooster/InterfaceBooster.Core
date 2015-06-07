@@ -84,7 +84,6 @@
     <Compile Include="Interpretation\General\InternalIdentifierListInterpreter.cs" />
     <Compile Include="Interpretation\General\ParameterDeclartionInterpreter.cs" />
     <Compile Include="Interpretation\General\RecordHelper.cs" />
-    <Compile Include="Interpretation\General\TypeHelper.cs" />
     <Compile Include="Interpretation\InterpretationClient.cs" />
     <Compile Include="Interpretation\General\IdentifierHelper.cs" />
     <Compile Include="Interpretation\General\KeyValueAssignmentInterpreter.cs" />

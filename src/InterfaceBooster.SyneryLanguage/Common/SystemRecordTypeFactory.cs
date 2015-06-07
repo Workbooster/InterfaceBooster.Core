@@ -8,6 +8,7 @@ using InterfaceBooster.SyneryLanguage.Model.SyneryTypes;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
 using InterfaceBooster.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
 
 namespace InterfaceBooster.SyneryLanguage.Common
 {

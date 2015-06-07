@@ -1,11 +1,11 @@
-﻿using System;
+﻿using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 
-namespace InterfaceBooster.SyneryLanguage.Interpretation.General
+namespace InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage
 {
     public static class TypeHelper
     {

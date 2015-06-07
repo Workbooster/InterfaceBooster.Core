@@ -2,6 +2,7 @@
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
 using InterfaceBooster.Database.Interfaces.Structure;
 using InterfaceBooster.SyneryLanguage.Interpretation.General;
 using System;

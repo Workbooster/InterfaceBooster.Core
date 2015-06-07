@@ -120,6 +120,7 @@
     <Compile Include="SyneryLanguage\Model\Validation\IValidationResultMessage.cs" />
     <Compile Include="SyneryLanguage\Model\Validation\ValidationResultMessageCategoryEnum.cs" />
     <Compile Include="SyneryLanguage\QueryLanguage\IExpressionValue.cs" />
+    <Compile Include="Utilities\SyneryLanguage\TypeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
