@@ -221,7 +221,7 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex);
                 return false;
             }
 
@@ -240,12 +240,12 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (SyneryDBException ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex, "SyneryDB");
                 return false;
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error(ex);
                 return false;
             }
 
@@ -260,12 +260,12 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (ProviderPluginManagerException ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex, "ProviderPluginManager");
                 return false;
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error(ex);
                 return false;
             }
 
@@ -278,14 +278,14 @@ namespace InterfaceBooster.RuntimeController
                 // activate the provider plugin instance references from the interface definition
                 libraryPluginManager.Activate(_InterfaceDefinitionData.RequiredPlugins.LibraryPlugins);
             }
-            catch (ProviderPluginManagerException ex)
+            catch (LibraryPluginManagerException ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex, "LibraryPluginManager");
                 return false;
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error("An unknown error occured. Message: '{0}'.", ex.Message);
+                _Broadcaster.Error(ex);
                 return false;
             }
 
@@ -346,7 +346,7 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (SyneryException ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex, "Synery");
                 return false;
             }
             catch (Exception ex)
@@ -376,7 +376,7 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (SyneryException ex)
             {
-                _Broadcaster.Error(ex.Message);
+                _Broadcaster.Error(ex, "Synery");
                 return false;
             }
             catch (Exception ex)

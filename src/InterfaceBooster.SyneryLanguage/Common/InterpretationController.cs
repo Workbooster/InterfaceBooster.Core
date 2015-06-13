@@ -159,12 +159,15 @@ namespace InterfaceBooster.SyneryLanguage.Common
                 return false;
             }
 
+            string message = string.Format("An unexpected error occured while interpreting '{1}' on line {2}: {0}{3}",
+                Environment.NewLine,
+                context.GetText(),
+                context.Start.Line,
+                ExceptionHelper.GetNestedExceptionMessages(exception));
+
             // it seems to be an unknown exception
             // create a new one and print all the exception messages
-            throw new SyneryInterpretationException(context,
-                String.Format("An unexpected error occured:{0}{1}",
-                    Environment.NewLine,
-                    ExceptionHelper.GetNestedExceptionMessages(exception)), exception);
+            throw new SyneryInterpretationException(context, message, exception);
         }
 
         private void StartInterpreation(Antlr4.Runtime.ParserRuleContext context)
