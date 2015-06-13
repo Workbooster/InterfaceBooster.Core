@@ -81,7 +81,7 @@ namespace InterfaceBooster.SyneryLanguage.Validation
             else if (e is NoViableAltException)
             {
                 NoViableAltException noViableAltException = (NoViableAltException)e;
-                message = String.Format("No viable alternative at input '{0}' followed by '{1}'", noViableAltException.StartToken.Text, offendingSymbol.Text, offendingSymbol.TokenSource.NextToken().Text);
+                message = String.Format("No viable alternative for '{1}' at input '{0}' followed by '{2}'", noViableAltException.StartToken.Text, offendingSymbol.Text, offendingSymbol.TokenSource.NextToken().Text);
 
                 // set the line where the problem begins as the affected line
                 line = noViableAltException.StartToken.Line;
