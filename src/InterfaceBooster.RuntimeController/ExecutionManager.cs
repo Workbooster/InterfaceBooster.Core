@@ -291,7 +291,7 @@ namespace InterfaceBooster.RuntimeController
 
             // initialize the SyneryMemory
 
-            _SyneryMemory = new SyneryMemory(database, providerPluginManager, libraryPluginManager);
+            _SyneryMemory = new SyneryMemory(database, _Broadcaster, providerPluginManager, libraryPluginManager);
 
             // initialize the SyneryInterpreter
 

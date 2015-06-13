@@ -18,6 +18,7 @@ using InterfaceBooster.Database.Interfaces.Structure;
 using InterfaceBooster.Database.Interfaces;
 using InterfaceBooster.Database.Core;
 using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
 {
@@ -28,6 +29,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
         protected string _DatabaseWorkingDirectoryPath;
         protected ISyneryClient<bool> _SyneryClient;
         protected IDatabase _Database;
+        protected IBroadcaster _Broadcaster;
         protected IProviderPluginManager _ProviderPluginManager;
         protected ILibraryPluginManager _LibraryPluginManager;
         protected ISyneryMemory _SyneryMemory;
@@ -48,11 +50,12 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
             Directory.CreateDirectory(_DatabaseWorkingDirectoryPath);
 
             _Database = new SyneryDB(_DatabaseWorkingDirectoryPath);
+            _Broadcaster = new DefaultBroadcaster();
 
             _ProviderPluginManager = new ProviderPluginManager(_PluginMainDirectoryPath);
             _LibraryPluginManager = new LibraryPluginManager(_LibraryPluginMainDirectoryPath);
 
-            _SyneryMemory = new SyneryMemory(_Database, _ProviderPluginManager, _LibraryPluginManager);
+            _SyneryMemory = new SyneryMemory(_Database, _Broadcaster, _ProviderPluginManager, _LibraryPluginManager);
 
             _SyneryClient = new InterpretationClient(_SyneryMemory);
         }

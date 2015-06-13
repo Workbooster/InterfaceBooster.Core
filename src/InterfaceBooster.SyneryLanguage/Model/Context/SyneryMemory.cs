@@ -9,6 +9,7 @@ using InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.SyneryLanguage.Model.Context
 {
@@ -83,6 +84,11 @@ namespace InterfaceBooster.SyneryLanguage.Model.Context
         public IDatabase Database { get; set; }
 
         /// <summary>
+        /// Gets or sets a broadcaster that handles log messages.
+        /// </summary>
+        public IBroadcaster Broadcaster { get; set; }
+
+        /// <summary>
         /// Gets or sets the manager that handles the communication with Provider Plugins
         /// </summary>
         public IProviderPluginManager ProviderPluginManager { get; set; }
@@ -101,10 +107,11 @@ namespace InterfaceBooster.SyneryLanguage.Model.Context
         /// </summary>
         /// <param name="database"></param>
         /// <param name="providerPluginManager"></param>
-        public SyneryMemory(IDatabase database, IProviderPluginManager providerPluginManager, ILibraryPluginManager libraryPluginManager)
+        public SyneryMemory(IDatabase database, IBroadcaster broadcaster, IProviderPluginManager providerPluginManager, ILibraryPluginManager libraryPluginManager)
         {
             IsInitialized = false;
             Database = database;
+            Broadcaster = broadcaster;
             ProviderPluginManager = providerPluginManager;
             LibraryPluginManager = libraryPluginManager;
         }

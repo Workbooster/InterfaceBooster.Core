@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using InterfaceBooster.Common.Interfaces.LibraryPlugin;
 using InterfaceBooster.Common.Interfaces.ProviderPlugin.Interfaces;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context
 {
@@ -49,6 +50,11 @@ namespace InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context
         /// Gets or sets a SyneryDB instance.
         /// </summary>
         IDatabase Database { get; set; }
+
+        /// <summary>
+        /// Gets or sets a broadcaster that handles log messages.
+        /// </summary>
+        IBroadcaster Broadcaster { get; set; }
 
         /// <summary>
         /// Gets or sets the manager that handles the communication with Provider Plugins.

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using InterfaceBooster.SyneryLanguage.Interpretation;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.SyneryFunctionDeclarationInterpretationClient_Test
 {
@@ -20,7 +21,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.SyneryFunctionDecl
         [SetUp]
         public void SetupTest()
         {
-            _SyneryMemory = new SyneryMemory(null, null, null);
+            _SyneryMemory = new SyneryMemory(null, new DefaultBroadcaster(), null, null);
             _Client = new SyneryFunctionDeclarationInterpretationClient(_SyneryMemory);
 
             _CodeOne = @"
@@ -69,7 +70,7 @@ END
         {
             // check whether the name and the alias of a function from _CodeOne is correctly detected
             // the FullName is expected to use the following pattern: <CodeAlias>.<Name>
-            
+
             Dictionary<string, string> includeCode = new Dictionary<string, string>();
 
             includeCode.Add("alias", _CodeOne);

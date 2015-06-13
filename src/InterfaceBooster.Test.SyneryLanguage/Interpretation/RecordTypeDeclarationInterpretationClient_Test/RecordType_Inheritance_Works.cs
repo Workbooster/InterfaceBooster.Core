@@ -8,6 +8,7 @@ using InterfaceBooster.SyneryLanguage.Interpretation;
 using InterfaceBooster.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.SyneryTypes;
+using InterfaceBooster.Common.Interfaces.Broadcasting;
 
 namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.RecordTypeDeclarationInterpretationClient_Test
 {
@@ -39,7 +40,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.RecordTypeDeclarat
         [SetUp]
         public void SetupTest()
         {
-            _SyneryMemory = new SyneryMemory(null, null, null);
+            _SyneryMemory = new SyneryMemory(null, new DefaultBroadcaster(), null, null);
             _Client = new RecordTypeDeclarationInterpretationClient(_SyneryMemory);
             _Code = @"
 #Meat(STRING Animal) : #One.Meal;
