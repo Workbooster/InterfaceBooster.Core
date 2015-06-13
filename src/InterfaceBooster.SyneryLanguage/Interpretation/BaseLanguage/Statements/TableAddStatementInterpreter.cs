@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
         #region PUBLIC METHODS
 
         /// <summary>
-        /// Interprets a table assignment. It uses the RequestStatementInterpreter to get the new table.
+        /// Interprets a statement that adds one or many records to a table.
         /// </summary>
         /// <param name="context"></param>
         public void Run(SyneryParser.TableAddStatementContext context)
