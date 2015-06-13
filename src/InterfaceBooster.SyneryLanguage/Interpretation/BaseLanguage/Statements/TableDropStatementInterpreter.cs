@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 {
-    class TableDropStatementInterpreter : IInterpreter<SyneryParser.TableDropStatementContext>
+    public class TableDropStatementInterpreter : IInterpreter<SyneryParser.TableDropStatementContext>
     {
         #region PROPERTIES
 
