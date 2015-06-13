@@ -111,8 +111,24 @@ namespace InterfaceBooster.Common.Interfaces.Broadcasting
             msg.BroadcastedAt = DateTime.Now;
 
             if (broadcastDelegate != null)
+            {
                 broadcastDelegate(msg);
+            }
+            else
+            {
+                // no broadcast-delegate given means that the message came over the neutral Broadcast()-method
+                // if it is a default channel (e.g. "info") call the specific delegates manually
 
+                if (OnDebugMessage != null && msg.Channel.ToLower() == "debug")
+                    OnDebugMessage(msg);
+                if (OnInfoMessage != null && msg.Channel.ToLower() == "info")
+                    OnInfoMessage(msg);
+                if (OnWarningMessage != null && msg.Channel.ToLower() == "warning")
+                    OnWarningMessage(msg);
+                if (OnErrorMessage != null && msg.Channel.ToLower() == "error")
+                    OnErrorMessage(msg);
+            }
+                
             // broadcast all messages
 
             if (OnAnyMessage != null)
