@@ -500,7 +500,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
                 {
                     // now we are ready to load the IProviderPlugin object from the foreign assembly
 
-                    assembly = Assembly.LoadFile(assemblyFilePath);
+                    assembly = Assembly.LoadFrom(assemblyFilePath);
                 }
                 catch (Exception ex)
                 {
