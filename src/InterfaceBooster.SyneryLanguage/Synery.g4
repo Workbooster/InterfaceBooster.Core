@@ -25,6 +25,7 @@ programUnit
 	|	libraryPluginVariableStatement ';'
 	|	tableStatement ';'
 	|	tableAddStatement ';'
+	|	tableDropStatement ';'
 	|	functionCall ';'
 	|	providerPluginStatement
 	|	ifStatement
@@ -79,6 +80,10 @@ tableInitializer
 
 tableAddStatement
 	:	ADD expressionList TO InternalPathIdentifier
+	;
+
+tableDropStatement
+	:	DROP InternalPathIdentifier
 	;
 
 // PARAMETER
@@ -776,6 +781,7 @@ DISTINCT		: 'DISTINCT' ;
 ORDER			: 'ORDER' ;
 BY				: 'BY' ;
 DESC			: 'DESC';
+DROP			: 'DROP' ;
 
 // Event / Exception Handling
 OBSERVE			: 'OBSERVE' ;
