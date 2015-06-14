@@ -171,9 +171,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                             ReadResponse response = endpoint.RunReadRequest(request);
 
                             // handle the response
-
+                            
                             task.SetNewState(ProviderPluginTaskStateEnum.ResponseReceived);
-                            ImportRecordSetToDatabase(dataTask.Memory.Database, dataTask.TargetTableName, response.RecordSet);
+                            ImportRecordSetToDatabase(dataTask.Memory.Database, dataTask.TargetTableName, response.RecordSet, dataTask.FieldNames);
                             HandleSubResponses(task.NestedTasks, response.SubResponses);
                         }
                         break;
@@ -335,7 +335,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
 
                             // TODO: check schema (compare task and response schema)
 
-                            ImportRecordSetToDatabase(readTask.Memory.Database, readTask.TargetTableName, readResponse.RecordSet);
+                            ImportRecordSetToDatabase(readTask.Memory.Database, readTask.TargetTableName, readResponse.RecordSet, readTask.FieldNames);
 
                             HandleSubResponses(task.NestedTasks, readResponse.SubResponses);
                             break;
@@ -483,7 +483,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
                 if (availableInterfaceVersion != assemblyData.RequiredInterfaceVersion)
                 {
                     throw new ProviderPluginManagerException(this, String.Format(
-                        "The RequiredInterfaceVersion='{0}' doesn't match the available interface version ({1}). Error while loading instance with name='{3}' and id='{4}'.",
+                        "The RequiredInterfaceVersion='{0}' doesn't match the available interface version ({1}). Error while loading instance with name='{2}' and id='{3}'.",
                         assemblyData.RequiredInterfaceVersion, availableInterfaceVersion, instanceData.Name, instanceData.Id));
                 }
 
@@ -1132,10 +1132,26 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// <param name="database"></param>
         /// <param name="tableName"></param>
         /// <param name="recordSet"></param>
-        private void ImportRecordSetToDatabase(IDatabase database, string tableName, RecordSet recordSet)
+        /// <param name="fieldNames"></param>
+        private void ImportRecordSetToDatabase(IDatabase database, string tableName, RecordSet recordSet, IList<string> fieldNames)
         {
             // create new schema and add all fields
             ISchema schema = database.NewSchema();
+
+            if (fieldNames.Count > 0)
+            {
+                // remove unselected fields
+
+                Field[] availableFields = recordSet.Schema.Fields.ToArray();
+
+                foreach (var field in availableFields)
+                {
+                    if (fieldNames.Contains(field.Name) == false)
+                    {
+                        recordSet.RemoveField(field);
+                    }
+                }
+            }
 
             foreach (var pluginField in recordSet.Schema.Fields)
             {
