@@ -44,6 +44,7 @@ namespace InterfaceBooster.RuntimeController
         private IBroadcaster _Broadcaster;
         private bool _IsInitialized;
         private InterfaceDefinitionData _InterfaceDefinitionData;
+        private IDatabase _SyneryDB;
         private ISyneryMemory _SyneryMemory;
         private ISyneryClient<bool> _SyneryClient;
 
@@ -176,7 +177,6 @@ namespace InterfaceBooster.RuntimeController
         /// <returns>true = success / false = error (see broadcasted messages for details)</returns>
         public bool Initialize(ExecutionVariables environmentVariables)
         {
-            IDatabase database;
             IProviderPluginManager providerPluginManager;
             ILibraryPluginManager libraryPluginManager;
 
@@ -236,7 +236,7 @@ namespace InterfaceBooster.RuntimeController
                     Directory.CreateDirectory(EnvironmentVariables.DatabaseDirectoryPath);
                 }
 
-                database = new SyneryDB(EnvironmentVariables.DatabaseDirectoryPath);
+                _SyneryDB = new SyneryDB(EnvironmentVariables.DatabaseDirectoryPath);
             }
             catch (SyneryDBException ex)
             {
@@ -291,7 +291,7 @@ namespace InterfaceBooster.RuntimeController
 
             // initialize the SyneryMemory
 
-            _SyneryMemory = new SyneryMemory(database, _Broadcaster, providerPluginManager, libraryPluginManager);
+            _SyneryMemory = new SyneryMemory(_SyneryDB, _Broadcaster, providerPluginManager, libraryPluginManager);
 
             // initialize the SyneryInterpreter
 
@@ -312,8 +312,8 @@ namespace InterfaceBooster.RuntimeController
             _SyneryClient = null;
             EnvironmentVariables = null;
 
-            if (_SyneryMemory != null && _SyneryMemory.Database != null)
-                _SyneryMemory.Database.Dispose();
+            if (_SyneryDB != null)
+                _SyneryDB.Dispose();
         }
 
         #endregion
