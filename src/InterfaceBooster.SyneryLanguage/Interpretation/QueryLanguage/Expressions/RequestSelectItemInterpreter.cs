@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
 
         #region PUBLIC METHODS
 
-        public Expression Run(SyneryParser.RequestSelectItemContext context, QueryMemory memory)
+        public Expression RunWithResult(SyneryParser.RequestSelectItemContext context, QueryMemory memory)
         {
             if (context.requestFieldReference() != null || context.requestSelectFieldAssignment() != null)
             {

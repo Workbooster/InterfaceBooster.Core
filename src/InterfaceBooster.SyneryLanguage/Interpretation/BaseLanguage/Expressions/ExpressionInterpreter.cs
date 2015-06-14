@@ -27,7 +27,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.ExpressionContext context)
+        public IValue RunWithResult(SyneryParser.ExpressionContext context)
         {
             return InterpretExpression(context);
         }

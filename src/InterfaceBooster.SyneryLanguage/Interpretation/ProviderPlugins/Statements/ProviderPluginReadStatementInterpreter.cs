@@ -21,7 +21,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         #region PUBLIC METHODS
 
-        public ProviderPluginReadTask Run(SyneryParser.ProviderPluginReadStatementContext context)
+        public ProviderPluginReadTask RunWithResult(SyneryParser.ProviderPluginReadStatementContext context)
         {
             ProviderPluginReadTask readTask = new ProviderPluginReadTask();
 

@@ -24,7 +24,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Blocks
 
         #region PUBLIC METHODS
 
-        public IHandleBlockData Run(SyneryParser.HandleBlockContext context)
+        public IHandleBlockData RunWithResult(SyneryParser.HandleBlockContext context)
         {
             string parameterName = context.Identifier().GetText();
             string recordTypeName = RecordHelper.ParseRecordTypeName(context.recordType().GetText());

@@ -29,7 +29,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
 
         #region PUBLIC METHODS
 
-        public IExpressionValue Run(SyneryParser.RequestExpressionContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestExpressionContext context, QueryMemory queryMemory)
         {
             return InterpretRequestExpression(context, queryMemory);
         }

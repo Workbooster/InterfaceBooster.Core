@@ -14,7 +14,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         public IInterpretationController Controller { get; set; }
 
-        public IList<IValue> Run(SyneryParser.ExpressionListContext context)
+        public IList<IValue> RunWithResult(SyneryParser.ExpressionListContext context)
         {
             IList<IValue> listOfValues = new List<IValue>();
 

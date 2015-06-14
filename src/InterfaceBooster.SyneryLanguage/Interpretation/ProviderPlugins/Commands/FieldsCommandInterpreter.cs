@@ -19,7 +19,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
         #region PUBLIC METHODS
 
-        public IList<string> Run(SyneryParser.FieldsCommandContext context)
+        public IList<string> RunWithResult(SyneryParser.FieldsCommandContext context)
         {
             // get the list of selected fields
 

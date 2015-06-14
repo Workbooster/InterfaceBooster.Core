@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IExpressionValue Run(SyneryParser.RequestFunctionCallContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestFunctionCallContext context, QueryMemory queryMemory)
         {
             if (context.requestSyneryFunctionCall() != null)
             {

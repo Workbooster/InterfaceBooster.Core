@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IFunctionData Run(SyneryParser.SyneryFunctionBlockContext context, string codeFileAlias = null)
+        public IFunctionData RunWithResult(SyneryParser.SyneryFunctionBlockContext context, string codeFileAlias = null)
         {
             IFunctionData functionData = new FunctionData();
 

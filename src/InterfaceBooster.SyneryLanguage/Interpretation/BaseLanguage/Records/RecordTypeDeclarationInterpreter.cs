@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Records
 
         #region PUBLIC METHODS
 
-        public IRecordType Run(SyneryParser.RecordTypeDeclarationContext context, RecordTypeDelcarationContainer declaration)
+        public IRecordType RunWithResult(SyneryParser.RecordTypeDeclarationContext context, RecordTypeDelcarationContainer declaration)
         {
             IRecordType recordType;
             IRecordType baseRecordType = null;

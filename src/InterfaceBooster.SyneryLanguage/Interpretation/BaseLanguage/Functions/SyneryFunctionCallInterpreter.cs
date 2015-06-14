@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.SyneryFunctionCallContext context)
+        public IValue RunWithResult(SyneryParser.SyneryFunctionCallContext context)
         {
             string identifier = null;
             IList<IValue> listOfParameters;

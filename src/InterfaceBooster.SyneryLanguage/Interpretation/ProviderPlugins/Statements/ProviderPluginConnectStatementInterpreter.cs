@@ -29,7 +29,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
         /// Interprets a connect statement that instructs the Interface Booster to open a connection of a Provider Plugin.
         /// </summary>
         /// <param name="context"></param>
-        public ProviderPluginConnectTask Run(SyneryParser.ProviderPluginConnectStatementContext context)
+        public ProviderPluginConnectTask RunWithResult(SyneryParser.ProviderPluginConnectStatementContext context)
         {
             // get the instance reference name and the connection name from the Synery code
 

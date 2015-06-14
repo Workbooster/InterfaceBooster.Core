@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
         #region PUBLIC METHODS
 
-        public ITable Run(SyneryParser.RequestWhereCommandContext context, QueryMemory queryMemory)
+        public ITable RunWithResult(SyneryParser.RequestWhereCommandContext context, QueryMemory queryMemory)
         {
             IExpressionValue expressionValue = Controller.Interpret<SyneryParser.RequestExpressionContext, IExpressionValue, QueryMemory>(context.requestExpression(), queryMemory);
 

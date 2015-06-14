@@ -27,10 +27,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Blocks
 
             INestedScope blockScope = new BlockScope(Memory.CurrentScope);
 
-            Run(context, blockScope);
+            RunWithResult(context, blockScope);
         }
 
-        public INestedScope Run(SyneryParser.BlockContext context, INestedScope blockScope)
+        public INestedScope RunWithResult(SyneryParser.BlockContext context, INestedScope blockScope)
         {
             Memory.PushScope(blockScope);
 

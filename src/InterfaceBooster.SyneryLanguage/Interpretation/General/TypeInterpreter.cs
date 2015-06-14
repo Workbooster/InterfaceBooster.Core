@@ -31,11 +31,11 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
         /// <exception cref="SyneryException">Thrown when no matching type was found</exception>
         /// <param name="context"></param>
         /// <returns>the representation of the .Net Type</returns>
-        public SyneryType Run(SyneryParser.TypeContext context)
+        public SyneryType RunWithResult(SyneryParser.TypeContext context)
         {
             if (context.primitiveType() != null)
             {
-                return Run(context.primitiveType());
+                return RunWithResult(context.primitiveType());
             }
             else if (context.recordType() != null)
             {
@@ -75,7 +75,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
                 "Unknown type expression in {0}: '{1}'", this.GetType().Name, context.GetText()));
         }
 
-        public SyneryType Run(SyneryParser.PrimitiveTypeContext context)
+        public SyneryType RunWithResult(SyneryParser.PrimitiveTypeContext context)
         {
             if (context.STRING() != null)
                 return TypeHelper.STRING_TYPE;

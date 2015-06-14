@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.LibraryPluginFunctionCallContext context)
+        public IValue RunWithResult(SyneryParser.LibraryPluginFunctionCallContext context)
         {
             string libraryPluginIdentifier;
             string functionIdentifier;

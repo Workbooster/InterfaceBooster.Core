@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         #region PUBLIC METHODS
 
-        public ProviderPluginExecuteTask Run(SyneryParser.ProviderPluginExecuteStatementContext context)
+        public ProviderPluginExecuteTask RunWithResult(SyneryParser.ProviderPluginExecuteStatementContext context)
         {
             ProviderPluginExecuteTask executeTask = new ProviderPluginExecuteTask();
 

@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 
         #region PUBLIC METHODS
 
-        public KeyValuePair<string[], IValue> Run(SyneryParser.KeyValueAssignmentContext context)
+        public KeyValuePair<string[], IValue> RunWithResult(SyneryParser.KeyValueAssignmentContext context)
         {
             string identifier = context.keyValueAssignmentIdentifier().GetText();
             string[] key = IdentifierHelper.ParseComplexIdentifier(identifier);

@@ -19,7 +19,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
         #region PUBLIC METHODS
 
-        public string Run(SyneryParser.ToCommandContext context)
+        public string RunWithResult(SyneryParser.ToCommandContext context)
         {
             return context.tableIdentifier().GetText();
         }

@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IExpressionValue Run(SyneryParser.RequestSyneryFunctionCallContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestSyneryFunctionCallContext context, QueryMemory queryMemory)
         {
             string identifier = null;
             IEnumerable<IExpressionValue> listOfParameters;

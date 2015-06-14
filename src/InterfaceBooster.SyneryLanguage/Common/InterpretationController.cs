@@ -99,7 +99,7 @@ namespace InterfaceBooster.SyneryLanguage.Common
 
             try
             {
-                returnValue = interpreter.Run(context);
+                returnValue = interpreter.RunWithResult(context);
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace InterfaceBooster.SyneryLanguage.Common
 
             try
             {
-                returnValue = interpreter.Run(context, parameter);
+                returnValue = interpreter.RunWithResult(context, parameter);
             }
             catch (Exception ex)
             {

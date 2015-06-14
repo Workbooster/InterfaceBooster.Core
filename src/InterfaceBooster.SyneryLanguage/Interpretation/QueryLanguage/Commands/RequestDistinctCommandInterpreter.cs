@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
         #region PUBLIC METHODS
 
-        public ITable Run(SyneryParser.RequestDistinctCommandContext context, QueryMemory queryMemory)
+        public ITable RunWithResult(SyneryParser.RequestDistinctCommandContext context, QueryMemory queryMemory)
         {
             ObjectArrayEqualityComparer equalityComparer = new ObjectArrayEqualityComparer();
 

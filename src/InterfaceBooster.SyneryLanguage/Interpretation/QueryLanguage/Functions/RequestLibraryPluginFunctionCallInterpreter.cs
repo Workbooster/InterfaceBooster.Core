@@ -28,7 +28,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Functions
 
         #region PUBLIC METHODS
 
-        public IExpressionValue Run(SyneryParser.RequestLibraryPluginFunctionCallContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestLibraryPluginFunctionCallContext context, QueryMemory queryMemory)
         {
             string libraryPluginIdentifier;
             string functionIdentifier;

@@ -21,7 +21,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         #region PUBLIC METHODS
 
-        public ProviderPluginCreateTask Run(SyneryParser.ProviderPluginCreateStatementContext context)
+        public ProviderPluginCreateTask RunWithResult(SyneryParser.ProviderPluginCreateStatementContext context)
         {
             ProviderPluginCreateTask createTask = new ProviderPluginCreateTask();
 

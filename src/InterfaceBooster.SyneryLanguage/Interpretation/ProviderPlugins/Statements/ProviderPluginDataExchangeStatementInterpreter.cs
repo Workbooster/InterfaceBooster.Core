@@ -21,7 +21,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         #region PUBLIC METHODS
 
-        public ProviderPluginDataExchangeTask Run(SyneryParser.ProviderPluginDataExchangeStatementContext context)
+        public ProviderPluginDataExchangeTask RunWithResult(SyneryParser.ProviderPluginDataExchangeStatementContext context)
         {
             ProviderPluginDataExchangeTask task;
 
@@ -87,7 +87,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
             {
                 foreach (var statement in listOfNestedStatements)
                 {
-                    ProviderPluginDataExchangeTask task = Run(statement);
+                    ProviderPluginDataExchangeTask task = RunWithResult(statement);
 
                     // append the current state of the SyneryMemory to the task
                     task.Memory = Memory;

@@ -21,7 +21,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         #region PUBLIC METHODS
 
-        public ProviderPluginDeleteTask Run(SyneryParser.ProviderPluginDeleteStatementContext context)
+        public ProviderPluginDeleteTask RunWithResult(SyneryParser.ProviderPluginDeleteStatementContext context)
         {
             ProviderPluginDeleteTask readTask = new ProviderPluginDeleteTask();
 

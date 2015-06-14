@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Statement
 
         #region PUBLIC METHODS
 
-        public ITable Run(SyneryParser.RequestStatementContext context)
+        public ITable RunWithResult(SyneryParser.RequestStatementContext context)
         {
             QueryMemory queryMemory = new QueryMemory
             {

@@ -19,7 +19,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 
         #region PUBLIC METHODS
 
-        public IList<string> Run(SyneryParser.InternalIdentifierListContext context)
+        public IList<string> RunWithResult(SyneryParser.InternalIdentifierListContext context)
         {
             List<string> listOfIdentifiers = new List<string>();
 

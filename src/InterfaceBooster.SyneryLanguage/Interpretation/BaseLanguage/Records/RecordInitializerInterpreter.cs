@@ -24,7 +24,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Records
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.RecordInitializerContext context)
+        public IValue RunWithResult(SyneryParser.RecordInitializerContext context)
         {
             IRecord record;
             string recordTypeName = RecordHelper.ParseRecordTypeName(context.recordType().GetText());

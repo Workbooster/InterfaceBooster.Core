@@ -20,7 +20,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
         #region PUBLIC METHODS
 
-        public IList<ProviderPluginGetValue> Run(SyneryParser.GetCommandContext context)
+        public IList<ProviderPluginGetValue> RunWithResult(SyneryParser.GetCommandContext context)
         {
             List<ProviderPluginGetValue> listOfValues = new List<ProviderPluginGetValue>();
 

@@ -19,7 +19,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
         #region PUBLIC METHODS
 
-        public IDictionary<string[], IValue> Run(SyneryParser.SetCommandContext context)
+        public IDictionary<string[], IValue> RunWithResult(SyneryParser.SetCommandContext context)
         {
             IDictionary<string[], IValue> values = Controller.Interpret<SyneryParser.KeyValueListContext, IDictionary<string[], IValue>>(context.keyValueList());
 

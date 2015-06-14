@@ -24,7 +24,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.PrimaryContext context)
+        public IValue RunWithResult(SyneryParser.PrimaryContext context)
         {
             if (context.ChildCount > 1)
             {

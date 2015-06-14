@@ -24,7 +24,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.SingleValueContext context)
+        public IValue RunWithResult(SyneryParser.SingleValueContext context)
         {
             if (context.literal() != null)
             {

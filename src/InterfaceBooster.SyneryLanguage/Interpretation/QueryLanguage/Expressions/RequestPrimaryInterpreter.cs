@@ -27,7 +27,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
 
         #region PUBLIC METHODS
 
-        public IExpressionValue Run(SyneryParser.RequestPrimaryContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestPrimaryContext context, QueryMemory queryMemory)
         {
 
             if (context.ChildCount > 1)

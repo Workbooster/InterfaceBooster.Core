@@ -30,7 +30,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.LiteralContext context)
+        public IValue RunWithResult(SyneryParser.LiteralContext context)
         {
             SyneryType type = null;
             object literalValue = null;

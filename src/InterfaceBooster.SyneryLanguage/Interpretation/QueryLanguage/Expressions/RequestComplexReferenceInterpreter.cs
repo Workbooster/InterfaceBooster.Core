@@ -35,7 +35,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
         /// <param name="context"></param>
         /// <param name="queryMemory"></param>
         /// <returns></returns>
-        public IExpressionValue Run(SyneryParser.RequestComplexReferenceContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestComplexReferenceContext context, QueryMemory queryMemory)
         {
             string fieldName = context.GetText();
             IField schemaField = queryMemory.CurrentTable.Schema.GetField(fieldName);

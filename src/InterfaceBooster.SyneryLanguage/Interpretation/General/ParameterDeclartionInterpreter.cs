@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 
         #region PUBLIC METHODS
 
-        public IEnumerable<IFunctionParameterDefinition> Run(SyneryParser.ParameterDeclartionsContext context)
+        public IEnumerable<IFunctionParameterDefinition> RunWithResult(SyneryParser.ParameterDeclartionsContext context)
         {
             List<IFunctionParameterDefinition> listOfParameters = new List<IFunctionParameterDefinition>();
 

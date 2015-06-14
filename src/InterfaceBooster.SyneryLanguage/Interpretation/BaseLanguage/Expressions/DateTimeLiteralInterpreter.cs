@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public DateTime Run(SyneryParser.DateTimeLiteralContext context)
+        public DateTime RunWithResult(SyneryParser.DateTimeLiteralContext context)
         {
             Type parameterType = null;
             List<IValue> listOfDateParts = new List<IValue>();

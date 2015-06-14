@@ -14,7 +14,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
         public IInterpretationController Controller { get; set; }
 
-        public IValue Run(SyneryParser.FunctionCallContext context)
+        public IValue RunWithResult(SyneryParser.FunctionCallContext context)
         {
             if (context.syneryFunctionCall() != null)
             {

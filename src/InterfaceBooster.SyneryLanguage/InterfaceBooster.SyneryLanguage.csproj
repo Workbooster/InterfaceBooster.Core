@@ -68,6 +68,8 @@
     <Compile Include="Interpretation\BaseLanguage\Functions\FunctionCallInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Records\RecordInitializerInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Records\RecordTypeDeclarationInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Records\RecordTypeInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\EachStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ElseStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\EmitStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\IfStatementInterpreter.cs" />

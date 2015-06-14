@@ -22,15 +22,15 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
 
         #region PUBLIC METHODS
 
-        public IValue Run(SyneryParser.ComplexReferenceContext context)
+        public IValue RunWithResult(SyneryParser.ComplexReferenceContext context)
         {
             string complexReference = context.GetText();
             string[] parts = IdentifierHelper.ParseComplexIdentifier(complexReference);
 
-            return Run(context, parts);
+            return RunWithResult(context, parts);
         }
 
-        public IValue Run(SyneryParser.ComplexReferenceContext context, string[] parts)
+        public IValue RunWithResult(SyneryParser.ComplexReferenceContext context, string[] parts)
         {
             string complexReference = context.GetText();
 

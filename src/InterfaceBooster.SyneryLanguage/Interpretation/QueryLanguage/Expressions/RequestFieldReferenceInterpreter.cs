@@ -36,7 +36,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
         /// <param name="context"></param>
         /// <param name="queryMemory"></param>
         /// <returns></returns>
-        public IExpressionValue Run(SyneryParser.RequestFieldReferenceContext context, QueryMemory queryMemory)
+        public IExpressionValue RunWithResult(SyneryParser.RequestFieldReferenceContext context, QueryMemory queryMemory)
         {
             // field identifier
             // create a linq expression to get the value from the IEnumerable

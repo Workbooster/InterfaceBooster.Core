@@ -23,11 +23,11 @@ namespace InterfaceBooster.Common.Interfaces.SyneryLanguage
 
     public interface IInterpreter<contextT, resultT> : IInterpreter
     {
-        resultT Run(contextT context);
+        resultT RunWithResult(contextT context);
     }
 
     public interface IInterpreter<contextT, resultT, paramT> : IInterpreter
     {
-        resultT Run(contextT context, paramT parameter);
+        resultT RunWithResult(contextT context, paramT parameter);
     }
 }

@@ -20,7 +20,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
 
         #region PUBLIC METHODS
 
-        public bool Run(SyneryParser.ElseStatementContext context)
+        public bool RunWithResult(SyneryParser.ElseStatementContext context)
         {
             bool execute = true;
             IValue conditionValue;

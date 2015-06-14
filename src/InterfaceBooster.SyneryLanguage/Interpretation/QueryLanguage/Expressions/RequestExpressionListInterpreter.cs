@@ -22,7 +22,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
 
         #region PUBLIC METHODS
 
-        public IList<IExpressionValue> Run(SyneryParser.RequestExpressionListContext context, QueryMemory queryMemory)
+        public IList<IExpressionValue> RunWithResult(SyneryParser.RequestExpressionListContext context, QueryMemory queryMemory)
         {
             List<IExpressionValue> listOfExpressions = new List<IExpressionValue>();
 

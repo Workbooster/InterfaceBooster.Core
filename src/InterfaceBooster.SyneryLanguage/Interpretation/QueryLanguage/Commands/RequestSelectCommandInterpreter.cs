@@ -27,7 +27,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
         #region PUBLIC METHODS
 
-        public ITable Run(SyneryParser.RequestSelectCommandContext context, QueryMemory queryMemory)
+        public ITable RunWithResult(SyneryParser.RequestSelectCommandContext context, QueryMemory queryMemory)
         {
             List<Expression> listOfSelectItemExpressions = new List<Expression>();
 

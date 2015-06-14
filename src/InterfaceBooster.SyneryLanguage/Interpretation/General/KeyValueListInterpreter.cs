@@ -28,7 +28,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public IDictionary<string[], IValue> Run(SyneryParser.KeyValueListContext context)
+        public IDictionary<string[], IValue> RunWithResult(SyneryParser.KeyValueListContext context)
         {
             Dictionary<string[], IValue> listOfKeyValues = new Dictionary<string[], IValue>();
 

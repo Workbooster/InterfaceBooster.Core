@@ -26,7 +26,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
         #region PUBLIC METHODS
 
-        public ITable Run(SyneryParser.RequestJoinCommandContext context, QueryMemory queryMemory)
+        public ITable RunWithResult(SyneryParser.RequestJoinCommandContext context, QueryMemory queryMemory)
         {
             // load join tables
             string tableName = context.InternalPathIdentifier().GetText();
