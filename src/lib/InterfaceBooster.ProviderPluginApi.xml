@@ -49,14 +49,19 @@
             Gets or sets the Request(s) on some SubResources.
             </summary>
         </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Communication.IRequestWithRecordSet">
+            <summary>
+            Specifies all requests that may contain a RecordSet
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IRequestWithRecordSet.RecordSet">
+            <summary>
+            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
+            </summary>
+        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.Resource">
             <summary>
             Gets or sets the original resource this request is based on.
-            </summary>
-        </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.RecordSet">
-            <summary>
-            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ICreateRequest.Answers">
@@ -64,24 +69,24 @@
             Gets or sets a list of Answers given to the Questions from the resource.
             </summary>
         </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Communication.IRequestWithFilters">
+            <summary>
+            Specifies a Request that may contain some filters.
+            </summary>
+        </member>
+        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IRequestWithFilters.Filters">
+            <summary>
+            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
+            </summary>
+        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Resource">
             <summary>
             Gets or sets the original resource this request is based on.
             </summary>
         </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.RecordSet">
-            <summary>
-            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
-            </summary>
-        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Answers">
             <summary>
             Gets or sets a list of Answers given to the Questions from the resource.
-            </summary>
-        </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IDeleteRequest.Filters">
-            <summary>
-            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IExecuteRequest.Resource">
@@ -114,19 +119,9 @@
             Gets or sets a list of fields from the original Schema of the ReadResource that are expected to be loaded and returned within the response.
             </summary>
         </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IReadRequest.Filters">
-            <summary>
-            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
-            </summary>
-        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.Resource">
             <summary>
             Gets or sets the original resource this request is based on.
-            </summary>
-        </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.RecordSet">
-            <summary>
-            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ISaveRequest.Answers">
@@ -139,19 +134,9 @@
             Gets or sets the original resource this request is based on.
             </summary>
         </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.RecordSet">
-            <summary>
-            Gets or sets a RecordSet that matches the Schema of the resource (or null if no data is given).
-            </summary>
-        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.Answers">
             <summary>
             Gets or sets a list of Answers given to the Questions from the resource.
-            </summary>
-        </member>
-        <member name="P:InterfaceBooster.ProviderPluginApi.Communication.IUpdateRequest.Filters">
-            <summary>
-            Gets or sets a Filter according to the available FilterDefinitions from the Resource.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Communication.ReadResponse.Request">
@@ -404,7 +389,7 @@
             "Test" === "Test" is true
             </summary>
         </member>
-        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.NotExactlyEqual">
+        <member name="F:InterfaceBooster.ProviderPluginApi.Data.Filter.FilterTypeEnum.ExactlyNotEqual">
             <summary>
             Compares the values (case sensitive)
             Examples:
@@ -519,6 +504,61 @@
             <param name="record"></param>
             <returns></returns>
         </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetValue``1(System.Int32,``0)">
+            <summary>
+            Gets the field value and casts it to the given type.
+            If the value is null the <paramref name="defaultValue"/> is returned.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldIndex"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetValue``1(System.String,``0)">
+            <summary>
+            Gets the field value and casts it to the given type.
+            If the value is null the <paramref name="defaultValue"/> is returned.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldIndex"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetValueOrDefault``1(System.String,``0)">
+            <summary>
+            Checks whether the given field exists and gets the field value and casts it to the given type.
+            If the field doesn't exists or the value is null the <paramref name="defaultValue"/> is returned.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldName"></param>
+            <param name="defaultValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetNullableValue``1(System.Int32)">
+            <summary>
+            Gets the field value and casts it to a nullable instance of the given type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetNullableValue``1(System.String)">
+            <summary>
+            Gets the field value and casts it to a nullable instance of the given type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.GetNullableValueOrDefault``1(System.String)">
+            <summary>
+            Checks whether the given field exists and gets the field value and casts it to a nullable instance of the given type.
+            If the field wasn't found NULL is returned.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
         <member name="M:InterfaceBooster.ProviderPluginApi.Data.Record.SetData(System.Object[],System.Boolean)">
             <summary>
             Stores the given data internally.
@@ -567,7 +607,22 @@
             </summary>
             <param name="data"></param>
         </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.NewRecord">
+            <summary>
+            Creates a new Record with the same Schema as the RecordSet.
+            (Does not add the Record to the RecordSet!)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.NewRecord(System.Object[])">
+            <summary>
+            Creates a new Record with the same Schema as the RecordSet.
+            (Does not add the Record to the RecordSet!)
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InterfaceBooster.ProviderPluginApi.Data.RecordSet.AppendRecord(System.Object[])">
             <summary>
             Creates and adds a new record and allows a fluid API like:
             rs.NewRecord(1, "bla").NewRecord(2, "aha").NewRecord(3, "ok");
@@ -778,6 +833,11 @@
             (You're free to use this property internally. This value isn't touched or displayed by Interface Booster in any way).
             </summary>
         </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Service.IResourceWithSchema">
+            <summary>
+            Specifies a resource that has a Schema property.
+            </summary>
+        </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Service.CreateResource.Schema">
             <summary>
             Gets or sets the data schema that is expected on a request.
@@ -788,6 +848,11 @@
             <summary>
             Gets or sets a list of parameter declarations.
             These parameters can/must be set by Interface Booster on a request.
+            </summary>
+        </member>
+        <member name="T:InterfaceBooster.ProviderPluginApi.Service.IResourceWithFilterDefinition">
+            <summary>
+            Specifies a resource that has a FilterDefinitions property.
             </summary>
         </member>
         <member name="P:InterfaceBooster.ProviderPluginApi.Service.DeleteResource.Schema">
