@@ -30,7 +30,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
         /// <param name="context"></param>
         public void Run(SyneryParser.TableAddStatementContext context)
         {
-            string destinationTableName = context.InternalPathIdentifier().GetText();
+            string destinationTableName = context.tableIdentifier().GetText();
             bool isFirstExpression = true;
             ITable table = null;
 

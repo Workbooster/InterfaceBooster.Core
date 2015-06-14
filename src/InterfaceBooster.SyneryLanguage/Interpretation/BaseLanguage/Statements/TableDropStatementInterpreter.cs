@@ -25,7 +25,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
         /// <param name="context"></param>
         public void Run(SyneryParser.TableDropStatementContext context)
         {
-            string destinationTableName = context.InternalPathIdentifier().GetText();
+            string destinationTableName = context.tableIdentifier().GetText();
 
             if (Memory.Database.IsTable(destinationTableName))
             {

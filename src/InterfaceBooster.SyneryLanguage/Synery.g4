@@ -80,11 +80,11 @@ tableInitializer
 	;
 
 tableAddStatement
-	:	ADD expressionList TO InternalPathIdentifier
+	:	ADD expressionList TO tableIdentifier
 	;
 
 tableDropStatement
-	:	DROP InternalPathIdentifier
+	:	DROP tableIdentifier
 	;
 
 // LOG
