@@ -71,6 +71,7 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\ElseStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\EmitStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\IfStatementInterpreter.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\LogStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\RecordStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ReturnStatementInterpreter.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\LibraryPluginVariableStatementInterpreter.cs" />

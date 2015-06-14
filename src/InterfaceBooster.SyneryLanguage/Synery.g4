@@ -26,6 +26,7 @@ programUnit
 	|	tableStatement ';'
 	|	tableAddStatement ';'
 	|	tableDropStatement ';'
+	|	logStatement ';'
 	|	functionCall ';'
 	|	providerPluginStatement
 	|	ifStatement
@@ -84,6 +85,12 @@ tableAddStatement
 
 tableDropStatement
 	:	DROP InternalPathIdentifier
+	;
+
+// LOG
+
+logStatement
+	:	LOG '(' expression (',' StringLiteral )? ')'
 	;
 
 // PARAMETER
@@ -782,6 +789,7 @@ ORDER			: 'ORDER' ;
 BY				: 'BY' ;
 DESC			: 'DESC';
 DROP			: 'DROP' ;
+LOG				: 'LOG' ;
 
 // Event / Exception Handling
 OBSERVE			: 'OBSERVE' ;

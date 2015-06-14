@@ -40,6 +40,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage
                 {
                     Controller.Interpret<SyneryParser.LibraryPluginVariableStatementContext>((SyneryParser.LibraryPluginVariableStatementContext)item);
                 }
+                else if (item is SyneryParser.LogStatementContext)
+                {
+                    Controller.Interpret<SyneryParser.LogStatementContext>((SyneryParser.LogStatementContext)item);
+                }
                 else if (item is SyneryParser.TableAddStatementContext)
                 {
                     Controller.Interpret<SyneryParser.TableAddStatementContext>((SyneryParser.TableAddStatementContext)item);
