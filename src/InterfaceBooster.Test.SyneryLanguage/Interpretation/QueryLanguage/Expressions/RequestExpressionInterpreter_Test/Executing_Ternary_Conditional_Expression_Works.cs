@@ -40,6 +40,40 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage.Expr
             Assert.AreEqual("Hello", resultValue);
         }
 
+        [Test]
+        public void Executing_Condition_With_Field_Or_Constant_Value_Options_Works()
+        {
+            // Test after Bugfix:
+            // The bug occured if the options in a ternary operation came from a different source.
+            // In that case an Exception "Argument types do not match" is thrown.
+
+            // For that reason this test uses the constant "Super!" and the field "p.Lastname" as trueValue/falseValue.
+
+            string code = "test = p.Lastname == \"Guillet\" ? \"Super!\" : p.Lastname";
+
+            _SyneryClient.Run(GenerateCode(code));
+
+            object resultValue = _Database.LoadTable(@"\QueryLanguageTests\Test")[0][0];
+            object resultValue2 = _Database.LoadTable(@"\QueryLanguageTests\Test")[1][0];
+
+            Assert.AreEqual("Super!", resultValue);
+            Assert.AreEqual("Bloch", resultValue2);
+        }
+
+        [Test]
+        public void Executing_Condition_With_Field_Or_NULL_Value_Options_Works()
+        {
+            string code = "test = p.Lastname != \"Guillet\" ? NULL : p.Lastname";
+
+            _SyneryClient.Run(GenerateCode(code));
+
+            object resultValue = _Database.LoadTable(@"\QueryLanguageTests\Test")[0][0];
+            object resultValue2 = _Database.LoadTable(@"\QueryLanguageTests\Test")[1][0];
+
+            Assert.AreEqual("Guillet", resultValue);
+            Assert.AreEqual(null, resultValue2);
+        }
+
         #region HELPERS
 
         private string GenerateCode(string selectStatement, string codeBefore = "", string codeAfter = "")

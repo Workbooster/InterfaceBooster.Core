@@ -102,6 +102,11 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                     IExpressionValue trueValue = InterpretRequestExpression((SyneryParser.RequestExpressionContext)context.children[2], queryMemory);
                     IExpressionValue falseValue = InterpretRequestExpression((SyneryParser.RequestExpressionContext)context.children[4], queryMemory);
 
+                    // The possible trueValue/falseValue also need to a cast.
+                    // Otherwise an Exception "Argument types do not match" is thrown.
+                    trueValue.Expression = PrepareExpressionForBinaryOperation(trueValue, falseValue);
+                    falseValue.Expression = PrepareExpressionForBinaryOperation(falseValue, trueValue);
+
                     return IfThenElse(context, conditionValue, trueValue, falseValue);
                 }
             }
@@ -130,6 +135,9 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
             if (primaryValue.ResultType == null && secondValue.ResultType != null)
             {
                 resultType = secondValue.ResultType.UnterlyingDotNetType;
+                
+                // overwrite the null result type
+                primaryValue.ResultType = resultType;
             }
             else
             {
@@ -162,9 +170,14 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                 throw new SyneryInterpretationException(context,
                     string.Format("The conditional part of the ternary conditional expression is not a boolean value. The given type was '{0}'.", conditionValue.ResultType.PublicName));
 
+            if (trueValue.ResultType == null  && falseValue.ResultType == null)
+                throw new SyneryInterpretationException(context, "Both value options of the ternary operation have an unknown result type.");
+
             if (trueValue.ResultType != falseValue.ResultType)
                 throw new SyneryInterpretationException(context,
-                    string.Format("A ternary conditional operation cannot be applied to two different types '{0}' and '{1}'.", trueValue.ResultType.PublicName, falseValue.ResultType.PublicName));
+                    string.Format("A ternary conditional operation cannot be applied to two different types '{0}' and '{1}'.",
+                    trueValue.ResultType == null ? "NULL" : trueValue.ResultType.PublicName,
+                    falseValue.ResultType == null ? "NULL" : falseValue.ResultType.PublicName));
 
             Expression fieldExpression = Expression.Condition(conditionValue.Expression, trueValue.Expression, falseValue.Expression);
 
