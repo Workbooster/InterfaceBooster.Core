@@ -333,6 +333,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                          && ((ReadResponse)r).Request.Resource.Name == readTask.ResourceName
                                                          select (ReadResponse)r).FirstOrDefault();
 
+                            if (readResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No read response from provider plugin endpoint '{0}'.", readTask.FullSyneryPath));
+
                             // TODO: check schema (compare task and response schema)
 
                             ImportRecordSetToDatabase(readTask.Memory.Database, readTask.TargetTableName, readResponse.RecordSet, readTask.FieldNames);
@@ -347,6 +350,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              && ((CreateResponse)r).Request.Resource.Name == createTask.ResourceName
                                                              select (CreateResponse)r).FirstOrDefault();
 
+                            if (createResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No create response from provider plugin endpoint '{0}'.", createTask.FullSyneryPath));
+
                             HandleSubResponses(task.NestedTasks, createResponse.SubResponses);
                             break;
                         case ProviderPluginTaskTypeEnum.Update:
@@ -356,6 +362,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              where r.RequestType == RequestTypeEnum.Update
                                                              && ((UpdateResponse)r).Request.Resource.Name == updateTask.ResourceName
                                                              select (UpdateResponse)r).FirstOrDefault();
+
+                            if (updateResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No update response from provider plugin endpoint '{0}'.", updateTask.FullSyneryPath));
 
                             HandleSubResponses(task.NestedTasks, updateResponse.SubResponses);
                             break;
@@ -367,6 +376,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                          && ((SaveResponse)r).Request.Resource.Name == saveTask.ResourceName
                                                          select (SaveResponse)r).FirstOrDefault();
 
+                            if (saveResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No save response from provider plugin endpoint '{0}'.", saveTask.FullSyneryPath));
+
                             HandleSubResponses(task.NestedTasks, saveResponse.SubResponses);
                             break;
                         case ProviderPluginTaskTypeEnum.Delete:
@@ -377,6 +389,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              && ((DeleteResponse)r).Request.Resource.Name == deleteTask.ResourceName
                                                              select (DeleteResponse)r).FirstOrDefault();
 
+                            if (deleteResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No delete response from provider plugin endpoint '{0}'.", deleteTask.FullSyneryPath));
+
                             HandleSubResponses(task.NestedTasks, deleteResponse.SubResponses);
                             break;
                         case ProviderPluginTaskTypeEnum.Execute:
@@ -386,6 +401,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                                where r.RequestType == RequestTypeEnum.Execute
                                                                && ((ExecuteResponse)r).Request.Resource.Name == executeTask.ResourceName
                                                                select (ExecuteResponse)r).FirstOrDefault();
+
+                            if (executeResponse == null)
+                                throw new ProviderPluginManagerException(this, String.Format("No execute response from provider plugin endpoint '{0}'.", executeTask.FullSyneryPath));
 
                             ImportGetValues(executeTask.GetValues, executeResponse.Values);
                             HandleSubResponses(task.NestedTasks, executeResponse.SubResponses);
