@@ -138,7 +138,7 @@ namespace InterfaceBooster.SyneryLanguage.Validation
             }
             else
             {
-                message = String.Format("Lexical error next to {0} detected.", SyneryParser.tokenNames[offendingSymbol]);
+                message = String.Format("Lexical error next to {0} detected.", SyneryParser.DefaultVocabulary.GetLiteralName(offendingSymbol));
             }
 
             _ValidationResult.AddMessage(ValidationResultMessageCategoryEnum.Error, message, line, charPositionInLine, null);
