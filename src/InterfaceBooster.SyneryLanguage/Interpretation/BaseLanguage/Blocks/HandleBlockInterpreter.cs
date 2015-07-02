@@ -27,22 +27,11 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Blocks
         public IHandleBlockData RunWithResult(SyneryParser.HandleBlockContext context)
         {
             string parameterName = context.Identifier().GetText();
-            string recordTypeName = RecordHelper.ParseRecordTypeName(context.recordType().GetText());
-
-            IRecordType recordType = (from r in Memory.RecordTypes
-                                      where r.Key.Name == recordTypeName
-                                      select r.Value).FirstOrDefault();
-
-            // check record type is known
-
-            if (recordType == null)
-                throw new SyneryInterpretationException(context, String.Format(
-                    "A record type with name='{0}' wasn't found.",
-                    recordTypeName));
+            var recordTypeDefinition = Controller.Interpret<SyneryParser.RecordTypeContext, KeyValuePair<SyneryType, IRecordType>>(context.recordType());
 
             return new HandleBlockData()
             {
-                HandledRecordType = recordType,
+                HandledRecordType = recordTypeDefinition.Value,
                 ParameterName = parameterName,
                 Context = context.block(),
                 ParentScope = Memory.CurrentScope,

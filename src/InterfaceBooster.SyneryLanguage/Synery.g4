@@ -31,6 +31,7 @@ programUnit
 	|	providerPluginStatement
 	|	ifStatement
 	|	observeBlock
+	|	eachStatement
 	;
 
 block
@@ -246,6 +247,14 @@ emitStatement
 
 throwStatement
 	:	THROW expression
+	;
+
+/*** EACH LOOP ***/
+
+eachStatement
+	:	EACH recordType Identifier IN tableIdentifier
+			block
+		END
 	;
 
 /*** PROVIDER PLUGIN ***/
@@ -790,6 +799,8 @@ BY				: 'BY' ;
 DESC			: 'DESC';
 DROP			: 'DROP' ;
 LOG				: 'LOG' ;
+EACH			: 'EACH' ;
+IN				: 'IN' ;
 
 // Event / Exception Handling
 OBSERVE			: 'OBSERVE' ;

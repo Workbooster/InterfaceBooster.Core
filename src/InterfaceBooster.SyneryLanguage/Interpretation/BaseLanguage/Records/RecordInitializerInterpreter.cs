@@ -27,18 +27,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Records
         public IValue RunWithResult(SyneryParser.RecordInitializerContext context)
         {
             IRecord record;
-            string recordTypeName = RecordHelper.ParseRecordTypeName(context.recordType().GetText());
-
-            KeyValuePair<SyneryType, IRecordType> recordTypeDefinition = (from r in Memory.RecordTypes
-                                                                where r.Key.Name == recordTypeName
-                                                                select r).FirstOrDefault();
-
-            // check record type is known
-
-            if (recordTypeDefinition.Key == null)
-                throw new SyneryInterpretationException(context, String.Format(
-                    "A record type with name='{0}' wasn't found.",
-                    recordTypeName));
+            var recordTypeDefinition = Controller.Interpret<SyneryParser.RecordTypeContext, KeyValuePair<SyneryType, IRecordType>>(context.recordType());
 
             // create record
 

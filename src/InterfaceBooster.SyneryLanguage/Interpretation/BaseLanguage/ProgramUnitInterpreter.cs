@@ -72,6 +72,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage
                 {
                     Controller.Interpret<SyneryParser.ObserveBlockContext>((SyneryParser.ObserveBlockContext)item);
                 }
+                else if (item is SyneryParser.EachStatementContext)
+                {
+                    Controller.Interpret<SyneryParser.EachStatementContext>((SyneryParser.EachStatementContext)item);
+                }
                 else
                 {
                     if (item is ParserRuleContext)
