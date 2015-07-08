@@ -171,7 +171,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
                             ReadResponse response = endpoint.RunReadRequest(request);
 
                             // handle the response
-                            
+
                             task.SetNewState(ProviderPluginTaskStateEnum.ResponseReceived);
                             ImportRecordSetToDatabase(dataTask.Memory.Database, dataTask.TargetTableName, response.RecordSet, dataTask.FieldNames);
                             HandleSubResponses(task.NestedTasks, response.SubResponses);
@@ -739,6 +739,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                          && r.Name == readTask.ResourceName
                                                          select (ReadResource)r).FirstOrDefault();
 
+                            if (readResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "A read subresource with name '{0}' wasn't found.", readTask.ResourceName));
+
                             request = PrepareReadRequest(readTask, readResource);
                             request.SubRequests = PrepareSubRequests(readTask.NestedTasks, readResource.SubResources);
                             break;
@@ -753,6 +757,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              where r.RequestType == RequestTypeEnum.Create
                                                              && r.Name == createTask.ResourceName
                                                              select (CreateResource)r).FirstOrDefault();
+
+                            if (createResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "A create subresource with name '{0}' wasn't found.", createTask.ResourceName));
 
                             request = PrepareCreateRequest(createTask, createResource);
                             request.SubRequests = PrepareSubRequests(createTask.NestedTasks, createResource.SubResources);
@@ -769,6 +777,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              && r.Name == updateTask.ResourceName
                                                              select (UpdateResource)r).FirstOrDefault();
 
+                            if (updateResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "An update subresource with name '{0}' wasn't found.", updateTask.ResourceName));
+
                             request = PrepareUpdateRequest(updateTask, updateResource);
                             request.SubRequests = PrepareSubRequests(updateTask.NestedTasks, updateResource.SubResources);
                             break;
@@ -783,6 +795,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                          where r.RequestType == RequestTypeEnum.Save
                                                          && r.Name == saveTask.ResourceName
                                                          select (SaveResource)r).FirstOrDefault();
+
+                            if (saveResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "A save subresource with name '{0}' wasn't found.", saveTask.ResourceName));
 
                             request = PrepareSaveRequest(saveTask, saveResource);
                             request.SubRequests = PrepareSubRequests(saveTask.NestedTasks, saveResource.SubResources);
@@ -799,6 +815,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                              && r.Name == deleteTask.ResourceName
                                                              select (DeleteResource)r).FirstOrDefault();
 
+                            if (deleteResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "A delete subresource with name '{0}' wasn't found.", deleteTask.ResourceName));
+
                             request = PrepareDeleteRequest(deleteTask, deleteResource);
                             request.SubRequests = PrepareSubRequests(deleteTask.NestedTasks, deleteResource.SubResources);
                             break;
@@ -813,6 +833,10 @@ namespace InterfaceBooster.Core.ProviderPlugins
                                                                where r.RequestType == RequestTypeEnum.Execute
                                                                && r.Name == executeTask.ResourceName
                                                                select (ExecuteResource)r).FirstOrDefault();
+
+                            if (executeResource == null)
+                                throw new ProviderPluginManagerException(this, String.Format(
+                                    "An execute subresource with name '{0}' wasn't found.", executeTask.ResourceName));
 
                             request = PrepareExecuteRequest(executeTask, executeResource);
                             request.SubRequests = PrepareSubRequests(executeTask.NestedTasks, executeResource.SubResources);
@@ -848,7 +872,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
                 // create an empty list
                 listOfRequestedFields = new List<Field>();
 
-                if(task.FieldNames.Count > 0)
+                if (task.FieldNames.Count > 0)
                     throw new ProviderPluginManagerException(this, String.Format(
                         "Cannot request fields in read request. The resource at '{0}' doesn't provide a schema.", task.FullSyneryPath));
             }
@@ -1083,9 +1107,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
                              where e is T
                              && e.Name == task.EndpointName
                              && (
-                                // check whether the path is empty on both sides:
+                                 // check whether the path is empty on both sides:
                                 ((task.EndpointPath == null || task.EndpointPath.Count() == 0) && (e.Path == null || e.Path.Length == 0))
-                                // otherwise compare the paths:
+                                 // otherwise compare the paths:
                                  || ArrayEqualityComparer.Equals(e.Path, task.EndpointPath)
                                  )
                              select e).FirstOrDefault();
@@ -1168,6 +1192,18 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// <param name="fieldNames"></param>
         private void ImportRecordSetToDatabase(IDatabase database, string tableName, RecordSet recordSet, IList<string> fieldNames)
         {
+            if (String.IsNullOrEmpty(tableName))
+                return; // no table to import
+
+            if (recordSet == null)
+                throw new ProviderPluginManagerException(this, String.Format(
+                    "The Provider Plugin didn't return a record set that can be stored to the table '{0}'.",
+                    tableName));
+
+            if (recordSet.Schema == null)
+                throw new ProviderPluginManagerException(this,
+                    "The record set returned by the Provider Plugin doesn't contain a schema");
+
             // create new schema and add all fields
             ISchema schema = database.NewSchema();
 
