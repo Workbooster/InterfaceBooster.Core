@@ -840,7 +840,22 @@ namespace InterfaceBooster.Core.ProviderPlugins
             // check whether all required questions were answered
             CheckRequiredAnswers(resource.Questions, listOfAnswers);
 
-            IEnumerable<Field> listOfRequestedFields = GetListOfRequestedFields(resource.Schema, task.FieldNames);
+            IEnumerable<Field> listOfRequestedFields;
+
+            if (resource.Schema == null || resource.Schema.Fields == null || resource.Schema.Fields.Count == 0)
+            {
+                // the resource doesn't provide a schema
+                // create an empty list
+                listOfRequestedFields = new List<Field>();
+
+                if(task.FieldNames.Count > 0)
+                    throw new ProviderPluginManagerException(this, String.Format(
+                        "Cannot request fields in read request. The resource at '{0}' doesn't provide a schema.", task.FullSyneryPath));
+            }
+            else
+            {
+                listOfRequestedFields = GetListOfRequestedFields(resource.Schema, task.FieldNames);
+            }
 
             request = new ReadRequest();
             request.Resource = resource;
