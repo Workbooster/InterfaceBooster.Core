@@ -124,7 +124,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                 }
             }
 
-            throw new SyneryInterpretationException(context, String.Format("A field or variable with the name '{0}' wan't found.", fieldName));
+            throw new SyneryInterpretationException(context, String.Format("A field or variable with the name '{0}' wan't found.", complexIdentifier));
         }
 
         private KeyValuePair<string, IExpressionValue> InterpretVariableReference(SyneryParser.VariableReferenceContext context, QueryMemory queryMemory)
