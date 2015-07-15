@@ -50,33 +50,13 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                     resultType: value.Type
                 );
             }
-            else if (context.variableReference() != null)
-            {
-                Expression expression;
-                string varName = context.variableReference().GetText();
-                IValue value = Memory.CurrentScope.ResolveVariable(varName);
-
-                if (value.Type != null)
-                {
-                    expression = Expression.Constant(value.Value, value.Type.UnterlyingDotNetType);
-                }
-                else
-                {
-                    expression = Expression.Constant(null);
-                }
-
-                return new ExpressionValue(
-                    expression: expression,
-                    resultType: value.Type
-                );
-            }
             else if (context.libraryPluginVariableReference() != null)
             {
                 return GetLibraryPluginVariableValueExpression(context.libraryPluginVariableReference());
             }
-            else if (context.requestComplexReference() != null)
+            else if (context.requestFieldReference() != null)
             {
-                return Controller.Interpret<SyneryParser.RequestComplexReferenceContext, IExpressionValue, QueryMemory>(context.requestComplexReference(), queryMemory);
+                return Controller.Interpret<SyneryParser.RequestFieldReferenceContext, KeyValuePair<string, IExpressionValue>, QueryMemory>(context.requestFieldReference(), queryMemory).Value;
             }
             else if (context.requestFunctionCall() != null)
             {

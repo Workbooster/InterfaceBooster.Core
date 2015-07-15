@@ -102,6 +102,7 @@
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_By_Field_Assignment_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_By_Field_Reference_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Selecting_With_Mixed_Select_Items_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestSelectCommandInterpreter_Test\Using_Multiple_Select_Statements_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestWhereCommandInterpreter_Test\Filtering_With_NULL_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Catching_Invalid_Expressions_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter_Test\Catching_Null_Values_Works.cs" />

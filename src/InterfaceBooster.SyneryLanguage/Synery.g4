@@ -526,18 +526,14 @@ requestPrimary
 
 requestSingleValue
 	:	literal
-    |   variableReference
-	|	requestComplexReference
+	|	requestFieldReference
 	|	libraryPluginVariableReference
 	|	requestFunctionCall
 	;
 
 requestFieldReference
 	:	complexReference
-	;
-
-requestComplexReference
-	:	requestFieldReference
+	|	variableReference
 	;
 
 requestFunctionCall

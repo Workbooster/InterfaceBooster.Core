@@ -201,7 +201,6 @@ namespace InterfaceBooster.SyneryLanguage.Common
             factory.SetInterpreter(new RequestWhereCommandInterpreter());
             factory.SetInterpreter(new RequestExpressionInterpreter());
             factory.SetInterpreter(new RequestExpressionListInterpreter());
-            factory.SetInterpreter(new RequestComplexReferenceInterpreter());
             factory.SetInterpreter(new RequestFieldReferenceInterpreter());
             factory.SetInterpreter(new RequestPrimaryInterpreter());
             factory.SetInterpreter(new RequestSelectItemInterpreter());

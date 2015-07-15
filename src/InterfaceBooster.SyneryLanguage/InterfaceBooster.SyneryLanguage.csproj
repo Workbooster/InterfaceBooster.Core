@@ -116,7 +116,6 @@
     <Compile Include="Interpretation\QueryLanguage\Common\JoinHelper.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionListInterpreter.cs" />
-    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestComplexReferenceInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestFieldReferenceInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestPrimaryInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSelectItemInterpreter.cs" />

@@ -30,10 +30,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
             foreach (var fieldReferenceContext in context.requestFieldReference())
             {
-                IExpressionValue expressionValue = Controller
-                    .Interpret<SyneryParser.RequestFieldReferenceContext, IExpressionValue, QueryMemory>(fieldReferenceContext, queryMemory);
+                KeyValuePair<string, IExpressionValue> fieldResult = Controller
+                    .Interpret<SyneryParser.RequestFieldReferenceContext, KeyValuePair<string, IExpressionValue>, QueryMemory>(fieldReferenceContext, queryMemory);
 
-                listOfFieldExpressions.Add(expressionValue.Expression);
+                listOfFieldExpressions.Add(fieldResult.Value.Expression);
             }
 
             // create a lambda expression that selects all orderby-fields as an object-array

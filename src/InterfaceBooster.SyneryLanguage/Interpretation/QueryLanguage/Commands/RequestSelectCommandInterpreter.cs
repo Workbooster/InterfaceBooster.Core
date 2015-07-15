@@ -30,6 +30,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
         public ITable RunWithResult(SyneryParser.RequestSelectCommandContext context, QueryMemory queryMemory)
         {
             List<Expression> listOfSelectItemExpressions = new List<Expression>();
+            queryMemory.NewSchema = Memory.Database.NewSchema();
 
             // interpret all fields in the select list
             foreach (var item in context.requestSelectItem())

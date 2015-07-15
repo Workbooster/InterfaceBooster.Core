@@ -35,9 +35,12 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                 if (context.requestFieldReference() != null)
                 {
                     // single field
+                    // Example: SELECT IdPerson
                     // Example: SELECT p.PersonName
 
-                    KeyValuePair<string, IExpressionValue> field = InterpretRequestFieldReference(context.requestFieldReference(), memory);
+                    KeyValuePair<string, IExpressionValue> field = Controller
+                        .Interpret<SyneryParser.RequestFieldReferenceContext, KeyValuePair<string, IExpressionValue>, QueryMemory>(context.requestFieldReference(), memory);
+
                     fieldName = field.Key;
                     fieldExpressionValue = field.Value;
                 }
@@ -73,20 +76,6 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
         #endregion
 
         #region INTERNAL METHODS
-
-        private KeyValuePair<string, IExpressionValue> InterpretRequestFieldReference(SyneryParser.RequestFieldReferenceContext context, QueryMemory queryMemory)
-        {
-            // get the future fieldname from it's old name by removing the alias
-            string complexIdentifier = context.complexReference().GetText();
-            string[] path = IdentifierHelper.ParseComplexIdentifier(complexIdentifier);
-            string fieldName = path[path.Length - 1];
-
-            // get the LINQ expression for the field reference
-            IExpressionValue expressionValue = Controller
-                .Interpret<SyneryParser.RequestFieldReferenceContext, IExpressionValue, QueryMemory>(context, queryMemory);
-
-            return new KeyValuePair<string, IExpressionValue>(fieldName, expressionValue);
-        }
 
         private KeyValuePair<string, IExpressionValue> InterpretRequestSelectFieldAssignment(SyneryParser.RequestSelectFieldAssignmentContext context, QueryMemory queryMemory)
         {
