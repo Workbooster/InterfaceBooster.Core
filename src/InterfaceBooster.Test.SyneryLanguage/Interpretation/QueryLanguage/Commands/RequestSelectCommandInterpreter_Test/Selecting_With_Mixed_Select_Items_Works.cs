@@ -8,6 +8,7 @@ using InterfaceBooster.Database.Interfaces.Structure;
 
 namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage.Commands.RequestSelectCommandInterpreter_Test
 {
+    [TestFixture]
     public class Selecting_With_Mixed_Select_Items_Works : QueryLanguageTestBase
     {
         private string _Code;
