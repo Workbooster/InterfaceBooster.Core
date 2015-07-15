@@ -587,9 +587,6 @@ namespace InterfaceBooster.Core.ProviderPlugins
         {
             AnswerList listOfAnswers = new AnswerList();
 
-            // use a string-array equality comparer
-            ArrayEqualityComparer<string> equalityComparer = new ArrayEqualityComparer<string>();
-
             foreach (var item in listOfParameters)
             {
                 string[] path = item.Key.Take(item.Key.Length - 1).ToArray();
@@ -598,7 +595,8 @@ namespace InterfaceBooster.Core.ProviderPlugins
                 // try to find the question with the matching path and name
                 Question question = (from q in listOfQuestions
                                      where q.Name == name
-                                     && equalityComparer.Equals(q.Path, path)
+                                     && (((q.Path == null || q.Path.Length == 0) && path.Length == 0)
+                                        || (q.Path != null && q.Path.SequenceEqual(path)))
                                      select q).FirstOrDefault();
 
                 if (question != null)
