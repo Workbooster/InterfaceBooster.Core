@@ -90,13 +90,16 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Functions
         /// <returns></returns>
         private Expression BuildExpression(IStaticExtensionFunctionData functionData, IEnumerable<Expression> listOfParameterExpressions)
         {
+            // cast all parameters to objects because LINQ requires all parameter-array items to be of type object
+            IEnumerable<Expression> listOfObjectParameterExpressions = listOfParameterExpressions.Select(ex => Expression.Convert(ex, typeof(object)));
+
             MethodInfo executeFunctionMethod = typeof(ILibraryPluginManager)
                 .GetMethod("CallStaticFunctionWithPrimitiveReturn", new Type[] { typeof(IStaticExtensionFunctionData), typeof(object[]) });
 
             Expression libraryPluginManagerExpression = Expression.Constant(Memory.LibraryPluginManager);
 
             Expression paramFunctionDataExpression = Expression.Constant(functionData, typeof(IStaticExtensionFunctionData));
-            Expression paramListOfParametersExpression = Expression.NewArrayInit(typeof(object), listOfParameterExpressions);
+            Expression paramListOfParametersExpression = Expression.NewArrayInit(typeof(object), listOfObjectParameterExpressions);
 
             Expression methodCallExpression = Expression.Call(
                 libraryPluginManagerExpression,
