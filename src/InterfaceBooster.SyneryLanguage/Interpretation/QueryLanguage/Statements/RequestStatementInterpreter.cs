@@ -116,7 +116,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Statement
         /// <param name="table"></param>
         private void CleanUpFieldNames(ITable table)
         {
-            foreach (var field in table.Schema.Fields)
+            foreach (var field in Enumerable.Reverse(table.Schema.Fields))
             {
                 // remove preffix
                 field.Name = field.Name.Remove(0, field.Name.IndexOf('.') + 1);
