@@ -118,7 +118,8 @@
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestExpressionListInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestFieldReferenceInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestPrimaryInterpreter.cs" />
-    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSelectItemInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSelectSingleContextInterpreter.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSelectManyInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Expressions\RequestSingleValueInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Functions\RequestFunctionCallInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Functions\RequestSyneryFunctionCallInterpreter.cs" />

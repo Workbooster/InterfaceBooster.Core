@@ -35,17 +35,43 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
             // interpret all fields in the select list
             foreach (var item in context.requestSelectItem())
             {
-                // get expression for select item
-                Expression selectItemExpression = Controller.Interpret<SyneryParser.RequestSelectItemContext, Expression, QueryMemory>(item, queryMemory);
+                if (item.requestSelectSingle() != null)
+                {
+                    // get expression for select item
+                    Expression selectItemExpression = Controller
+                        .Interpret<SyneryParser.RequestSelectSingleContext, Expression, QueryMemory>(item.requestSelectSingle(), queryMemory);
 
-                // sorround select item with a try/catch block
-                ParameterExpression exceptionParameter = Expression.Parameter(typeof(Exception), "ex");
-                MethodInfo createException = typeof(RequestSelectCommandInterpreter).GetMethod("CreateRequestSelectItemContextInterpretationException", new Type[] { typeof(SyneryParser.RequestSelectItemContext), typeof(int), typeof(object[]), typeof(Exception) });
-                Expression throwExpression = Expression.Throw(Expression.Call(createException, Expression.Constant(item), queryMemory.IndexExpression, queryMemory.RowExpression, exceptionParameter), typeof(object));
-                CatchBlock catchExpression = Expression.Catch(exceptionParameter, throwExpression);
-                Expression tryCatch = Expression.TryCatch(selectItemExpression, catchExpression);
+                    Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectSingle(), selectItemExpression, queryMemory);
 
-                listOfSelectItemExpressions.Add(tryCatch);
+                    listOfSelectItemExpressions.Add(tryCatch);
+                }
+                else if (item.requestSelectMany() != null)
+                {
+
+                    // many fields
+                    // Example: SELECT a.*
+                    // Example: SELECT *
+
+                    IDictionary<string, IExpressionValue> listOfFieldItems = Controller
+                        .Interpret<SyneryParser.RequestSelectManyContext, IDictionary<string, IExpressionValue>, QueryMemory>(item.requestSelectMany(), queryMemory);
+
+                    // loop threw all the field items (name and expression) and append them to the new Schema
+
+                    foreach (var fieldItem in listOfFieldItems)
+                    {
+                        string fieldName = fieldItem.Key;
+                        IExpressionValue fieldExpressionValue = fieldItem.Value;
+
+                        Expression selectItemExpression = fieldExpressionValue.Expression;
+                        Expression objectExpression = Expression.Convert(selectItemExpression, typeof(object));
+
+                        queryMemory.NewSchema.AddField(fieldName, fieldExpressionValue.ResultType.UnterlyingDotNetType);
+
+                        Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectSingle(), objectExpression, queryMemory);
+
+                        listOfSelectItemExpressions.Add(tryCatch);
+                    }
+                }
             }
 
             // create a lambda expression that selects all fields as an object-array
@@ -66,6 +92,22 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
         #region INTERNAL METHODS
 
         /// <summary>
+        /// Sorrounds the select item with a try/catch block
+        /// </summary>
+        /// <param name="selectItemExpression"></param>
+        /// <returns></returns>
+        private static Expression SorroundFieldExpressionWithTryCatch(Antlr4.Runtime.ParserRuleContext context, Expression selectItemExpression, QueryMemory queryMemory)
+        {
+            ParameterExpression exceptionParameter = Expression.Parameter(typeof(Exception), "ex");
+            MethodInfo createException = typeof(RequestSelectCommandInterpreter).GetMethod("CreateRequestSelectItemContextInterpretationException", new Type[] { typeof(Antlr4.Runtime.ParserRuleContext), typeof(int), typeof(object[]), typeof(Exception) });
+            Expression throwExpression = Expression.Throw(Expression.Call(createException, Expression.Constant(context, typeof(Antlr4.Runtime.ParserRuleContext)), queryMemory.IndexExpression, queryMemory.RowExpression, exceptionParameter), typeof(object));
+            CatchBlock catchExpression = Expression.Catch(exceptionParameter, throwExpression);
+            Expression tryCatch = Expression.TryCatch(selectItemExpression, catchExpression);
+
+            return tryCatch;
+        }
+
+        /// <summary>
         /// creates an exception that represents a runtime error with the interpretation of a RequestSelectItem
         /// </summary>
         /// <param name="context"></param>
@@ -73,7 +115,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
         /// <param name="record">the current record</param>
         /// <param name="innerException">the original exception</param>
         /// <returns>an exception that contains all available details for the current context</returns>
-        public static SyneryQueryInterpretationException CreateRequestSelectItemContextInterpretationException(SyneryParser.RequestSelectItemContext context, int index, object[] record, Exception innerException)
+        public static SyneryQueryInterpretationException CreateRequestSelectItemContextInterpretationException(Antlr4.Runtime.ParserRuleContext context, int index, object[] record, Exception innerException)
         {
             string values = "";
 

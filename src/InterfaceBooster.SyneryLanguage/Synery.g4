@@ -486,13 +486,17 @@ requestSelectCommand
 	;
 
 requestSelectItem
-	:	requestFieldReference
+	:	requestSelectSingle
 	|	requestSelectMany
+	;
+
+requestSelectSingle
+	:	requestFieldReference
 	|	requestSelectFieldAssignment
 	;
 
 requestSelectMany
-	:	Identifier '.' '*'
+	:	(Identifier '.')? '*'
 	;
 
 requestSelectFieldAssignment
