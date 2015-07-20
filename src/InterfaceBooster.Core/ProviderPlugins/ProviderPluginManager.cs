@@ -900,7 +900,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             CreateRequest request = new CreateRequest();
             request.Resource = resource;
             request.Answers = listOfAnswers;
-            request.RecordSet = PrepareRecordSetForExport(task.Memory.Database, task.SourceTableName, resource.Schema);
+            request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
 
             return request;
         }
@@ -916,7 +916,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             UpdateRequest request = new UpdateRequest();
             request.Resource = resource;
             request.Answers = listOfAnswers;
-            request.RecordSet = PrepareRecordSetForExport(task.Memory.Database, task.SourceTableName, resource.Schema);
+            request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
 
             // TODO: Add Filters
 
@@ -934,7 +934,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             SaveRequest request = new SaveRequest();
             request.Resource = resource;
             request.Answers = listOfAnswers;
-            request.RecordSet = PrepareRecordSetForExport(task.Memory.Database, task.SourceTableName, resource.Schema);
+            request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
 
             return request;
         }
@@ -950,7 +950,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             DeleteRequest request = new DeleteRequest();
             request.Resource = resource;
             request.Answers = listOfAnswers;
-            request.RecordSet = PrepareRecordSetForExport(task.Memory.Database, task.SourceTableName, resource.Schema);
+            request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
 
             // TODO: Add Filters
 
@@ -1157,24 +1157,40 @@ namespace InterfaceBooster.Core.ProviderPlugins
             return listOfRequestedFields;
         }
 
-        private RecordSet PrepareRecordSetForExport(IDatabase database, string sourceTableName, Schema destinationSchema)
+        private RecordSet PrepareRecordSetForExport(ProviderPluginDataExchangeTask task, string sourceTableName, Schema destinationSchema)
         {
-            // check whether the export table exists
-            if (database.IsTable(sourceTableName) == false)
-                throw new ProviderPluginManagerException(this, String.Format(
-                    "A table with the name '{0}' doesn't exists.",
-                    sourceTableName));
+            if (String.IsNullOrEmpty(sourceTableName))
+            {
+                // if no source table is specified there is no record set to prepare
+                return null;
+            }
+            else
+            {
+                IDatabase database = task.Memory.Database;
 
-            ITable tableForRequest = database.LoadTable(sourceTableName);
+                // check whether the Endpoint provides a Schema
+                if (String.IsNullOrEmpty(sourceTableName) == false && destinationSchema == null)
+                    throw new ProviderPluginManagerException(this, String.Format(
+                        "The endpoint '{0}' doesn't have a Schema.",
+                        sourceTableName));
 
-            IEnumerable<Field> fields = GetListOfRequestedFields(destinationSchema, tableForRequest.Schema.Fields.Select(f => f.Name));
-            Schema structureSchemaForRequest = new Schema(fields);
-            structureSchemaForRequest.InternalName = destinationSchema.InternalName;
-            structureSchemaForRequest.Description = destinationSchema.Description;
+                // check whether the export table exists
+                if (database.IsTable(sourceTableName) == false)
+                    throw new ProviderPluginManagerException(this, String.Format(
+                        "A table with the name '{0}' doesn't exists.",
+                        sourceTableName));
 
-            RecordSet recordSet = new RecordSet(structureSchemaForRequest, tableForRequest);
+                ITable tableForRequest = database.LoadTable(sourceTableName);
 
-            return recordSet;
+                IEnumerable<Field> fields = GetListOfRequestedFields(destinationSchema, tableForRequest.Schema.Fields.Select(f => f.Name));
+                Schema structureSchemaForRequest = new Schema(fields);
+                structureSchemaForRequest.InternalName = destinationSchema.InternalName;
+                structureSchemaForRequest.Description = destinationSchema.Description;
+
+                RecordSet recordSet = new RecordSet(structureSchemaForRequest, tableForRequest);
+
+                return recordSet;
+            }
         }
 
         #endregion
