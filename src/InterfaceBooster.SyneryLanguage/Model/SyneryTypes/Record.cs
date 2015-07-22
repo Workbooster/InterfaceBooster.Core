@@ -58,16 +58,20 @@ namespace InterfaceBooster.SyneryLanguage.Model.SyneryTypes
         {
             IRecordTypeField field = RecordType.GetField(name);
 
-            // field validation
-
+            // Validation: Is it a known field?
             if (field == null)
                 throw new SyneryException(String.Format("Field with name='{0}' doesn't exists in record '{1}'.", name, RecordType.FullName));
 
+            // Handle NULL values: Create a typed value by taking the SyneryType from the field definition
+            if (value.Type == null)
+                value = new TypedValue(field.Type);
+
+            // Validation: Do the field type and the type of the given value match?
             if (field.Type != value.Type)
                 throw new SyneryException(String.Format("Field type '{0}' and value type '{1}' don't match. Field name='{2}'.", 
                     field.Type.PublicName, value.Type.PublicName, name));
 
-            // set the field value
+            // OK! Set the field value
 
             _Data[name] = value;
         }

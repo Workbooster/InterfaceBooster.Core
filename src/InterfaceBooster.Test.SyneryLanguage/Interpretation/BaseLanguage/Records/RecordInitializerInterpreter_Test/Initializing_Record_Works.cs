@@ -128,5 +128,46 @@ mike.Mother = #Person(""Marry"");
             Assert.AreEqual("Mike", ((IRecord)result.Value).GetFieldValue("Name").Value);
             Assert.AreEqual("Marry", ((IRecord)((IRecord)result.Value).GetFieldValue("Mother").Value).GetFieldValue("Name").Value);
         }
+
+        [Test]
+        public void Initialize_Record_Values_With_NULL_Works()
+        {
+            string code = @"
+#Person(INT Id, STRING Firstname, STRING Lastname);
+
+#Person mike = #Person(NULL, NULL, NULL);
+";
+
+            _SyneryClient.Run(code);
+
+            IValue result = _SyneryMemory.CurrentScope.ResolveVariable("mike");
+
+            Assert.IsInstanceOf<IRecord>(result.Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Id").Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Firstname").Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Lastname").Value);
+        }
+
+        [Test]
+        public void Setting_Record_Values_To_NULL_Works()
+        {
+            string code = @"
+#Person(INT Id, STRING Firstname, STRING Lastname);
+
+#Person mike = #Person(1, ""Mike"", ""Meyer"");
+mike.Id = NULL;
+mike.Firstname = NULL;
+mike.Lastname = NULL;
+";
+
+            _SyneryClient.Run(code);
+
+            IValue result = _SyneryMemory.CurrentScope.ResolveVariable("mike");
+
+            Assert.IsInstanceOf<IRecord>(result.Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Id").Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Firstname").Value);
+            Assert.AreEqual(null, ((IRecord)result.Value).GetFieldValue("Lastname").Value);
+        }
     }
 }
