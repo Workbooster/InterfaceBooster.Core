@@ -10,6 +10,7 @@ using InterfaceBooster.Common.Interfaces.ErrorHandling;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
+using System.Globalization;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expressions
 {
@@ -53,14 +54,14 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
             else if (context.DoubleLiteral() != null)
             {
                 type = TypeHelper.DOUBLE_TYPE;
-                literalValue = Convert.ToDouble(context.GetText());
+                literalValue = Convert.ToDouble(context.GetText(), new NumberFormatInfo() { NumberDecimalSeparator = "." });
             }
             else if (context.DecimalLiteral() != null)
             {
                 type = TypeHelper.DECIMAL_TYPE;
                 string decimalValue = context.GetText().TrimEnd(new char[] { 'M', 'm' });
 
-                literalValue = Convert.ToDecimal(decimalValue);
+                literalValue = Convert.ToDecimal(decimalValue, new NumberFormatInfo() { NumberDecimalSeparator = "." });
             }
             else if (context.CharLiteral() != null)
             {
@@ -104,7 +105,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
             }
             else
             {
-                throw new SyneryInterpretationException(context, 
+                throw new SyneryInterpretationException(context,
                     String.Format("Unknown Literal type in {0} for the value '{0}'.", this.GetType().Name, context.GetText()));
             }
 
