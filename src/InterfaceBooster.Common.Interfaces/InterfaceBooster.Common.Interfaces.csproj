@@ -78,6 +78,11 @@
     <Compile Include="LibraryPlugin\Information\XmlData\ILibraryPluginAssemblyData.cs" />
     <Compile Include="LibraryPlugin\Information\XmlData\ILibraryPluginData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderPlugin\Control\Filter\FilterComparison.cs" />
+    <Compile Include="ProviderPlugin\Control\Filter\FilterComparisonOperatorEnum.cs" />
+    <Compile Include="ProviderPlugin\Control\Filter\FilterGroup.cs" />
+    <Compile Include="ProviderPlugin\Control\Filter\FilterGroupOperatorEnum.cs" />
+    <Compile Include="ProviderPlugin\Control\Filter\IFilter.cs" />
     <Compile Include="ProviderPlugin\Control\ProviderPluginDataExchangeTask.cs" />
     <Compile Include="ProviderPlugin\Control\ProviderPluginExecuteTask.cs" />
     <Compile Include="ProviderPlugin\Control\ProviderPluginDeleteTask.cs" />
@@ -125,6 +130,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

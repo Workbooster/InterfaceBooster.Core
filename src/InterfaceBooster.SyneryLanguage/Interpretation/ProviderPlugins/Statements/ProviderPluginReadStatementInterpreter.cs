@@ -7,6 +7,7 @@ using InterfaceBooster.SyneryLanguage.Interpretation.General;
 using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control.Filter;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Statements
 {
@@ -51,7 +52,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
                 readTask.FieldNames = Controller.Interpret<SyneryParser.FieldsCommandContext, IList<string>>(context.fieldsCommand());
             }
 
-            // TODO: Interpret filters
+            if (context.filterCommand() != null)
+            {
+                readTask.Filter = Controller.Interpret<SyneryParser.FilterCommandContext, IFilter>(context.filterCommand());
+            }
 
             return readTask;
         }

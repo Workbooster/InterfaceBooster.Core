@@ -1,4 +1,5 @@
-﻿using InterfaceBooster.Database.Interfaces.Structure;
+﻿using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control.Filter;
+using InterfaceBooster.Database.Interfaces.Structure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace InterfaceBooster.Common.Interfaces.ProviderPlugin.Control
         /// Gets or sets the name of the table where the data that are sent with the request are comming from.
         /// </summary>
         public string SourceTableName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the filter definition sent with the request to the provider plugin.
+        /// </summary>
+        public IFilter Filter { get; set; }
 
         #endregion
 

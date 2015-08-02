@@ -7,6 +7,7 @@ using InterfaceBooster.SyneryLanguage.Interpretation.General;
 using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
+using InterfaceBooster.Common.Interfaces.ProviderPlugin.Control.Filter;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Statements
 {
@@ -23,16 +24,16 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
 
         public ProviderPluginDeleteTask RunWithResult(SyneryParser.ProviderPluginDeleteStatementContext context)
         {
-            ProviderPluginDeleteTask readTask = new ProviderPluginDeleteTask();
+            ProviderPluginDeleteTask deleteTask = new ProviderPluginDeleteTask();
 
             // get the full path consisting of the connection identifier, the provider plugin endpoint path and the endpoint name. 
 
-            readTask.FullSyneryPath = context.providerPluginResourceIdentifier().GetText();
-            readTask.FullPath = IdentifierHelper.ParsePathIdentifier(readTask.FullSyneryPath);
+            deleteTask.FullSyneryPath = context.providerPluginResourceIdentifier().GetText();
+            deleteTask.FullPath = IdentifierHelper.ParsePathIdentifier(deleteTask.FullSyneryPath);
 
             if (context.fromCommand() != null)
             {
-                readTask.SourceTableName = Controller.Interpret<SyneryParser.FromCommandContext, string>(context.fromCommand());
+                deleteTask.SourceTableName = Controller.Interpret<SyneryParser.FromCommandContext, string>(context.fromCommand());
             }
 
             if (context.setCommand() != null)
@@ -42,13 +43,16 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
                 foreach (var param in setParameters)
                 {
                     // add the pramater with the key and the value (not IValue !)
-                    readTask.Parameters.Add(param.Key, param.Value.Value);
+                    deleteTask.Parameters.Add(param.Key, param.Value.Value);
                 }
             }
 
-            // TODO: Interpret filters
+            if (context.filterCommand() != null)
+            {
+                deleteTask.Filter = Controller.Interpret<SyneryParser.FilterCommandContext, IFilter>(context.filterCommand());
+            }
 
-            return readTask;
+            return deleteTask;
         }
 
         #endregion

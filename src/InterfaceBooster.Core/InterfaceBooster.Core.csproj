@@ -71,6 +71,7 @@
     <Compile Include="ProviderPlugins\Communication\ReadRequest.cs" />
     <Compile Include="ProviderPlugins\Communication\CreateRequest.cs" />
     <Compile Include="ProviderPlugins\Communication\Request.cs" />
+    <Compile Include="ProviderPlugins\FilterBuilder.cs" />
     <Compile Include="ProviderPlugins\Information\Data\ProviderPluginAssemblyData.cs" />
     <Compile Include="ProviderPlugins\Information\Data\ProviderPluginData.cs" />
     <Compile Include="ProviderPlugins\Information\ProviderPluginDataController.cs" />

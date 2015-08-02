@@ -94,6 +94,7 @@
     <Compile Include="Interpretation\General\KeyValueListInterpreter.cs" />
     <Compile Include="Interpretation\General\LiteralHelper.cs" />
     <Compile Include="Interpretation\General\TypeInterpreter.cs" />
+    <Compile Include="Interpretation\ProviderPlugins\Commands\FilterCommandInterpreter.cs" />
     <Compile Include="Interpretation\ProviderPlugins\Commands\FieldsCommandInterpreter.cs" />
     <Compile Include="Interpretation\ProviderPlugins\Commands\FromCommandInterpreter.cs" />
     <Compile Include="Interpretation\ProviderPlugins\Commands\GetCommandInterpreter.cs" />

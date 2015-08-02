@@ -39,7 +39,7 @@ namespace InterfaceBooster.SyneryLanguage.Common
 
         #endregion
 
-        #region PROPERTOES
+        #region PROPERTIES
 
         public IInterpretationController Controller { get; set; }
 
@@ -180,6 +180,7 @@ namespace InterfaceBooster.SyneryLanguage.Common
             factory.SetInterpreter(new ParameterDeclartionInterpreter());
             factory.SetInterpreter(new TypeInterpreter());
             factory.SetInterpreter(new FieldsCommandInterpreter());
+            factory.SetInterpreter(new FilterCommandInterpreter());
             factory.SetInterpreter(new FromCommandInterpreter());
             factory.SetInterpreter(new GetCommandInterpreter());
             factory.SetInterpreter(new SetCommandInterpreter());

@@ -19,6 +19,8 @@ using InterfaceBooster.ProviderPluginApi.Service;
 using InterfaceBooster.Core.ProviderPlugins.Communication;
 using InterfaceBooster.ProviderPluginApi.Communication;
 using InterfaceBooster.Common.Tools.Data.Array;
+using InterfaceBooster.ProviderPluginApi.Data.Filter;
+using Ctrl = InterfaceBooster.Common.Interfaces.ProviderPlugin.Control.Filter;
 
 namespace InterfaceBooster.Core.ProviderPlugins
 {
@@ -855,6 +857,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
         private ReadRequest PrepareReadRequest(ProviderPluginReadTask task, ReadResource resource)
         {
             ReadRequest request = null;
+            FilterBuilder filterBuilder = new FilterBuilder(resource.FilterDefinitions);
 
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
             AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
@@ -883,8 +886,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             request.Resource = resource;
             request.Answers = listOfAnswers;
             request.RequestedFields = listOfRequestedFields;
-
-            // TODO: Add Filters
+            request.Filters = filterBuilder.ConvertToProviderPluginFilter(task.Filter);
 
             return request;
         }
@@ -907,6 +909,8 @@ namespace InterfaceBooster.Core.ProviderPlugins
 
         private UpdateRequest PrepareUpdateRequest(ProviderPluginUpdateTask task, UpdateResource resource)
         {
+            FilterBuilder filterBuilder = new FilterBuilder(resource.FilterDefinitions);
+
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
             AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
@@ -917,8 +921,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             request.Resource = resource;
             request.Answers = listOfAnswers;
             request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
-
-            // TODO: Add Filters
+            request.Filters = filterBuilder.ConvertToProviderPluginFilter(task.Filter);
 
             return request;
         }
@@ -941,6 +944,8 @@ namespace InterfaceBooster.Core.ProviderPlugins
 
         private DeleteRequest PrepareDeleteRequest(ProviderPluginDeleteTask task, DeleteResource resource)
         {
+            FilterBuilder filterBuilder = new FilterBuilder(resource.FilterDefinitions);
+
             // get the answers on the questions asked by the provider plugin by converting the set-parameters
             AnswerList listOfAnswers = GetSettingAnswersFromParameters(task.Parameters, resource.Questions);
 
@@ -951,8 +956,7 @@ namespace InterfaceBooster.Core.ProviderPlugins
             request.Resource = resource;
             request.Answers = listOfAnswers;
             request.RecordSet = PrepareRecordSetForExport(task, task.SourceTableName, resource.Schema);
-
-            // TODO: Add Filters
+            request.Filters = filterBuilder.ConvertToProviderPluginFilter(task.Filter);
 
             return request;
         }
@@ -1124,8 +1128,9 @@ namespace InterfaceBooster.Core.ProviderPlugins
         /// </summary>
         /// <param name="schema">full schema</param>
         /// <param name="listOfRequestFieldNames">requested fields</param>
+        /// <param name="throwExceptionIfFieldIsUnknown">If set to false unknown field from <paramref name="listOfRequestFieldNames"/> that are not in <paramref name="schema"/> are ignored.</param>
         /// <returns>filtered list of fields</returns>
-        private IEnumerable<Field> GetListOfRequestedFields(Schema schema, IEnumerable<string> listOfRequestFieldNames)
+        private IEnumerable<Field> GetListOfRequestedFields(Schema schema, IEnumerable<string> listOfRequestFieldNames, bool throwExceptionIfFieldIsUnknown = true)
         {
             IList<Field> listOfRequestedFields;
 
@@ -1146,11 +1151,12 @@ namespace InterfaceBooster.Core.ProviderPlugins
                     {
                         listOfRequestedFields.Add(currentField);
                     }
-                    else
+                    else if (throwExceptionIfFieldIsUnknown == true)
                     {
                         throw new ProviderPluginManagerException(this, String.Format(
                             "Field with name='{0}' not found", name));
                     }
+                    // else: ignore and continue
                 }
             }
 
@@ -1180,14 +1186,50 @@ namespace InterfaceBooster.Core.ProviderPlugins
                         "A table with the name '{0}' doesn't exists.",
                         sourceTableName));
 
+                // load data from the database
+                
                 ITable tableForRequest = database.LoadTable(sourceTableName);
 
-                IEnumerable<Field> fields = GetListOfRequestedFields(destinationSchema, tableForRequest.Schema.Fields.Select(f => f.Name));
-                Schema structureSchemaForRequest = new Schema(fields);
+                // prepare the fields
+                // only use fields that are needed/supported by the provider plugin resource schema
+                
+                List<Field> listOfFields = new List<Field>(); // list of fields for the request
+                List<int> listOfFieldIndexes = new List<int>(); // field positions in the table row arrays
+                
+                for (int i = 0; i < tableForRequest.Schema.Fields.Count; i++)
+                {
+
+                    IField currentFieldFromTable = tableForRequest.Schema.Fields[i];
+                    Field currentFieldFromDestination = destinationSchema.Fields.Where(f => f.Name == currentFieldFromTable.Name).FirstOrDefault();
+
+                    if (currentFieldFromDestination != null)
+                    {
+                        listOfFields.Add(currentFieldFromDestination);
+                        listOfFieldIndexes.Add(i);
+                    }
+                }
+
+                Schema structureSchemaForRequest = new Schema(listOfFields);
                 structureSchemaForRequest.InternalName = destinationSchema.InternalName;
                 structureSchemaForRequest.Description = destinationSchema.Description;
 
-                RecordSet recordSet = new RecordSet(structureSchemaForRequest, tableForRequest);
+                RecordSet recordSet = new RecordSet(structureSchemaForRequest);
+
+
+                List<Record> listOfRecords = new List<Record>();
+
+                foreach (var tableRow in tableForRequest)
+                {
+                    Record rec = new Record(structureSchemaForRequest);
+
+                    for (int i = 0; i < listOfFieldIndexes.Count; i++)
+                    {
+                        rec[i] = tableRow[listOfFieldIndexes[i]];
+                    }
+
+                    recordSet.Add(rec);
+                }
+
 
                 return recordSet;
             }

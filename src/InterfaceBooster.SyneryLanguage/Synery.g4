@@ -401,15 +401,22 @@ fieldsCommand
 	;
 
 filterCommand
-	:	FILTER '(' filterCommandGroupItem ')'
+	:	FILTER '(' filterCommandItem ')'
 	;
 
 // Pattern:
 // [Field] [Operator] [Expression]
 // Example:
 // Size >= 168
+
+filterCommandItem
+	:	'(' filterCommandItem ')'
+	|	filterCommandItem (AND | OR) filterCommandItem
+	|	filterCommandConditionItem
+	;
+
 filterCommandConditionItem
-	:	filterCommandListItemField (GT | LT | GE | LE | EQUAL | NOTEQUAL) filterCommandListItemExpression
+	:	filterCommandListItemField (GT | LT | GE | LE | EQUAL | NOTEQUAL | EXACTLYEQUAL | EXACTLYNOTEQUAL) filterCommandListItemExpression
 	;
 
 filterCommandListItemField
@@ -417,13 +424,7 @@ filterCommandListItemField
 	;
 
 filterCommandListItemExpression
-	:	expression
-	;
-
-filterCommandGroupItem
-	:	'(' filterCommandGroupItem ')'
-	|	filterCommandConditionItem
-	|	filterCommandGroupItem (AND | OR) filterCommandGroupItem
+	:	singleValue
 	;
 
 
@@ -835,9 +836,11 @@ GT				: '>' ;
 LT				: '<' ;
 BANG			: '!' ;
 EQUAL			: '==' ;
+EXACTLYEQUAL	: '===' ;
 LE				: '<=' ;
 GE				: '>=' ;
 NOTEQUAL		: '!=' ;
+EXACTLYNOTEQUAL	: '!==' ;
 AND				: 'AND' ;
 OR				: 'OR' ;
 PLUS			: '+' ;
