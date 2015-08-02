@@ -43,8 +43,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
                 logChannel = LiteralHelper.ParseStringLiteral(context.StringLiteral());
             }
 
+            string logText = logValue.Value == null ? "" : logValue.Value.ToString();
+
             if (Memory.Broadcaster != null)
-                Memory.Broadcaster.Broadcast(logChannel, logValue.Value.ToString());
+                Memory.Broadcaster.Broadcast(logChannel, logText);
         }
 
         #endregion
