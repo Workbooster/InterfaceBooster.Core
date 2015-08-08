@@ -511,6 +511,7 @@ requestExpressionList
 requestExpression
 	:	requestPrimary
 	|	requestCastExpression
+	|	requestExpression (PERCENT) requestExpression
 	|	requestExpression (STAR | SLASH) requestExpression
     |   requestExpression (PLUS | MINUS) requestExpression
 	|	requestExpression (GT | LT | GE | LE) requestExpression
@@ -565,6 +566,7 @@ expressionList
 expression
 	:	primary
 	|	castExpression
+	|	expression (PERCENT) expression
 	|	expression (STAR | SLASH) expression
     |   expression (PLUS | MINUS) expression
 	|	expression (GT | LT | GE | LE) expression
@@ -847,6 +849,7 @@ PLUS			: '+' ;
 MINUS			: '-' ;
 STAR			: '*' ;
 SLASH			: '/' ;
+PERCENT			: '%' ;
 QUESTION		: '?';
 
 // Various

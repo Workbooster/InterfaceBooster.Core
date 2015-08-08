@@ -91,6 +91,8 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                         return Multiply(context, left, right);
                     if (context.SLASH() != null)
                         return Divide(context, left, right);
+                    if (context.PERCENT() != null)
+                        return Modulo(context, left, right);
                 }
 
                 if (context.QUESTION() != null && context.COLON() != null)
@@ -209,6 +211,15 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                 resultType: targetSyneryType,
                 expression: fieldExpression
             );
+        }
+
+        private IExpressionValue Modulo(SyneryParser.RequestExpressionContext context, IExpressionValue left, IExpressionValue right)
+        {
+            ValidateArithemticExpressionValues(context, left, right, "%");
+            
+            return new ExpressionValue(
+                expression: Expression.Modulo(left.Expression, right.Expression),
+                resultType: left.ResultType);
         }
 
         private IExpressionValue Divide(SyneryParser.RequestExpressionContext context, IExpressionValue left, IExpressionValue right)

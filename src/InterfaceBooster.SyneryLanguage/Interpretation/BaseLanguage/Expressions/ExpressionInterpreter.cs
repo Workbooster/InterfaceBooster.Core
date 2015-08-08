@@ -88,6 +88,8 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
                         return Multiply(context, left, right);
                     if (context.SLASH() != null)
                         return Divide(context, left, right);
+                    if (context.PERCENT() != null)
+                        return Modulo(context, left, right);
                 }
 
                 if (context.QUESTION() != null && context.COLON() != null)
@@ -175,6 +177,25 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
             }
         }
 
+        private IValue Modulo(SyneryParser.ExpressionContext context, IValue left, IValue right)
+        {
+            ValidateArithemticExpressionValues(context, left, right, "%");
+
+            if (right.Value.Equals(0) || right.Value.Equals(0.0) || right.Value.Equals(0.0M))
+            {
+                throw new SyneryInterpretationException(context, "Division by zero is not allowed.");
+            }
+
+            if (left.Type == typeof(int))
+                return new TypedValue(TypeHelper.INT_TYPE, (int)left.Value % (int)right.Value);
+            if (left.Type == typeof(double))
+                return new TypedValue(TypeHelper.DOUBLE_TYPE, (double)left.Value % (double)right.Value);
+            if (left.Type == typeof(decimal))
+                return new TypedValue(TypeHelper.DECIMAL_TYPE, (decimal)left.Value % (decimal)right.Value);
+
+            throw new SyneryInterpretationException(context, string.Format("Unhandled case in '{0}'.", this.GetType().Name));
+        }
+
         private IValue Divide(SyneryParser.ExpressionContext context, IValue left, IValue right)
         {
             ValidateArithemticExpressionValues(context, left, right, "/");
@@ -185,11 +206,11 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
             }
 
             if (left.Type == typeof(int))
-                return new TypedValue(TypeHelper.INT_TYPE,(int)left.Value / (int)right.Value);
+                return new TypedValue(TypeHelper.INT_TYPE, (int)left.Value / (int)right.Value);
             if (left.Type == typeof(double))
-                return new TypedValue(TypeHelper.DOUBLE_TYPE,(double)left.Value / (double)right.Value);
+                return new TypedValue(TypeHelper.DOUBLE_TYPE, (double)left.Value / (double)right.Value);
             if (left.Type == typeof(decimal))
-                return new TypedValue(TypeHelper.DECIMAL_TYPE,(decimal)left.Value / (decimal)right.Value);
+                return new TypedValue(TypeHelper.DECIMAL_TYPE, (decimal)left.Value / (decimal)right.Value);
 
             throw new SyneryInterpretationException(context, string.Format("Unhandled case in '{0}'.", this.GetType().Name));
         }
