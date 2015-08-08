@@ -72,7 +72,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Expression
             {
                 throw new SyneryInterpretationException(context, String.Format(
                     "The variable with name '{0}' wasn't found.",
-                    varName));
+                    String.Join(".", parts)));
             }
         }
 
