@@ -337,8 +337,6 @@ namespace InterfaceBooster.Core.LibraryPlugins
 
                 try
                 {
-                    // TODO: Verify
-
                     // now we are ready to load the foreign assembly
 
                     assembly = Assembly.LoadFrom(assemblyFilePath);
