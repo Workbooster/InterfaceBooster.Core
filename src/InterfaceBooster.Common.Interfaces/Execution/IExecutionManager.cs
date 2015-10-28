@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace InterfaceBooster.Common.Interfaces.Execution
 {
     /// <summary>
-    /// Initializes all needed components and handels the execution of an interface definition or parts of it like Jobs or single Synery code files.
+    /// Initializes all needed components and handles the execution of an interface definition or parts of it like Jobs or single Synery code files.
     /// </summary>
     public interface IExecutionManager : IDisposable
     {

@@ -381,7 +381,7 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error("An unknown error occured while running the file at '{0}'. Message: '{1}'.", codeFilePath, ex.Message);
+                _Broadcaster.Error("An unknown error occurred while running the file at '{0}'. Message: '{1}'.", codeFilePath, ex.Message);
                 return false;
             }
 
