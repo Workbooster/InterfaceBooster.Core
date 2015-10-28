@@ -337,9 +337,11 @@ namespace InterfaceBooster.Core.LibraryPlugins
 
                 try
                 {
+                    // TODO: Verify
+
                     // now we are ready to load the foreign assembly
 
-                    assembly = Assembly.LoadFile(assemblyFilePath);
+                    assembly = Assembly.LoadFrom(assemblyFilePath);
 
                     return assembly;
                 }
@@ -373,6 +375,8 @@ namespace InterfaceBooster.Core.LibraryPlugins
             IStaticExtensionContainer container = new StaticExtensionContainer();
 
             // try to find classes that implement the interface "IStaticExtension"
+
+            // TODO: Load dependent assemblies
 
             Type staticExtensionInterfaceType = typeof(IStaticExtension);
             IEnumerable<Type> listOfStaticExtensionTypes = from t in assembly.GetTypes()
