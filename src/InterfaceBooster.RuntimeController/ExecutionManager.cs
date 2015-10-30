@@ -342,7 +342,7 @@ namespace InterfaceBooster.RuntimeController
 
                 RunFile(codeFilePath, null);
 
-                _Broadcaster.Info("Successfully finished running the job '{0}'.", jobData.Name);
+                _Broadcaster.Info("Finished executing the job '{0}'.", jobData.Name);
             }
             catch (SyneryException ex)
             {
@@ -372,7 +372,7 @@ namespace InterfaceBooster.RuntimeController
             {
                 RunFile(codeFilePath);
 
-                _Broadcaster.Info("Successfully finished file at '{0}'.", codeFilePath);
+                _Broadcaster.Info("Finished executing the file '{0}'.", codeFilePath);
             }
             catch (SyneryException ex)
             {
