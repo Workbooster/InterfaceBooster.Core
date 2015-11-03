@@ -181,6 +181,12 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                     trueValue.ResultType == null ? "NULL" : trueValue.ResultType.PublicName,
                     falseValue.ResultType == null ? "NULL" : falseValue.ResultType.PublicName));
 
+            if (conditionValue.Expression.Type != TypeHelper.BOOL_DOTNET_TYPE)
+            {
+                // cast the expression to a boolean if the value has a different type
+                conditionValue.Expression = Expression.Convert(conditionValue.Expression, TypeHelper.BOOL_DOTNET_TYPE);
+            }
+
             Expression fieldExpression = Expression.Condition(conditionValue.Expression, trueValue.Expression, falseValue.Expression);
 
             return new ExpressionValue(
