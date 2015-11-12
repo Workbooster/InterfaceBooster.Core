@@ -135,7 +135,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
             if (libraryPluginData == null)
             {
                 throw new LibraryPluginManagerException(this, String.Format(
-                    "Error while calling a static extension function. The LibraryPlugin with the given SyneryIdentifier='{0}' wasn't found.",
+                    "Error while calling a static extension function. A LibraryPlugin with the given SyneryIdentifier='{0}' wasn't found.",
                     libraryPluginIdentifier));
             }
             else
@@ -147,7 +147,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
                     string paramTypeNames = string.Join(",", parameterTypes.Select(p => p.Name));
 
                     throw new LibraryPluginManagerException(this, String.Format(
-                        "No static extension function with the signature {0}.{1}({2}) wasn't found.",
+                        "No static extension function with the signature {0}.{1}({2}) was found.",
                         libraryPluginIdentifier, functionIdentifier, paramTypeNames));
                 }
 
@@ -164,7 +164,7 @@ namespace InterfaceBooster.Core.LibraryPlugins
             if (libraryPluginData == null)
             {
                 throw new LibraryPluginManagerException(this, String.Format(
-                    "Error while accessing (get) a static extension variable. The LibraryPlugin with the given SyneryIdentifier='{0}' wasn't found.",
+                    "Error while accessing (get) a static extension variable. A LibraryPlugin with the given SyneryIdentifier='{0}' wasn't found.",
                     libraryPluginIdentifier));
             }
             else
