@@ -67,7 +67,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
 
                         queryMemory.NewSchema.AddField(fieldName, fieldExpressionValue.ResultType.UnterlyingDotNetType);
 
-                        Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectSingle(), objectExpression, queryMemory);
+                        Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectMany(), objectExpression, queryMemory);
 
                         listOfSelectItemExpressions.Add(tryCatch);
                     }
@@ -92,7 +92,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
         #region INTERNAL METHODS
 
         /// <summary>
-        /// Sorrounds the select item with a try/catch block
+        /// Surrounds the select item with a try/catch block
         /// </summary>
         /// <param name="selectItemExpression"></param>
         /// <returns></returns>
