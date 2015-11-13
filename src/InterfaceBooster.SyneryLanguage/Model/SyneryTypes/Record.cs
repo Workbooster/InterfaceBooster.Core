@@ -31,7 +31,7 @@ namespace InterfaceBooster.SyneryLanguage.Model.SyneryTypes
         /// <summary>
         /// Gets the definition of the current record.
         /// </summary>
-        public IRecordType RecordType { get; private set; }
+        public IRecordType RecordType { get; protected set; }
 
         #endregion
 
