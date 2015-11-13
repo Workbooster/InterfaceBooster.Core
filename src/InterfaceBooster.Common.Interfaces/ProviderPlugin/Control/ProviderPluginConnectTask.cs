@@ -22,6 +22,12 @@ namespace InterfaceBooster.Common.Interfaces.ProviderPlugin.Control
         public IDictionary<string[], object> Parameters { get; set; }
 
         /// <summary>
+        /// Gets or sets the identifier of the connection used in Synery (including all slashes "\")
+        /// e.g. "\\csv\articleFile"
+        /// </summary>
+        public string SyneryConnectionPath { get; set; }
+
+        /// <summary>
         /// Gets or sets the identifier used to identify the connection.
         /// </summary>
         public string[] ConnectionPath { get; set; }
