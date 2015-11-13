@@ -47,29 +47,37 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Commands
                 }
                 else if (item.requestSelectMany() != null)
                 {
-
-                    // many fields
-                    // Example: SELECT a.*
-                    // Example: SELECT *
-
-                    IDictionary<string, IExpressionValue> listOfFieldItems = Controller
-                        .Interpret<SyneryParser.RequestSelectManyContext, IDictionary<string, IExpressionValue>, QueryMemory>(item.requestSelectMany(), queryMemory);
-
-                    // loop threw all the field items (name and expression) and append them to the new Schema
-
-                    foreach (var fieldItem in listOfFieldItems)
+                    try
                     {
-                        string fieldName = fieldItem.Key;
-                        IExpressionValue fieldExpressionValue = fieldItem.Value;
+                        // many fields
+                        // Example: SELECT a.*
+                        // Example: SELECT *
 
-                        Expression selectItemExpression = fieldExpressionValue.Expression;
-                        Expression objectExpression = Expression.Convert(selectItemExpression, typeof(object));
+                        IDictionary<string, IExpressionValue> listOfFieldItems = Controller
+                            .Interpret<SyneryParser.RequestSelectManyContext, IDictionary<string, IExpressionValue>, QueryMemory>(item.requestSelectMany(), queryMemory);
 
-                        queryMemory.NewSchema.AddField(fieldName, fieldExpressionValue.ResultType.UnterlyingDotNetType);
+                        // loop threw all the field items (name and expression) and append them to the new Schema
 
-                        Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectMany(), objectExpression, queryMemory);
+                        foreach (var fieldItem in listOfFieldItems)
+                        {
+                            string fieldName = fieldItem.Key;
+                            IExpressionValue fieldExpressionValue = fieldItem.Value;
 
-                        listOfSelectItemExpressions.Add(tryCatch);
+                            Expression selectItemExpression = fieldExpressionValue.Expression;
+                            Expression objectExpression = Expression.Convert(selectItemExpression, typeof(object));
+
+                            queryMemory.NewSchema.AddField(fieldName, fieldExpressionValue.ResultType.UnterlyingDotNetType);
+
+                            Expression tryCatch = SorroundFieldExpressionWithTryCatch(item.requestSelectMany(), objectExpression, queryMemory);
+
+                            listOfSelectItemExpressions.Add(tryCatch);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex is SyneryException) throw;
+
+                        throw new SyneryInterpretationException(item.requestSelectSingle(), ex.Message, ex);
                     }
                 }
             }

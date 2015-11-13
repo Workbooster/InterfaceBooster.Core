@@ -31,17 +31,13 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Stateme
         /// <param name="context"></param>
         public ProviderPluginConnectTask RunWithResult(SyneryParser.ProviderPluginConnectStatementContext context)
         {
-            // get the instance reference name and the connection name from the Synery code
-
-            string providerPluginInstanceName = LiteralHelper.ParseStringLiteral(context.providerPluginConnectStatementProviderPluginInstance().StringLiteral());
-            string connectionName = context.ExternalPathIdentifier().GetText();
-            string[] connectionPath = IdentifierHelper.ParsePathIdentifier(connectionName);
-
+            // get the instance reference name and the connection identifier from the Synery code
             // prepare the ConnectTask for the ProviderPluginManager
 
             ProviderPluginConnectTask connectTask = new ProviderPluginConnectTask();
-            connectTask.ConnectionPath = connectionPath;
-            connectTask.InstanceReferenceSyneryIdentifier = providerPluginInstanceName;
+            connectTask.SyneryConnectionPath = context.ExternalPathIdentifier().GetText();                          // e.g. \\csv\articleFile
+            connectTask.ConnectionPath = IdentifierHelper.ParsePathIdentifier(connectTask.SyneryConnectionPath);    // e.g. new string[] { "csv", "articleFile" }
+            connectTask.InstanceReferenceSyneryIdentifier = LiteralHelper.ParseStringLiteral(context.providerPluginConnectStatementProviderPluginInstance().StringLiteral());
 
             if (context.setCommand() != null)
             {

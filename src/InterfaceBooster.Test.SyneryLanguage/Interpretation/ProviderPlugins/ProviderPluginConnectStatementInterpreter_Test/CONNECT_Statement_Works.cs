@@ -26,7 +26,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.ProviderPlugins.Pr
         {
             string code = @"CONNECT ""Dummy"" AS \\Connections\DummyConnection END";
 
-            Assert.Throws<ProviderPluginManagerException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<InterfaceBoosterException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.ProviderPlugins.Pr
         {
             string code = @"CONNECT ""Unknown Plugin"" AS \\Connections\DummyConnection END";
 
-            Assert.Throws<ProviderPluginManagerException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<InterfaceBoosterException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]

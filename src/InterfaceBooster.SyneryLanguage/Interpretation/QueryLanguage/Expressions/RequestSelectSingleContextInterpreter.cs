@@ -9,6 +9,8 @@ using InterfaceBooster.SyneryLanguage.Model.QueryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.QueryLanguage;
+using InterfaceBooster.Common.Interfaces.ErrorHandling;
+using InterfaceBooster.Common.Tools.Data.ExceptionHandling;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressions
 {
@@ -30,26 +32,41 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
             IExpressionValue fieldExpressionValue = null;
             string fieldName = null;
 
-            if (context.requestFieldReference() != null)
+            try
             {
-                // single field
-                // Example: SELECT IdPerson
-                // Example: SELECT p.PersonName
+                if (context.requestFieldReference() != null)
+                {
+                    // single field
+                    // Example: SELECT IdPerson
+                    // Example: SELECT p.PersonName
 
-                KeyValuePair<string, IExpressionValue> field = Controller
-                    .Interpret<SyneryParser.RequestFieldReferenceContext, KeyValuePair<string, IExpressionValue>, QueryMemory>(context.requestFieldReference(), memory);
+                    KeyValuePair<string, IExpressionValue> field = Controller
+                        .Interpret<SyneryParser.RequestFieldReferenceContext, KeyValuePair<string, IExpressionValue>, QueryMemory>(context.requestFieldReference(), memory);
 
-                fieldName = field.Key;
-                fieldExpressionValue = field.Value;
+                    fieldName = field.Key;
+                    fieldExpressionValue = field.Value;
+                }
+                else if (context.requestSelectFieldAssignment() != null)
+                {
+                    // field assignment
+                    // Example: SELECT Name = p.PersonFirstname
+
+                    KeyValuePair<string, IExpressionValue> field = InterpretRequestSelectFieldAssignment(context.requestSelectFieldAssignment(), memory);
+                    fieldName = field.Key;
+                    fieldExpressionValue = field.Value;
+                }
             }
-            else if (context.requestSelectFieldAssignment() != null)
+            catch (Exception ex)
             {
-                // field assignment
-                // Example: SELECT Name = p.PersonFirstname
+                if (ex is SyneryException) throw;
 
-                KeyValuePair<string, IExpressionValue> field = InterpretRequestSelectFieldAssignment(context.requestSelectFieldAssignment(), memory);
-                fieldName = field.Key;
-                fieldExpressionValue = field.Value;
+                throw new SyneryInterpretationException(context, String.Format(
+                            "Error while initializing the field '{1}' in '{2}' starting on line {3}. {0}Message: {4}",
+                            Environment.NewLine,
+                            fieldName,
+                            context.GetText(),
+                            context.Start.Line,
+                            ExceptionHelper.GetNestedExceptionMessages(ex)), ex);
             }
 
             // append the field expression and field definition

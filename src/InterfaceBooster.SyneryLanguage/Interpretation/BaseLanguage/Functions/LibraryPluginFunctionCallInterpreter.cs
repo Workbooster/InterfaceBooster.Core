@@ -10,6 +10,8 @@ using InterfaceBooster.Common.Interfaces.LibraryPlugin.Information.ReflectionDat
 using InterfaceBooster.Common.Interfaces.SyneryLanguage;
 using InterfaceBooster.Common.Interfaces.SyneryLanguage.Model.Context;
 using InterfaceBooster.Common.Interfaces.Utilities.SyneryLanguage;
+using InterfaceBooster.SyneryLanguage.Model.SyneryTypes.SyneryRecords;
+using InterfaceBooster.Common.Tools.Data.ExceptionHandling;
 
 namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 {
@@ -35,15 +37,15 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
             bool success = FunctionHelper.FragmentLibraryPluginIdentifier(fullIdentifier, out libraryPluginIdentifier, out functionIdentifier);
 
-            if(success == false)
+            if (success == false)
                 throw new SyneryInterpretationException(context.libraryPluginFunctionCallIdentifier(), "Wasn't able to fragment the library plugin function identifier. It doesn't have the expected format.");
 
-            // validate the identifer
+            // validate the identifier
 
             if (String.IsNullOrEmpty(libraryPluginIdentifier))
-                throw new SyneryInterpretationException(context, "The library plugin identifer is empty.");
+                throw new SyneryInterpretationException(context, "The library plugin identifier is empty.");
             if (String.IsNullOrEmpty(functionIdentifier))
-                throw new SyneryInterpretationException(context, "The function identifer is empty.");
+                throw new SyneryInterpretationException(context, "The function identifier is empty.");
 
             // get the parameters
 
@@ -55,9 +57,25 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Functions
 
             IStaticExtensionFunctionData functionDeclaration = Memory.LibraryPluginManager.GetStaticFunctionDataBySignature(libraryPluginIdentifier, functionIdentifier, listOfParameterTypes);
 
-            // execute the function
+            object result = null;
 
-            object result = Memory.LibraryPluginManager.CallStaticFunctionWithPrimitiveReturn(functionDeclaration, listOfParameterValues);
+            try
+            {
+                // execute the function
+
+                result = Memory.LibraryPluginManager.CallStaticFunctionWithPrimitiveReturn(functionDeclaration, listOfParameterValues);
+            }
+            catch (Exception ex)
+            {
+                // create a Synery exception that can be caught by the Synery developer
+
+                LibraryPluginExceptionRecord syneryException = new LibraryPluginExceptionRecord();
+                syneryException.Message = ExceptionHelper.GetNestedExceptionMessages(ex);
+                syneryException.FullIdentifier = fullIdentifier;
+                syneryException.LibraryPluginIdentifier = libraryPluginIdentifier;
+
+                Controller.HandleSyneryEvent(context, syneryException.GetAsSyneryValue());
+            }
 
             return new TypedValue(TypeHelper.GetSyneryType(functionDeclaration.ReturnType), result);
         }

@@ -38,6 +38,8 @@ namespace InterfaceBooster.Common.Interfaces.SyneryLanguage
 
         resultT Interpret<contextT, resultT, paramT>(contextT context, paramT parameter) where contextT : Antlr4.Runtime.ParserRuleContext;
 
+        void HandleSyneryEvent(Antlr4.Runtime.ParserRuleContext context, IValue eventValue);
+
         #endregion
     }
 }
