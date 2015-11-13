@@ -145,6 +145,12 @@
     <Compile Include="Model\SyneryTypes\RecordType.cs" />
     <Compile Include="Model\SyneryTypes\RecordTypeDelcarationContainer.cs" />
     <Compile Include="Model\SyneryTypes\RecordTypeField.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\EventRecord.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\ExceptionRecord.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\LibraryPluginExceptionRecord.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\ProviderPluginDataExchangeExceptionRecord.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\ProviderPluginConnectionExceptionRecord.cs" />
+    <Compile Include="Model\SyneryTypes\SyneryRecords\ExecutionExceptionRecord.cs" />
     <Compile Include="Model\Validation\ValidationResult.cs" />
     <Compile Include="Model\Validation\ValidationResultMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
