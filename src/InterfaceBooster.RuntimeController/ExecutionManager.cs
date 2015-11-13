@@ -351,7 +351,7 @@ namespace InterfaceBooster.RuntimeController
             }
             catch (Exception ex)
             {
-                _Broadcaster.Error("An unknown error occured while running the job '{0}'. Message: '{1}'.", jobData.Name, ex.Message);
+                _Broadcaster.Error("An unknown error occurred while running the job '{0}'. Message: '{1}'.", jobData.Name, ex.Message);
                 return false;
             }
 
