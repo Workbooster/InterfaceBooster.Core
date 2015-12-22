@@ -42,7 +42,7 @@ END
             IValue firstHandlerVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("firstHandler");
             IValue secondHandlerVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("secondHandler");
 
-            // only the first handler should be handled, becuase the IsHandled-flag must be set automatically.
+            // only the first handler should be handled, because the IsHandled-flag must be set automatically.
 
             Assert.AreEqual(true, firstHandlerVariable.Value);
             Assert.AreEqual(false, secondHandlerVariable.Value);
