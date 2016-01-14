@@ -7,29 +7,34 @@ using System.Threading.Tasks;
 namespace InterfaceBooster.Common.Interfaces.ErrorHandling
 {
     [Serializable]
-    public class SyneryQueryInterpretationException : SyneryException
+    public class SyneryQueryInterpretationException : SyneryInterpretationException
     {
-        public Antlr4.Runtime.Tree.IParseTree ParseTree { get; private set; }
         public int RecordIndex { get; set; }
         public object[] Record { get; private set; }
 
         public SyneryQueryInterpretationException(Antlr4.Runtime.ParserRuleContext tree, int recordIndex, object[] record, string message)
-            : base(message)
+            : base(tree, message)
         {
             ParseTree = tree;
             RecordIndex = recordIndex;
             Record = record;
         }
+
         public SyneryQueryInterpretationException(Antlr4.Runtime.ParserRuleContext tree, int recordIndex, object[] record, string message, Exception inner)
-            : base(message, inner)
+            : base(tree, message, inner)
         {
             ParseTree = tree;
             RecordIndex = recordIndex;
             Record = record;
         }
+
         protected SyneryQueryInterpretationException(
-          System.Runtime.Serialization.SerializationInfo info,
-          System.Runtime.Serialization.StreamingContext context)
-            : base(info, context) { }
+            Antlr4.Runtime.ParserRuleContext tree,
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context)
+            : base(tree, info, context)
+        {
+            ParseTree = tree;
+        }
     }
 }
