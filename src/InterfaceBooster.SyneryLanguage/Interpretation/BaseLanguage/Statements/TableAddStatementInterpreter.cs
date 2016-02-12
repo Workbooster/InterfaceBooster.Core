@@ -103,7 +103,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Statements
             {
                 string fieldName = table.Schema.Fields[i].Name;
 
-                if (record.DoesFieldExists(fieldName))
+                if (record.DoesFieldExists(fieldName) && record.Data.ContainsKey(fieldName))
                 {
                     row[i] = record.Data[fieldName].Value;
                 }
