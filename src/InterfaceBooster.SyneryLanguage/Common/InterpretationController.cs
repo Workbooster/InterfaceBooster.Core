@@ -263,14 +263,10 @@ namespace InterfaceBooster.SyneryLanguage.Common
             {
                 INestedScope nestedScope = scope as INestedScope;
 
-                if (nestedScope != null)
-                {
-                    if (isException == true)
-                    {
-                        // mark the block as terminated
-                        nestedScope.IsTerminated = true;
-                    }
+                // check whether the scope is a block-scope that not is terminated
 
+                if (nestedScope != null && nestedScope.IsTerminated == false)
+                {
                     // check whether the scope is from an OBSERVE-block
 
                     IObserveScope observeScope = scope as IObserveScope;
@@ -285,6 +281,24 @@ namespace InterfaceBooster.SyneryLanguage.Common
 
                         listOfHandleBlocks.AddRange(listOfMatchingHandleBlocks);
                     }
+
+
+                    // The behavior for exceptions is different than the behavior for events:
+                    // 1. An exception terminates all parent blocks until a HANDLE-block is found.
+                    // 2. Only one matching HANDLE-block is required to stop the exception.
+
+                    if (isException == true)
+                    {
+                        // mark the block as terminated
+                        nestedScope.IsTerminated = true;
+
+                        // if a HANDLE-block for the exception was found stop the search for other 
+                        // HANDLE-blocks because an exception only breaks the current OBSERVE-block.
+                        if (listOfHandleBlocks.Count != 0)
+                        {
+                            return listOfHandleBlocks;
+                        }
+                    }
                 }
             }
 
@@ -293,23 +307,65 @@ namespace InterfaceBooster.SyneryLanguage.Common
 
         #endregion
 
+        /// <summary>
+        /// Handles a .NET Exception that occurred during the interpretation of Synery code.
+        /// </summary>
+        /// <param name="exception">The thrown .NET Exception</param>
+        /// <param name="context">The interpretation context that caused the Exception (e.g. used to print the line number).</param>
+        /// <returns>
+        /// false = Exception hasn't been handled, so please re-throw it.
+        /// true = Exception handled. No further action is required. Continue interpretation. 
+        /// </returns>
         private bool HandleException(Exception exception, Antlr4.Runtime.ParserRuleContext context)
         {
-            if (exception is InterfaceBoosterException)
+
+            INestedScope nestedScope = Memory.Scopes.OfType<INestedScope>().FirstOrDefault();
+
+            if (nestedScope != null && nestedScope.IsTerminated == true
+                && !(context is SyneryParser.ThrowStatementContext)
+                && !(exception is InterfaceBoosterException))
             {
-                // exception has already been handled
-                return false;
+                // The current block has already been terminated.
+                // Therefore don't throw or create any new exceptions
+                return true;
             }
+            else
+            {
+                if (context is SyneryParser.ObserveBlockContext)
+                {
+                    // We're now in an OBSERVE-block.
+                    // Try to find a handle block that catches the exception.
 
-            string message = string.Format("An unexpected error occurred while interpreting '{1}' on line {2}: {0}{3}",
-                Environment.NewLine,
-                context.GetText(),
-                context.Start.Line,
-                ExceptionHelper.GetNestedExceptionMessages(exception));
+                    ExecutionExceptionRecord executionException = new ExecutionExceptionRecord();
+                    executionException.Message = exception.Message;
+                    executionException.Line = context.Start.Line;
+                    executionException.CharPosition = context.Start.Column;
 
-            // it seems to be an unknown exception
-            // create a new one and print all the exception messages
-            throw new SyneryInterpretationException(context, message, exception);
+                    this.HandleSyneryEvent(context, executionException.GetAsSyneryValue());
+
+                    return true;
+                }
+                if (exception is SyneryInterpretationException)
+                {
+                    // The exception already is an interpretation exception.
+                    // Continue re-throwing it.
+                    return false;
+                }
+
+                /* 
+                 * It seems that the exception is not an interpretation exception.
+                 * Create a new exception and enrich it with the parser-context and  a
+                 * new message that contains all messages from the nested exceptions. 
+                 */
+
+                string message = string.Format("An unexpected error occurred while interpreting '{1}' on line {2}: {0}{3}",
+                    Environment.NewLine,
+                    context.GetText(),
+                    context.Start.Line,
+                    ExceptionHelper.GetNestedExceptionMessages(exception));
+
+                throw new SyneryInterpretationException(context, message, exception);
+            }
         }
 
         private void StartInterpreation(Antlr4.Runtime.ParserRuleContext context)

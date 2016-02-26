@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interpretation\BaseLanguage\BaseLanguageTestBase.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Blocks\ObserveBlockInterpreter_Test\Handling_System_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Expressions\ComplexReferenceInterpreter_Test\Using_Record_Fields_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Casting_Null_Values_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Expressions\ExpressionInterpreter_Test\Catching_Null_Values_Works.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\TableAddStatementInterpreter_Test\Creating_New_Table_And_Adding_Multiple_Records.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\TableAddStatementInterpreter_Test\Adding_Records_To_Existing_Table_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\TableAddStatementInterpreter_Test\Creating_New_Table_And_Adding_One_Record.cs" />
+    <Compile Include="Interpretation\BaseLanguage\Statements\TableAddStatementInterpreter_Test\Creating_New_Table_And_Adding_Partialy_Initialized_Record.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Handling_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Custom_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Exception_Works.cs" />

@@ -137,7 +137,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
 
         // These methods can be called from a test (or SetUp) to get a set of dummy data
 
-        public void CreatePeopleTable(IDatabase db)
+        public static void CreatePeopleTable(IDatabase db)
         {
             Random random = new Random();
 
@@ -170,7 +170,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
             db.CreateTable(@"\QueryLanguageTests\People", table);
         }
 
-        public void CreateCoursesTable(IDatabase db)
+        public static void CreateCoursesTable(IDatabase db)
         {
             ISchema schema = db.NewSchema();
             schema.AddField<int>("Id");
@@ -194,7 +194,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
             db.CreateTable(@"\QueryLanguageTests\Courses", table);
         }
 
-        public void CreateRegistrationsTable(IDatabase db)
+        public static void CreateRegistrationsTable(IDatabase db)
         {
             ISchema schema = db.NewSchema();
             schema.AddField<int>("Id");
@@ -229,7 +229,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
         /// <param name="db"></param>
         /// <param name="numberOfRows"></param>
         /// <param name="tableName"></param>
-        public void CreateLargeTestTable(IDatabase db, int numberOfRows = 50000, string tableName = @"\QueryLanguageTests\Logs")
+        public static void CreateLargeTestTable(IDatabase db, int numberOfRows = 50000, string tableName = @"\QueryLanguageTests\Logs")
         {
             Random random = new Random();
 
