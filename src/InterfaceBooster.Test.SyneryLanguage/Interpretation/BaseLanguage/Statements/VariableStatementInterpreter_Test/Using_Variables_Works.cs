@@ -121,6 +121,29 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.BaseLanguage.State
         }
 
         [Test]
+        public void Assign_Newline_STRING_Works()
+        {
+            string code = @"
+STRING testNR = ""\r\n"";
+STRING testN = ""\n"";
+STRING testR = ""\r"";
+STRING testTab = ""\t"";
+";
+
+            _SyneryClient.Run(code);
+
+            IValue variableNR = _SyneryClient.Memory.CurrentScope.ResolveVariable("testNR");
+            IValue variableN = _SyneryClient.Memory.CurrentScope.ResolveVariable("testN");
+            IValue variableR = _SyneryClient.Memory.CurrentScope.ResolveVariable("testR");
+            IValue variableTab = _SyneryClient.Memory.CurrentScope.ResolveVariable("testTab");
+
+            Assert.AreEqual(Environment.NewLine, variableNR.Value);
+            Assert.AreEqual("\n", variableN.Value);
+            Assert.AreEqual("\r", variableR.Value);
+            Assert.AreEqual("\t", variableTab.Value);
+        }
+
+        [Test]
         public void Assign_STRING_With_Escape_Sequence_Works()
         {
             // STRING test = "these \"special chars\" shouldn't be a problem";

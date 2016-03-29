@@ -23,7 +23,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 
         public static string ParseStringLiteral(ITerminalNode stringNote)
         {
-            return stringNote.GetText().TrimEnd(new char[] { '"' }).TrimStart(new char[] { '"' });
+            return stringNote.GetText().TrimEnd(new char[] { '"' }).TrimStart(new char[] { '"' }).Replace(@"\r", "\r").Replace(@"\n", "\n").Replace(@"\t", "\t");
         }
 
         public static string ParseVerbatimStringLiteral(ITerminalNode stringNote)
