@@ -128,6 +128,7 @@
     <Compile Include="Interpretation\ProviderPlugins\Statements\ProviderPluginConnectStatementInterpreter.cs" />
     <Compile Include="Interpretation\QueryLanguage\Statements\RequestStatementInterpreter.cs" />
     <Compile Include="Interpretation\RecordTypeDeclarationInterpretationClient.cs" />
+    <Compile Include="Interpretation\ConnectTaskDeclarationInterpretationClient.cs" />
     <Compile Include="Interpretation\SyneryFunctionDeclarationInterpretationClient.cs" />
     <Compile Include="Model\Context\FunctionData.cs" />
     <Compile Include="Model\Context\FunctionDefinition.cs" />

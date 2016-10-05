@@ -90,6 +90,7 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\ThrowStatementInterpreter_Works\Throwing_Exception_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_And_Expressions_Combined_Works.cs" />
     <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_Works.cs" />
+    <Compile Include="Interpretation\ConnectTaskDeclarationInterpretationClient_Test\All_Connections_Are_Extracted.cs" />
     <Compile Include="Interpretation\General\IdentifierHelper_Test\Parsing_Paths_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginCreateStatementInterpreter_Test\CREATE_Statement_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginDeleteStatementInterpreter_Test\DELETE_Statement_Works.cs" />
