@@ -93,5 +93,24 @@ result = getResult(3, """");
 
             Assert.AreEqual("testtesttest", variable.Value);
         }
+
+
+        [Test]
+        public void Executing_Function_With_Two_Literals()
+        {
+            string code = @"
+INT getResult(STRING first, INT second)
+    RETURN ((INT)first) * second;
+END
+
+INT result = getResult(""5"", 3);
+";
+
+            _SyneryClient.Run(code);
+
+            IValue variable = _SyneryClient.Memory.CurrentScope.ResolveVariable("result");
+
+            Assert.AreEqual(15, variable.Value);
+        }
     }
 }
