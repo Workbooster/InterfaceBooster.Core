@@ -1,6 +1,7 @@
 ﻿using InterfaceBooster.ProviderPluginApi.Common;
 using InterfaceBooster.ProviderPluginApi.Communication;
 using InterfaceBooster.ProviderPluginApi.Data;
+using InterfaceBooster.ProviderPluginApi.Data.Filter;
 using InterfaceBooster.ProviderPluginApi.Service;
 using System;
 using System.Collections.Generic;
@@ -57,17 +58,30 @@ namespace InterfaceBooster.Test.Dummy.ProviderPluginDummy.V1.Endpoints
                         Name = "Manufacturer",
                         Schema = _Data.ManufacturerSchema,
                     }
-                }
+                },
+                FilterDefinitions = new List<FilterDefinition>()
+                {
+                    new FilterDefinition("ArticleNumber", typeof(string), new FilterTypeEnum[] { FilterTypeEnum.Equal })
+                },
             };
         }
 
         public ReadResponse RunReadRequest(IReadRequest request)
         {
+            var responseRecordSet = _Data.ArticleRecordSet;
+            var articleNumberFilter = request.Filters as SingleValueFilterCondition;
+
+            if (articleNumberFilter!= null
+                && articleNumberFilter.Definition.Name == "ArticleNumber")
+            {
+                responseRecordSet = new RecordSet(responseRecordSet.Schema, responseRecordSet.Where(r => articleNumberFilter.Value.ToString().Equals(r["ArticleNumber"])));
+            }
+
             var response = new ReadResponse(request)
             {
-                RecordSet = DataHelper.RemoveUnrequestedFields(_Data.ArticleRecordSet, request.RequestedFields)
+                RecordSet = DataHelper.RemoveUnrequestedFields(responseRecordSet, request.RequestedFields)
             };
-
+            
             // MANUFACTURER SUB-REQUEST
 
             IReadRequest manufacturerRequest = request.SubRequests.FindRequestByResourceName<IReadRequest>("Manufacturer");
