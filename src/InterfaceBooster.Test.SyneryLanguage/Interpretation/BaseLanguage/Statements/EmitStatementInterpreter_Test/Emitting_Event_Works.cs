@@ -139,7 +139,7 @@ doSomething()
 END
 
 ";
-            Assert.Throws<SyneryException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]

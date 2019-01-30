@@ -26,7 +26,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.ProviderPlugins.Pr
         {
             string code = @"CONNECT ""Dummy"" AS \\Connections\DummyConnection END";
 
-            Assert.Throws<InterfaceBoosterException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]
@@ -34,7 +34,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.ProviderPlugins.Pr
         {
             string code = @"CONNECT ""Unknown Plugin"" AS \\Connections\DummyConnection END";
 
-            Assert.Throws<InterfaceBoosterException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]
@@ -72,6 +72,59 @@ END
 
             Assert.AreEqual("Testserver", serverValue);
             Assert.AreEqual(true, showAdditionalTablesValue);
+        }
+
+        [Test]
+        public void Create_Two_Connections_With_The_Same_ProviderPlugin()
+        {
+            string code = @"
+CONNECT ""Dummy"" 
+    AS \\Connections\FirstDummyConnection
+    SET (
+        Database.Connection.Server = ""FirstTestserver"",
+        Database.Connection.Database = ""FirstTestDb"",
+        Database.Connection.User = ""FirstTestUser"",
+        Database.Connection.Password = ""FirstTestPassword"",
+        Proffix.Tables.ShowAdditionalTables = TRUE,
+        Proffix.Tables.ShowSystemTables = TRUE
+    ) 
+END
+
+CONNECT ""Dummy"" 
+    AS \\Connections\SecondDummyConnection
+    SET (
+        Database.Connection.Server = ""SecondTestserver"",
+        Database.Connection.Database = ""SecondTestDb"",
+        Database.Connection.User = ""SecondTestUser"",
+        Database.Connection.Password = ""SecondTestPassword"",
+        Proffix.Tables.ShowAdditionalTables = FALSE,
+        Proffix.Tables.ShowSystemTables = FALSE
+    ) 
+END
+";
+
+            _SyneryClient.Run(code);
+
+            string[] firstConnectionPath = new string[] { "Connections", "FirstDummyConnection" };
+
+            IProviderConnection firstConnection = _ProviderPluginManager.Connections[firstConnectionPath];
+
+            var firstServerValue = (from a in firstConnection.Settings.Answers
+                                    where ArrayEqualityComparer.Equals<string>(a.Question.Path, new string[] { "Database", "Connection" })
+                                    && a.Question.Name == "Server"
+                                    select a.Value).First();
+
+            string[] secondConnectionPath = new string[] { "Connections", "SecondDummyConnection" };
+
+            IProviderConnection secondConnection = _ProviderPluginManager.Connections[secondConnectionPath];
+
+            var secondServerValue = (from a in secondConnection.Settings.Answers
+                                    where ArrayEqualityComparer.Equals<string>(a.Question.Path, new string[] { "Database", "Connection" })
+                                    && a.Question.Name == "Server"
+                                    select a.Value).First();
+
+            Assert.AreEqual("FirstTestserver", firstServerValue);
+            Assert.AreEqual("SecondTestserver", secondServerValue);
         }
     }
 }

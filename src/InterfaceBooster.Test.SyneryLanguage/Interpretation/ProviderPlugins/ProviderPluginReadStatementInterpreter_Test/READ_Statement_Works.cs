@@ -131,7 +131,7 @@ READ \\Connections\DummyConnection\Tables\LAG\Unknown
     TO \imported\Uknown
 END";
 
-            Exception ex = Assert.Throws<InterfaceBoosterException>(delegate { _SyneryClient.Run(code); });
+            Exception ex = Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
             
             // check whether the exception message contains the endpoint path so it is possible to identifiy the error in synery code
             Assert.IsTrue(ex.Message.Contains(@"\\Connections\DummyConnection\Tables\LAG\Unknown"));

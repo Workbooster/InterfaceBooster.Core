@@ -178,8 +178,8 @@ END
 first(5);
 ";
 
-            Exception ex = Assert.Throws<SyneryException>(delegate { _SyneryClient.Run(code); });
-            Assert.AreEqual(ex.Message, "Variable with name='valueFromFirstFunction' doesn't exists.");
+            Exception ex = Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
+            Assert.IsTrue(ex.Message.Contains("Variable with name='valueFromFirstFunction' doesn't exists."));
         }
     }
 }
