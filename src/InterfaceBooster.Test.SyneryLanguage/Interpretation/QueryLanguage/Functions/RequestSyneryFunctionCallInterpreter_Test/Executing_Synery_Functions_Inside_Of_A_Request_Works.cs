@@ -46,6 +46,33 @@ END
         }
 
         [Test]
+        public void Executing_Function_With_Two_Parameter_Returns_Expected_Result()
+        {
+            string code = @"
+STRING getResult(STRING text, INT second)
+    STRING returnValue;
+
+    returnValue = ""Result: "" + text + ((STRING)second);
+
+    RETURN returnValue;
+END
+
+\QueryLanguageTests\Test = 
+    FROM \QueryLanguageTests\People AS p
+    SELECT result = getResult(p.Firstname, 100);
+";
+
+            _SyneryClient.Run(code);
+
+            ITable sourceTable = _Database.LoadTable(@"\QueryLanguageTests\People");
+            ITable destinationTable = _Database.LoadTable(@"\QueryLanguageTests\Test");
+
+            string expectedResult = String.Format("Result: {0}100", sourceTable[0][1]);
+
+            Assert.AreEqual(expectedResult, destinationTable[0][0]);
+        }
+
+        [Test]
         public void Executing_Function_With_One_Parameter_From_An_Expression_Returns_Expected_Result()
         {
             string code = @"
