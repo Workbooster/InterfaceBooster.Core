@@ -40,7 +40,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage
             string solutionDirectoryPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             _PluginMainDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\ProviderPluginDirectory");
             _LibraryPluginMainDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\LibraryPluginDirectory");
-            _DatabaseWorkingDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\SyneryDB");
+            _DatabaseWorkingDirectoryPath = Path.Combine(solutionDirectoryPath, @"_TestData\InterfaceBooster\SyneryDB", Guid.NewGuid().ToString());
 
             if (Directory.Exists(_DatabaseWorkingDirectoryPath))
             {
