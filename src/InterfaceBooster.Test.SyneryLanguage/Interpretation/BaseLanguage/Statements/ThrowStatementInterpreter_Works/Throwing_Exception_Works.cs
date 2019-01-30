@@ -105,6 +105,7 @@ handleException()
         doSomething();
     HANDLE(#.Exception ex)
         secondBlock = TRUE;
+        THROW ex; // re-throw the exception
     END
 END
 
@@ -121,8 +122,8 @@ END
             IValue firstBlockVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("firstBlock");
             IValue secondBlockVariable = _SyneryClient.Memory.CurrentScope.ResolveVariable("secondBlock");
 
-            Assert.AreEqual(true, firstBlockVariable.Value);
-            Assert.AreEqual(true, secondBlockVariable.Value);
+            Assert.AreEqual(true, firstBlockVariable.Value, "Outer HANDLE block");
+            Assert.AreEqual(true, secondBlockVariable.Value, "Inner HANDLE block");
         }
 
         [Test]
@@ -144,7 +145,7 @@ doSomething()
 END
 
 ";
-            Assert.Throws<SyneryException>(delegate { _SyneryClient.Run(code); });
+            Assert.Throws<SyneryInterpretationException>(delegate { _SyneryClient.Run(code); });
         }
 
         [Test]
