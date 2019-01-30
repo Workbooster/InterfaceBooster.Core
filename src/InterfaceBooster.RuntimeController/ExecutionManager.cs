@@ -34,6 +34,7 @@ namespace InterfaceBooster.RuntimeController
         public static readonly string INTERFACE_DEFINITION_XML_FILENAME = @"definition.xml";
         public static readonly string DEFAULT_SYNERY_CODE_DIRECTORY_RELATIVE_PATH = @"code";
         public static readonly string DEFAULT_SYNERY_DATABASE_DIRECTORY_RELATIVE_PATH = @"db";
+        public static readonly string DEFAULT_FILESYSTEM_DIRECTORY_RELATIVE_PATH = @"filesystem";
         public static readonly string DEFAULT_PROVIDER_PLUGINS_DIRECTORY_RELATIVE_PATH = @"plugins\provider_plugins";
         public static readonly string DEFAULT_LIBRARY_PLUGINS_DIRECTORY_RELATIVE_PATH = @"plugins\library_plugins";
 
@@ -201,6 +202,9 @@ namespace InterfaceBooster.RuntimeController
             if (EnvironmentVariables.DatabaseDirectoryPath == null)
                 EnvironmentVariables.DatabaseDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_SYNERY_DATABASE_DIRECTORY_RELATIVE_PATH);
 
+            if (EnvironmentVariables.DatabaseDirectoryPath == null)
+                EnvironmentVariables.FilesystemDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_FILESYSTEM_DIRECTORY_RELATIVE_PATH);
+
             if (EnvironmentVariables.ProviderPluginDirectoryPath == null)
                 EnvironmentVariables.ProviderPluginDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_PROVIDER_PLUGINS_DIRECTORY_RELATIVE_PATH);
 
@@ -324,8 +328,8 @@ namespace InterfaceBooster.RuntimeController
         {
             // display some information about the job
             _Broadcaster.Info("Found the job with the name '{0}'.", jobData.Name);
-            _Broadcaster.Info("Description: '{0}'", jobData.Description);
-            _Broadcaster.Info("Estimated Duration: '{0}'", jobData.EstimatedDurationRemarks);
+            //_Broadcaster.Info("Description: '{0}'", jobData.Description);
+            //_Broadcaster.Info("Estimated Duration: '{0}'", jobData.EstimatedDurationRemarks);
 
             string codeFileName = String.Format("{0}.sny", jobData.Id.ToString());
             string codeFilePath = Path.Combine(EnvironmentVariables.InterfaceDefinitionCodeDirectoryPath, codeFileName);
@@ -338,9 +342,32 @@ namespace InterfaceBooster.RuntimeController
 
             try
             {
-                // TODO: Handle include files
+                string code = File.ReadAllText(codeFilePath);
+                Dictionary<string, string> listOfIncludeCode = null;
 
-                RunFile(codeFilePath, null);
+                if(jobData.IncludeFiles != null && jobData.IncludeFiles.Count != 0)
+                {
+                    listOfIncludeCode = new Dictionary<string, string>();
+
+                    foreach (var includeFileData in jobData.IncludeFiles)
+                    {
+                        string includeFilePath = Path.Combine(EnvironmentVariables.FilesystemDirectoryPath, includeFileData.RelativePath);
+
+                        if (File.Exists(includeFilePath))
+                        {
+                            string includeFileCode = File.ReadAllText(includeFilePath);
+                            listOfIncludeCode.Add(includeFileData.Alias, includeFileCode);
+                        }
+                        else
+                        {
+                            _Broadcaster.Warning("Include file of job '{0}' not found at '{1}'.", jobData.Name, includeFilePath);
+                        }
+                    }
+                }
+
+                _Broadcaster.Info("Start running the file at '{0}'.", codeFilePath);
+
+                RunFile(code, listOfIncludeCode);
 
                 _Broadcaster.Info("Finished executing the job '{0}'.", jobData.Name);
             }
@@ -370,6 +397,10 @@ namespace InterfaceBooster.RuntimeController
 
             try
             {
+                string code = File.ReadAllText(codeFilePath);
+
+                _Broadcaster.Info("Start running the file at '{0}'.", codeFilePath);
+
                 RunFile(codeFilePath);
 
                 _Broadcaster.Info("Finished executing the file '{0}'.", codeFilePath);
@@ -388,12 +419,8 @@ namespace InterfaceBooster.RuntimeController
             return true;
         }
 
-        private void RunFile(string codeFilePath, IDictionary<string, string> includeFiles = null)
+        private void RunFile(string code, IDictionary<string, string> includeFiles = null)
         {
-            string code = File.ReadAllText(codeFilePath);
-
-            _Broadcaster.Info("Start running the file at '{0}'.", codeFilePath);
-
             _SyneryClient.Run(code, includeFiles);
         }
 
