@@ -31,6 +31,12 @@ namespace InterfaceBooster.Common.Interfaces.Execution.Model
         public string DatabaseDirectoryPath { get; set; }
 
         /// <summary>
+        /// Gets or sets the absolute path to the interface booster server instance filesystem.
+        /// (default: [InterfaceDefinitionDirectoryPath]\filesystem\)
+        /// </summary>
+        public string FilesystemDirectoryPath { get; set; }
+
+        /// <summary>
         /// Gets or sets the absolute path to the directory where all provider plugins are stored.
         /// (default: [InterfaceDefinitionDirectoryPath]\plugins\provider_plugins\)
         /// </summary>

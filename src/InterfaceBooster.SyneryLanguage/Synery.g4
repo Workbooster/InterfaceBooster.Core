@@ -159,7 +159,7 @@ syneryFunctionInternalIdentifier
 	;
 
 syneryFunctionExternalIdentifier
-	:	Identifier '.' Identifier
+	:	ComplexIdentifier
 	;
 
 libraryPluginFunctionCall

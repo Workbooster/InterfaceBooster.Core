@@ -37,7 +37,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
             }
 
             IRecordType checkType = (from t in memory.RecordTypes.Values
-                                    where t.FullName == checkTypeName
+                                    where t.Name == checkTypeName
                                     select t).FirstOrDefault();
 
             if (checkType == null)

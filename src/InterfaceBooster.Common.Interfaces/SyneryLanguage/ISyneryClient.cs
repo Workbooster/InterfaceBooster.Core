@@ -11,7 +11,7 @@ namespace InterfaceBooster.Common.Interfaces.SyneryLanguage
     {
         IInterpretationController Controller { get; }
         ISyneryMemory Memory { get; set; }
-        resultT Run(string code, IDictionary<string, string> includeFiles = null);
+        resultT Run(string code, IDictionary<string, string> includeFileCodes = null);
         void Cancel();
     }
 }

@@ -43,6 +43,8 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
 
                 string recordTypeName = RecordHelper.ParseRecordTypeName(context.recordType().GetText());
 
+                recordTypeName = IdentifierHelper.GetIdentifierBasedOnFunctionScope(Memory, recordTypeName);
+
                 if (Memory.IsInitialized != true)
                 {
                     // suppose the record types haven't been initialized yet
@@ -56,7 +58,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
                     // search for an existing record type in the memory to work with the same instance as much as possible
 
                     SyneryType recordType = (from t in Memory.RecordTypes
-                                             where t.Key.Name == recordTypeName
+                                             where t.Value.FullName == recordTypeName
                                              select t.Key).FirstOrDefault();
 
                     // check whether the record type was found

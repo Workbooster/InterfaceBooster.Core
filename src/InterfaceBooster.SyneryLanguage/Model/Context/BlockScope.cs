@@ -134,6 +134,16 @@ namespace InterfaceBooster.SyneryLanguage.Model.Context
             }
         }
 
+        /// <summary>
+        /// Tries to resolve the surrounding function scope that is closest to the current scope (may also be the this scope).
+        /// This may be important to know in what scope the current code is running.
+        /// </summary>
+        /// <returns>The closest function scope or null if the code isn't running inside of a function.</returns>
+        public IFunctionScope ResolveFunctionScope()
+        {
+            return Parent.ResolveFunctionScope();
+        }
+
         #endregion
 
         #endregion

@@ -26,8 +26,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.BaseLanguage.Records
         {
             string recordTypeName = RecordHelper.ParseRecordTypeName(context.GetText());
 
+            recordTypeName = IdentifierHelper.GetIdentifierBasedOnFunctionScope(Memory, recordTypeName);
+
             KeyValuePair<SyneryType, IRecordType> recordTypeDefinition = (from r in Memory.RecordTypes
-                                                                          where r.Key.Name == recordTypeName
+                                                                          where r.Value.FullName == recordTypeName
                                                                           select r).FirstOrDefault();
 
             // check record type is known

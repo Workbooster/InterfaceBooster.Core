@@ -66,12 +66,10 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
         /// <returns></returns>
         public static IFunctionData FindSyneryFunctionDeclaration(ISyneryMemory memory, string identifier, SyneryType[] listOfParameterTypes)
         {
-            IEnumerable<IFunctionData> listOfAvailableFunctions = memory.Functions;
-
             // try to find function(s) with the same name with at least the same number of parameters as given
             IEnumerable<IFunctionData> listOfFunctionData =
-                from f in listOfAvailableFunctions
-                where f.Name == identifier
+                from f in memory.Functions
+                where f.FullName == IdentifierHelper.GetIdentifierBasedOnFunctionScope(memory, identifier)
                 && f.FunctionDefinition.Parameters.Count >= listOfParameterTypes.Count()
                 select f;
 
@@ -99,7 +97,9 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
                             }
                             else
                             {
-                                if (!RecordHelper.IsDerivedType(memory, givenType.Name, expectedType.Name))
+                                string expectedTypeName = IdentifierHelper.GetFullName(expectedType.Name, data.CodeFileAlias);
+
+                                if (!RecordHelper.IsDerivedType(memory, givenType.Name, expectedTypeName))
                                 {
                                     isMatching = false;
                                 }
@@ -171,7 +171,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
                  * 3. Get the return value from the function block.
                  */
 
-                IFunctionScope functionScope = new FunctionScope(controller.Memory.GlobalScope, scopeVariables);
+                IFunctionScope functionScope = new FunctionScope(controller.Memory.GlobalScope, functionData, scopeVariables);
 
                 controller.Interpret<SyneryParser.BlockContext, INestedScope, INestedScope>((SyneryParser.BlockContext)functionData.Context, functionScope);
 

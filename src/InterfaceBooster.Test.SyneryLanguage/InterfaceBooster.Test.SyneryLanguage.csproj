@@ -92,6 +92,8 @@
     <Compile Include="Interpretation\BaseLanguage\Statements\VariableStatementInterpreter_Test\Using_Variables_Works.cs" />
     <Compile Include="Interpretation\ConnectTaskDeclarationInterpretationClient_Test\All_Connections_Are_Extracted.cs" />
     <Compile Include="Interpretation\General\IdentifierHelper_Test\Parsing_Paths_Works.cs" />
+    <Compile Include="Interpretation\InterpretationClient_Test\Using_RecordType_From_Include_File_Works.cs" />
+    <Compile Include="Interpretation\InterpretationClient_Test\Calling_Function_From_Include_File_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginCreateStatementInterpreter_Test\CREATE_Statement_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginDeleteStatementInterpreter_Test\DELETE_Statement_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginExecuteStatementInterpreter_Test\EXECUTE_Statement_Works.cs" />
