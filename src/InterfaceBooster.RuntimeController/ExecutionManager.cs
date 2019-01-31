@@ -202,7 +202,7 @@ namespace InterfaceBooster.RuntimeController
             if (EnvironmentVariables.DatabaseDirectoryPath == null)
                 EnvironmentVariables.DatabaseDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_SYNERY_DATABASE_DIRECTORY_RELATIVE_PATH);
 
-            if (EnvironmentVariables.DatabaseDirectoryPath == null)
+            if (EnvironmentVariables.FilesystemDirectoryPath == null)
                 EnvironmentVariables.FilesystemDirectoryPath = Path.Combine(EnvironmentVariables.InterfaceDefinitionDirectoryPath, DEFAULT_FILESYSTEM_DIRECTORY_RELATIVE_PATH);
 
             if (EnvironmentVariables.ProviderPluginDirectoryPath == null)
