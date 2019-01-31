@@ -7,6 +7,11 @@ using System.Xml.Serialization;
 
 namespace InterfaceBooster.Common.Interfaces.InterfaceDefinition.Data
 {
+    /// <summary>
+    /// Container for the data of an Import Definition Job. An Import Definition can contain multiple jobs.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("IncludeFile")]
     public class IncludeFile
     {
         [XmlAttribute("alias")]
