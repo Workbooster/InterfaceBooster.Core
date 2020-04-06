@@ -25,14 +25,17 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.General
         /// <returns></returns>
         public static string GetIdentifierBasedOnFunctionScope(ISyneryMemory memory, string identifier)
         {
-            // check whether the function call comes from a function scope that sits inside of an include file
-            IFunctionScope surroundingFunctionScope = memory.CurrentScope.ResolveFunctionScope();
-
-            if (surroundingFunctionScope != null
-                && String.IsNullOrEmpty(surroundingFunctionScope.FunctionData.CodeFileAlias) == false)
+            if (memory.CurrentScope != null)
             {
-                // prepend the CodeFileAlias of the current function scope to get the correct FullName of the requested function
-                return GetFullName(identifier, surroundingFunctionScope.FunctionData.CodeFileAlias);
+                // check whether the function call comes from a function scope that sits inside of an include file
+                IFunctionScope surroundingFunctionScope = memory.CurrentScope.ResolveFunctionScope();
+
+                if (surroundingFunctionScope != null
+                    && String.IsNullOrEmpty(surroundingFunctionScope.FunctionData.CodeFileAlias) == false)
+                {
+                    // prepend the CodeFileAlias of the current function scope to get the correct FullName of the requested function
+                    return GetFullName(identifier, surroundingFunctionScope.FunctionData.CodeFileAlias);
+                }
             }
 
             return identifier;
