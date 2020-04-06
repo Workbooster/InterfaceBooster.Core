@@ -31,6 +31,11 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.QueryLanguage.Expressio
                 IExpressionValue expressionValue = Controller
                     .Interpret<SyneryParser.RequestExpressionContext, IExpressionValue, QueryMemory>(requestExpressionContext, queryMemory);
 
+                // Convert all values to objects to avoid problems when initializing an array of objects.
+                // Otherwise an exception may be thrown. For example:
+                // "An expression of type 'System.Int32' cannot be used to initialize an array of type 'System.Object'"
+                expressionValue.Expression = Expression.Convert(expressionValue.Expression, typeof(object));
+
                 listOfExpressions.Add(expressionValue);
             }
 
