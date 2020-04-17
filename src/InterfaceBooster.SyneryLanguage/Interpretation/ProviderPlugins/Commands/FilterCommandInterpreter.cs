@@ -32,7 +32,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
         public IFilter InterpretItem(SyneryParser.FilterCommandItemContext context)
         {
-            if (context.filterCommandItem() != null && context.filterCommandItem().Count == 1)
+            if (context.filterCommandItem() != null && context.filterCommandItem().Count() == 1)
             {
                 // it's a single item group
                 // e.g. (myField == "bla")
@@ -44,7 +44,7 @@ namespace InterfaceBooster.SyneryLanguage.Interpretation.ProviderPlugins.Command
 
                 return group;
             }
-            else if (context.filterCommandItem() != null && context.filterCommandItem().Count > 1)
+            else if (context.filterCommandItem() != null && context.filterCommandItem().Count() > 1)
             {
                 // it's a group consisting of two conditions
                 // e.g. (myField == "bla OR myField = "aha")
