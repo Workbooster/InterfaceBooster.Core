@@ -15,27 +15,40 @@ namespace InterfaceBooster.Common.Tools.Data.Array
     {
         public bool Equals(object[] x, object[] y)
         {
-            if (x == y)
-                return true;
             if ((x == null) || (y == null))
                 return false;
             if (x.Length != y.Length)
                 return false;
 
-            if (GetHashCode(x) == GetHashCode(y))
-                return true;
+            for (int i = 0; i < x.Length; i++)
+            {
+                // check for both values to be NULL
+                if (!(x[i] == null && y[i] == null))
+                {
+                    // check if one of both values is null or if the HashCodes don't match
+                    if ((x[i] == null && y[i] != null)
+                        || (y[i] == null && x[i] != null)
+                         || (x[i].GetHashCode() != y[i].GetHashCode()))
+                    {
+                        return false;
+                    }
+                }
+            }
 
-            return false;
+            return true;
         }
 
         public int GetHashCode(object[] obj)
         {
+            if (obj == null)
+                return 0;
+
             int hash = 17;
 
             foreach (var item in obj)
             {
                 if (item != null)
-                    hash = hash * 23 + item.GetHashCode();
+                    hash = unchecked(hash * 1031 + item.GetHashCode());
             }
 
             return hash;

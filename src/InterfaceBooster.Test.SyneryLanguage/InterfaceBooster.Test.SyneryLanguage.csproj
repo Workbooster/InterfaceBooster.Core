@@ -101,6 +101,7 @@
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginSaveStatementInterpreter_Test\SAVE_Statement_Works.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginsTestBase.cs" />
     <Compile Include="Interpretation\ProviderPlugins\ProviderPluginUpdateStatementInterpreter_Test\UPDATE_Statement_Works.cs" />
+    <Compile Include="Interpretation\QueryLanguage\Commands\RequestDistinctCommandInterpreter_Test\Selecting_Distinct_Values_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestJoinCommandInterpreter_Test\Joining_Two_Tables_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestJoinCommandInterpreter_Test\Joining_With_NULL_Values_Works.cs" />
     <Compile Include="Interpretation\QueryLanguage\Commands\RequestLeftJoinCommandInterpreter_Test\Left_Joining_Two_Tables_Works.cs" />
