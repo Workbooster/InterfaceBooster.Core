@@ -28,7 +28,7 @@ namespace InterfaceBooster.Common.Tools.Data.Array
                     // check if one of both values is null or if the HashCodes don't match
                     if ((x[i] == null && y[i] != null)
                         || (y[i] == null && x[i] != null)
-                         || (x[i].GetHashCode() != y[i].GetHashCode()))
+                         || (!x[i].Equals(y[i])))
                     {
                         return false;
                     }

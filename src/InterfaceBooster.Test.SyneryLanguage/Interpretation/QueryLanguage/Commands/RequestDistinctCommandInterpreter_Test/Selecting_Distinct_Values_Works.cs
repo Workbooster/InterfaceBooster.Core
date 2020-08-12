@@ -12,7 +12,7 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage.Comm
     public class Selecting_Distinct_Values_Works : QueryLanguageTestBase
     {
         [Test]
-        public void DISTINCT_With_Same_Hash_Values()
+        public void DISTINCT_Integer_Field_Pair_With_Same_Hash_Values()
         {
             // create table with values
 
@@ -52,6 +52,41 @@ namespace InterfaceBooster.Test.SyneryLanguage.Interpretation.QueryLanguage.Comm
             ITable destinationTable = _Database.LoadTable(@"\SameHashCheck\Test");
 
             Assert.AreEqual(2, destinationTable.Count);
+        }
+
+        /// <summary>
+        /// We've detected another bug in ObjectArrayEqualityComparer.Equals() where these two arrays would give a match with the JOIN statement in Synery:
+        /// In .NET 4.5 both strings "32150 180" and "33100 100" return the same hash value of 1934329864
+        /// </summary>
+        [Test]
+        public void DISTINCT_String_With_Same_Hash_Values()
+        {
+
+            // run the test
+
+            string code = @"
+DROP \test\result;
+DROP \test\Articles;
+
+#Article(STRING ArticleId);
+
+ADD #Article(ArticleId = ""32150 180"") TO \test\Articles;
+ADD #Article(ArticleId = ""32150 180"") TO \test\Articles; // duplicate
+ADD #Article(ArticleId = ""32150 180"") TO \test\Articles; // duplicate
+ADD #Article(ArticleId = ""32150 880"") TO \test\Articles;
+ADD #Article(ArticleId = ""33100 100"") TO \test\Articles;
+ADD #Article(ArticleId = ""33100 800"") TO \test\Articles;
+
+\test\result =
+    FROM \test\Articles AS art
+    DISTINCT;
+";
+
+            _SyneryClient.Run(code);
+
+            ITable destinationTable = _Database.LoadTable(@"\test\result");
+
+            Assert.AreEqual(4, destinationTable.Count);
         }
     }
 }
